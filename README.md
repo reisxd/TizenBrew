@@ -2,7 +2,8 @@
 
 <p align="center">
     <img src="./.github/assets/logo.png">
-    <a>Thank you @Zyborg777 for the logo!</a>
+    <br>
+    <a>Thank you <a href="https://github.com/Zyborg777">@Zyborg777</a> for the logo!</a>
 </p>
 
 TizenBrew is a way to experience modded websites (like [TizenTube](https://github.com/reisxd/TizenTube)) and you can install newer apps without having to deal with Tizen Studio multiple times.
