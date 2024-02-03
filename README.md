@@ -8,6 +8,8 @@
 
 TizenBrew is a way to experience modded websites (like [TizenTube](https://github.com/reisxd/TizenTube)) and you can install newer apps without having to deal with Tizen Studio multiple times.
 
+[Discord Server Invite](https://discord.gg/m2P7v8Y2qR)
+
 # Getting started
 
 You can read the [guide](./docs/README.md) to get started with TizenBrew.
