@@ -1,0 +1,4 @@
+*.wgt
+node_modules
+.sign
+.metadata

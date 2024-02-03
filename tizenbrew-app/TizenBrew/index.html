@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TizenBREEEEEEEEEEEEEEEEEW</title>
+    <script src="./js/wsClient.js"></script>
+    <script src="./js/index.js"></script>
+    <link rel="stylesheet" href="./css/siimple.css" />
+    <style>
+        .item {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body class="has-bg-dark">
+    <div class="has-bg-dark has-p-16" style="display: flex; flex-wrap: wrap; margin-left: -1rem;">
+        <div class="is-three-fifths is-full-mobile">
+            <div class="has-size-7 has-weight-black has-mb-4 has-lh-none has-text-white">
+                <span class="has-text-primary">TizenBrew</span> Modules
+            </div>
+            <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent">
+                You can launch your favorite apps with mods and tweaks on your Tizen device.
+            </div>
+            <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent" id="wsText">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent item" id="navigateText">
+        Use the LEFT and RIGHT arrow keys to navigate through the list.
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; margin-left: -1rem;" id="errorDiv">
+
+    </div>
+
+    <div class="row" data-selecteditem="0">
+        <div style="display: flex; flex-wrap: wrap; margin-left: -1rem;" id="appList">
+            <div class="card has-w-96 is-shadowed column is-one-quarter is-full-mobile is-flex has-bg-primary item">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    window.selectedItem = document.querySelector(".has-bg-primary");
+    window.currentRow = selectedItem.parentElement.parentElement;
+
+    function indexOf(array, item) {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] === item) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    document.onkeydown = e => {
+        switch (e.keyCode) {
+            case 37:
+                if (selectedItem.previousElementSibling != null) {
+                    selectedItem.classList.remove("has-bg-primary");
+                    selectedItem.classList.add("has-bg-secondary");
+                    selectedItem.previousElementSibling.classList.remove("has-bg-secondary");
+                    selectedItem.previousElementSibling.classList.add("has-bg-primary");
+                    selectedItem = selectedItem.previousElementSibling;
+                    currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
+                }
+                break;
+            case 39:
+                if (selectedItem.nextElementSibling != null) {
+                    selectedItem.classList.remove("has-bg-primary");
+                    selectedItem.classList.add("has-bg-secondary");
+                    selectedItem.nextElementSibling.classList.remove("has-bg-secondary");
+                    selectedItem.nextElementSibling.classList.add("has-bg-primary");
+                    selectedItem = selectedItem.nextElementSibling;
+                    currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
+                }
+                break;
+            case 13:
+                var packageName = selectedItem.getAttribute("data-packagename");
+                var appPath = selectedItem.getAttribute("data-appPath");
+                window.send({ type: 'launch', packageName: packageName });
+                if (appPath.startsWith("http")) {
+                    location.href = appPath;
+                } else {
+                    location.href = `http://${localStorage.getItem("ip")}:8080/app/`;
+                }
+                break;
+            case 65376:
+                var input = document.getElementById("ip");
+                localStorage.setItem("ip", input.value);
+                alert("Set IP to " + input.value);
+                window.location.reload();
+        }
+    };
+
+    document.onkeyup = e => {
+        setTimeout(() => {
+            selectedItem.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+                inline: "center"
+            });
+        }, 100);
+    };
+
+</script>
+<script>window.begin()</script>
+<script>
+    tizen.tvinputdevice.registerKey('ColorF1Green');
+    tizen.tvinputdevice.registerKey('ColorF3Blue');
+    tizen.tvinputdevice.registerKey('ColorF0Red');
+    tizen.tvinputdevice.registerKey('ColorF2Yellow');
+    tizen.tvinputdevice.registerKey('MediaPlayPause');
+    tizen.tvinputdevice.registerKey('Back');
+    tizen.tvinputdevice.registerKey('Exit');
+</script>
+
+</html>
