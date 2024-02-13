@@ -6,7 +6,11 @@ const isTizen3 = navigator.userAgent.includes('Tizen 3.0');
 function connect() {
     const ip = localStorage.getItem('ip');
     try {
-        client = new WebSocket(`ws://${ip}:8080`);
+        if (ip.includes(':')) {
+            client = new WebSocket(`ws://${ip}`);
+        } else {
+            client = new WebSocket(`ws://${ip}:8080`);
+        }
         client.onmessage = onMessage;
         client.onopen = onOpen;
         client.onerror = () => {
