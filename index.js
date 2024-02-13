@@ -20,7 +20,7 @@ function createAdbConnection(isTizen3, ip) {
         adb._stream.removeAllListeners('close');
     }
 
-    adb = adbhost.createConnection({ host: Config.tvIP, port: 26101 });
+    adb = adbhost.createConnection({ host: ip, port: 26101 });
 
     adb._stream.on('connect', () => {
         console.log('ADB connection established');
@@ -30,7 +30,7 @@ function createAdbConnection(isTizen3, ip) {
             const dataString = data.toString();
             if (dataString.includes('debug')) {
                 const port = dataString.substr(dataString.indexOf(':') + 1, 6).replace(' ', '');
-                startDebugging(port, adb, inDebug);
+                startDebugging(port, adb, ip);
             }
         });
     });

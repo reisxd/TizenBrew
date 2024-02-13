@@ -6,10 +6,10 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 let client = null;
 let currentID = 12;
 let contextID = 1;
-async function startDebugging(port, adb_conn) {
+async function startDebugging(port, adb_conn, ip) {
     global.inDebug = true;
     try {
-        const debuggerJsonReq = await fetch(`http://${Config.tvIP}:${port}/json`);
+        const debuggerJsonReq = await fetch(`http://${ip}:${port}/json`);
         const debuggerJson = await debuggerJsonReq.json();
         return attachDebugger(debuggerJson[0].webSocketDebuggerUrl, adb_conn);
     } catch (error) {
