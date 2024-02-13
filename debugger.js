@@ -8,9 +8,6 @@ let currentID = 12;
 let contextID = 1;
 async function startDebugging(port, adb_conn) {
     global.inDebug = true;
-    // Sleep to get the app to load.
-    // For some reason, without it, using the launcher gives an error
-    await sleep(5000)
     try {
         const debuggerJsonReq = await fetch(`http://${Config.tvIP}:${port}/json`);
         const debuggerJson = await debuggerJsonReq.json();

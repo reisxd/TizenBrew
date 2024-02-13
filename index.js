@@ -13,7 +13,7 @@ const server = new WebSocketServer({ server: app.listen(8080) });
 let adb;
 global.inDebug = false;
 
-function createAdbConnection(isTizen3) {
+function createAdbConnection(isTizen3, ip) {
     if (adb?._stream) {
         adb._stream.removeAllListeners('connect');
         adb._stream.removeAllListeners('error');
@@ -56,6 +56,7 @@ app.use((req, res, next) => {
 });
 
 server.on('connection', (ws) => {
+    const ip = ws._socket.remoteAddress.replace('::ffff:', '');
     ws.on('message', async (msg) => {
         let message;
         try {
@@ -70,8 +71,8 @@ server.on('connection', (ws) => {
             }
             case 'relaunchInDebug': {
                 const sleep = ms => new Promise(r => setTimeout(r, ms));
-                await sleep(5000);
-                createAdbConnection(message.isTizen3);
+                await sleep(2500);
+                createAdbConnection(message.isTizen3, ip);
                 break;
             }
             case 'loadModules': {
