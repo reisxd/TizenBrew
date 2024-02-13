@@ -43,11 +43,10 @@ node .
 ```json
 {
     "appId": "UMkYeZBOqz.TizenBrew",
-    "tvIP": "192.168.1.8",
     "debug": false,
     "modules": [
-        "@reisxd/tizentube", // Add the module like this
-        "@reisxd/some-other-module"
+        "@foxreis/tizentube", // Add the module like this
+        "@foxreis/some-other-module"
     ]
 }
 ```

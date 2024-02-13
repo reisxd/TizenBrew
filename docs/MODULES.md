@@ -19,7 +19,7 @@ The format is pretty same as a normal package.json file, but with some differenc
 Here's an example mods module:
 ```json
 {
-    "name": "@reisxd/tizentube",
+    "name": "@foxreis/tizentube",
     "appName": "TizenTube",
     "version": "1.0.0",
     "description": "TizenTube is an ad-free and sponsor-free solution for your favourite streaming website on your Tizen (Samsung) TVs.",
