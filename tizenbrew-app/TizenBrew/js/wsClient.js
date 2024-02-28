@@ -9,7 +9,7 @@ function connect() {
         if (ip.includes(':')) {
             client = new WebSocket(`ws://${ip}`);
         } else {
-            client = new WebSocket(`ws://${ip}:8080`);
+            client = new WebSocket(`ws://${ip}:8081`);
         }
         client.onmessage = onMessage;
         client.onopen = onOpen;
@@ -33,11 +33,10 @@ function onMessage(msg) {
     switch (message.type) {
         case 'debugStatus': {
             if (message.inDebug) {
-                // TODO: Handle debug status in UI.
-                send({ type: 'loadModules' });
+                send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
             } else {
-                send({ type: 'relaunchInDebug', isTizen3 });
-                tizen.application.getCurrentApplication().exit();
+                send({ type: 'relaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
+                send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
             }
             break;
         }
@@ -61,7 +60,7 @@ function onMessage(msg) {
                 window.selectedItem = document.querySelector(".has-bg-primary");
                 window.currentRow = selectedItem.parentElement.parentElement;
             } else {
-                document.getElementById('navigateText').innerHTML = "Seems like you haven't installed any modules (or configured them) yet. Get to installing, I guess.";
+                document.getElementById('navigateText').innerHTML = "Seems like you haven't installed any modules yet. Use the [GREEN] button to access the module manager.";
                 window.selectedItem.style.display = 'none';
             }
             break;

@@ -3,6 +3,7 @@
 
 <head>
     <title>TizenBREEEEEEEEEEEEEEEEEW</title>
+    <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
     <script src="./js/wsClient.js"></script>
     <script src="./js/index.js"></script>
     <link rel="stylesheet" href="./css/siimple.css" />
@@ -21,7 +22,7 @@
                 <span class="has-text-primary">TizenBrew</span> Modules
             </div>
             <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent">
-                You can launch your favorite apps with mods and tweaks on your Tizen device.
+                You can launch your favorite apps with mods and tweaks on your Tizen device. Use the [GREEN] button to access the module manager.
             </div>
             <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent" id="wsText">
 
@@ -82,18 +83,14 @@
             case 13:
                 var packageName = selectedItem.getAttribute("data-packagename");
                 var appPath = selectedItem.getAttribute("data-appPath");
-                window.send({ type: 'launch', packageName: packageName });
+                window.send({ type: 'launch', packageName });
                 if (appPath.startsWith("http")) {
                     location.href = appPath;
-                } else {
-                    location.href = `http://${localStorage.getItem("ip")}:8080/app/`;
                 }
                 break;
-            case 65376:
-                var input = document.getElementById("ip");
-                localStorage.setItem("ip", input.value);
-                alert("Set IP to " + input.value);
-                window.location.reload();
+            case 404:
+                location.href = "/moduleManager.html";
+                break;
         }
     };
 
@@ -108,7 +105,25 @@
     };
 
 </script>
-<script>window.begin()</script>
+<script>
+    var testWS = new WebSocket(`ws://127.0.0.1:8081`);
+    testWS.onerror = () => {
+        var pkg_id = tizen.application.getCurrentApplication().appInfo.packageId;
+        var service_id = pkg_id + ".StandaloneService";
+        tizen.application.launchAppControl(new tizen.ApplicationControl('http://tizen.org/appcontrol/operation/service'), service_id, function () {
+            document.getElementById('wsText').innerText = "Service started.";
+            window.begin();
+        }, function (e) {
+            alert('Launch Service failed: ' + e.message);
+        });
+    };
+
+    testWS.onopen = () => {
+        document.getElementById('wsText').innerText = "Service is already running.";
+        window.begin();
+        testWS.close();
+    };
+</script>
 <script>
     tizen.tvinputdevice.registerKey('ColorF1Green');
     tizen.tvinputdevice.registerKey('ColorF3Blue');
@@ -118,5 +133,4 @@
     tizen.tvinputdevice.registerKey('Back');
     tizen.tvinputdevice.registerKey('Exit');
 </script>
-
 </html>

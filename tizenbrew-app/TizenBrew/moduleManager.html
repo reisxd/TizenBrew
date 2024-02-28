@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TizenBREEEEEEEEEEEEEEEEEW</title>
+    <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
+    <script src="./js/wsClient.js"></script>
+    <script src="./js/index.js"></script>
+    <link rel="stylesheet" href="./css/siimple.css" />
+    <style>
+        .item {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body class="has-bg-dark">
+    <div class="has-bg-dark has-p-16" style="display: flex; flex-wrap: wrap; margin-left: -1rem;">
+        <div class="is-three-fifths is-full-mobile">
+            <div class="has-size-7 has-weight-black has-mb-4 has-lh-none has-text-white">
+                <span class="has-text-primary">TizenBrew</span> Modules
+            </div>
+            <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent">
+                You can launch your favorite apps with mods and tweaks on your Tizen device. Use the [GREEN] button to
+                go back.
+            </div>
+            <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent" id="wsText">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent item" id="navigateText">
+        Use the LEFT and RIGHT arrow keys to navigate through the list.
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; margin-left: -1rem;" id="errorDiv">
+
+    </div>
+
+    <div class="row" data-selecteditem="0">
+        <div style="display: flex; flex-wrap: wrap; margin-left: -1rem;" id="appList">
+            <div class="card has-w-96 is-shadowed column is-one-quarter is-full-mobile is-flex has-bg-primary item">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function indexOf(array, item) {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] === item) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    document.onkeydown = e => {
+        switch (e.keyCode) {
+            case 37:
+                if (selectedItem.previousElementSibling != null) {
+                    selectedItem.classList.remove("has-bg-primary");
+                    selectedItem.classList.add("has-bg-secondary");
+                    selectedItem.previousElementSibling.classList.remove("has-bg-secondary");
+                    selectedItem.previousElementSibling.classList.add("has-bg-primary");
+                    selectedItem = selectedItem.previousElementSibling;
+                    currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
+                }
+                break;
+            case 39:
+                if (selectedItem.nextElementSibling != null) {
+                    selectedItem.classList.remove("has-bg-primary");
+                    selectedItem.classList.add("has-bg-secondary");
+                    selectedItem.nextElementSibling.classList.remove("has-bg-secondary");
+                    selectedItem.nextElementSibling.classList.add("has-bg-primary");
+                    selectedItem = selectedItem.nextElementSibling;
+                    currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
+                }
+                break;
+            case 13:
+                shouldIgnore = true;
+                var packageName = selectedItem.getAttribute("data-packagename");
+                if (packageName != null) {
+                    var hasConfirmined = confirm(`Do you want to remove ${packageName}?`);
+                    if (hasConfirmined) {
+                        var modules = JSON.parse(localStorage.getItem("modules"));
+                        var newModules = modules.filter(module => module != packageName);
+                        localStorage.setItem("modules", JSON.stringify(newModules));
+                        location.reload();
+                    }
+                } else newModuleDialog();
+                break;
+            case 404:
+                location.href = "/index.html";
+                break;
+            case 65376:
+                var input = document.getElementById('appName');
+                var modules = JSON.parse(localStorage.getItem("modules"));
+                modules.push(input.value);
+                localStorage.setItem("modules", JSON.stringify(modules));
+                location.reload();
+                break;
+        }
+    };
+
+    document.onkeyup = e => {
+        setTimeout(() => {
+            selectedItem.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+                inline: "center"
+            });
+        }, 100);
+    };
+
+</script>
+<script>
+    "use strict";
+    window.onload = () => {
+        const modules = JSON.parse(localStorage.getItem("modules"));
+        if (modules.length != 0) {
+            let firstOne = true;
+            document.getElementById('appList').innerHTML = '';
+            for (const module of modules) {
+                document.getElementById('appList').innerHTML += `
+                    <div data-packagename="${module}" class="card has-w-96 is-shadowed column is-one-quarter is-full-mobile is-flex ${firstOne ? 'has-bg-primary' : 'has-bg-secondary'} item">
+                        <div>
+                            <h1 class="has-mb-1 has-text-white">${module}</h1>
+                        </div>
+                    </div>
+                    `;
+                firstOne = false;
+            }
+            addButton(false);
+        } else {
+            document.getElementById('appList').innerHTML = '';
+            addButton(true);
+        }
+
+        setTimeout(() => {
+            window.selectedItem = document.querySelector(".has-bg-primary");
+            window.currentRow = selectedItem.parentElement.parentElement;
+        }, 500);
+    }
+
+    function addButton(primary) {
+        document.getElementById('appList').innerHTML += `
+        <div class="card has-w-96 is-shadowed column is-one-quarter is-full-mobile is-flex ${primary ? 'has-bg-primary' : 'has-bg-secondary'} item" id="add">
+            <div>
+                <h1 class="has-mb-1 has-text-white">Add</h1>
+            </div>
+        </div>
+        `;
+        if (primary) {
+            window.selectedItem = document.querySelector(".has-bg-primary");
+            window.currentRow = selectedItem.parentElement.parentElement;
+        }
+    }
+
+    function newModuleDialog() {
+        document.getElementById('appList').innerHTML = '';
+        document.getElementById('appList').innerHTML += `
+        <div class="card has-w-96 is-shadowed column is-one-quarter is-full-mobile is-flex has-bg-primary item" id="add">
+            <div class="has-mb-12">
+                <h5 class="has-text-light">Set Server IP</h5>
+                <label class="label">Server IP:</label>
+                <input type="text" class="input" placeholder="@foxreis/tizentube" id="appName">
+            </div>
+        </div>
+        `;
+        window.selectedItem = document.querySelector(".has-bg-primary");
+        window.currentRow = selectedItem.parentElement.parentElement;
+        const input = document.getElementById('appName');
+        input.focus();
+        input.onblur = () => {
+            var modules = JSON.parse(localStorage.getItem("modules"));
+            modules.push(input.value);
+            localStorage.setItem("modules", JSON.stringify(modules));
+            location.reload();
+        }
+    }
+</script>
+
+</html>

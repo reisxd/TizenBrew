@@ -2,11 +2,10 @@
 <tproject xmlns="http://www.tizen.org/tproject">
     <platforms>
         <platform>
-            <name>tv-samsung-7.0</name>
+            <name>tv-samsung-8.0</name>
         </platform>
     </platforms>
     <package>
         <blacklist/>
-        <resFallback autoGen="true"/>
     </package>
 </tproject>

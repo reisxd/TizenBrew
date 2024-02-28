@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "adbhost": "^0.0.2",
+    "node-fetch": "^2.7.0",
+    "ws": "^4.1.0"
+  }
+}

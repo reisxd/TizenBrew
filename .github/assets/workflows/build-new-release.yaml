@@ -1,0 +1,51 @@
+name: Build TizenBrew Standalone Application and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v3
+      
+      - name: Cache Tizen Studio installer
+        uses: actions/cache@v2
+        with:
+            path: ${{ github.workspace }}/tizen-studio_*.bin
+            key: tizen-studio-installer
+  
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      
+      - name: Install modules and build service
+        working-directory: tizenbrew-app/TizenBrew/service
+        run: |
+          npm install
+          npm install -g @vercel/ncc
+          ncc build service.js
+          rm -r node_modules
+
+      - name: Build Tizen app
+        id: tizen-build-action
+        uses: sourcetoad/tizen-build-action@v1.0.0
+        with:
+            project-dir: ${{ github.workspace }}/tizenbrew-app/TizenBrew
+            author-key: ${{ secrets.TIZEN_AUTHOR_KEY }}
+            author-password: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
+            privilege: partner
+
+      - name: Upload Tizen package artifact
+        uses: actions/upload-artifact@v2
+        with:
+            name: app-${{ github.sha }}.wgt
+            path: ${{ steps.tizen-build-action.outputs.package-artifact }}
+
+      - name: Upload to Releases
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ steps.tizen-build-action.outputs.package-artifact }}
+          tag_name: ${{ env.RELEASE_VERSION }}
