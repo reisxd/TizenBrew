@@ -29,6 +29,9 @@ jobs:
           ncc build service.js
           rm -r node_modules
 
+      - name: Set permissions for Tizen Build Action
+        run: chmod +x /home/runner/work/_actions/sourcetoad/tizen-build-action/v1.0.0/build.sh
+        
       - name: Build Tizen app
         id: tizen-build-action
         uses: sourcetoad/tizen-build-action@v1.0.0
