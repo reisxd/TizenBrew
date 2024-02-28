@@ -34,7 +34,7 @@ jobs:
       - name: Install Tizen-Studio
         run: |
           chmod +x tizen-installer
-          ./tizen-installer --accept-license
+          ./tizen-installer --accept-license "~/tizen-studio"
           rm ./tizen-installer
           echo 'export PATH=$PATH:~/tizen-studio/tools/ide/bin' >> .bashrc
           
@@ -69,6 +69,6 @@ jobs:
       - name: Release Build Result
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.date.outputs.date }}
+          tag_name: ${{ env.RELEASE_VERSION }}
           files: |
             tizenbrew-app/TizenBrew/release/TizenBrew.wgt
