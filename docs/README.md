@@ -23,14 +23,10 @@ Note that sdb is in `C:\tizen-studio\tools` on Windows and in `~/tizen-studio/to
 
 5. Install the TizenBrew Widget by running:
 ```bash
-sdb push path/to/TizenBrew.wgt /tmp/TizenBrew.wgt
-sdb shell 0 vd_appinstall TizenBrewStandalone /tmp/TizenBrew.wgt 
+tizen install -n path/to/TizenBrewStandalone.wgt 
 ```
 
-or:
-```bash
-sdb install path/to/TizenBrew.wgt
-```
+Note that tizen is in `C:\tizen-studio\tools\ide\bin` on Windows and in `~/tizen-studio/tools/ide/bin` on Linux.
 
 6. Set the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
 
