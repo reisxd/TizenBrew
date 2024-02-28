@@ -1,0 +1,17 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+cd TizenBrew
+
+spawn ../tizen-studio/tools/ide/bin/tizen package -t wgt -o ./release -s TizenBrew -- .buildResult
+
+expect "Author password:"
+
+send -- "1234\r"
+
+expect "Yes: (Y), No: (N) ?"
+
+send -- "N\r"
+
+expect eof

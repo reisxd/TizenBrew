@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*.*.*'
 
+env:
+  TIZEN_STUDIO_VER: 4.5.1
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,43 +15,60 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v3
       
-      - name: Cache Tizen Studio installer
-        uses: actions/cache@v2
-        with:
-            path: ${{ github.workspace }}/tizen-studio_*.bin
-            key: tizen-studio-installer
-  
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       
       - name: Install modules and build service
         working-directory: tizenbrew-app/TizenBrew/service
         run: |
+          sudo apt install -y expect
           npm install
           npm install -g @vercel/ncc
           ncc build service.js
           rm -r node_modules
 
-      - name: Set permissions for Tizen Build Action
-        run: chmod +x /home/runner/work/_actions/sourcetoad/tizen-build-action/v1.0.0/build.sh
-        
-      - name: Build Tizen app
-        id: tizen-build-action
-        uses: sourcetoad/tizen-build-action@v1.0.0
-        with:
-            project-dir: ${{ github.workspace }}/tizenbrew-app/TizenBrew
-            author-key: ${{ secrets.TIZEN_AUTHOR_KEY }}
-            author-password: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
-            privilege: partner
+      - name: Download Tizen-Studio
+        run: |
+          curl -o tizen-installer "https://download.tizen.org/sdk/Installer/tizen-studio_${TIZEN_STUDIO_VER}/web-cli_Tizen_Studio_${TIZEN_STUDIO_VER}_ubuntu-64.bin"
+
+      - name: Install Tizen-Studio
+        run: |
+          chmod +x tizen-installer
+          ./tizen-installer --accept-license
+          rm ./tizen-installer
+          echo 'export PATH=$PATH:~/tizen-studio/tools/ide/bin' >> .bashrc
+          
+      - name: Prepare Tizen Certificate
+        run: |
+          ~/tizen-studio/tools/ide/bin/tizen certificate -a TizenBrew -p 1234 -c NZ -s Aukland -ct Aukland -o Tizen -n TizenBrew -e reis@tizentube.live -f tizencert
+          ~/tizen-studio/tools/ide/bin/tizen security-profiles add -n TizenBrew -a "~/tizen-studio-data/keystore/author/tizencert.p12" -p 1234
+          ~/tizen-studio/tools/ide/bin/tizen cli-config "profiles.path=~/tizen-studio-data/profile/profiles.xml"
+          chmod 755 "~/tizen-studio-data/profile/profiles.xml"
+
+      - name: Build
+        working-directory: tizenbrew-app/TizenBrew
+        run: |
+          ~/tizen-studio/tools/ide/bin/tizen build-web -e ".*" -e "node_modules/*" -e "package*.json" -e "yarn.lock"
+
+      - name: Prepare for password prompt
+        run: |
+          sed -i "s|~/tizen-studio-data/keystore/author/tizencert.pwd|1234|g" ~/tizen-studio-data/profile/profiles.xml
+          sed -i "s|~/tizen-studio-data/tools/certificate-generator/certificates/distributor/tizen-distributor-signer.pwd|tizenpkcs12passfordsigner|g" ~/tizen-studio-data/profile/profiles.xml
+          sed -i 's|password=""|password="tizenpkcs12passfordsigner"|g' ~/tizen-studio-data/profile/profiles.xml
+          
+      - name: Package WGT
+        run: |
+          expect ./package.exp
 
       - name: Upload Tizen package artifact
         uses: actions/upload-artifact@v2
         with:
             name: app-${{ github.sha }}.wgt
-            path: ${{ steps.tizen-build-action.outputs.package-artifact }}
+            path: tizenbrew-app/TizenBrew/release/TizenBrew.wgt
 
-      - name: Upload to Releases
+      - name: Release Build Result
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ steps.tizen-build-action.outputs.package-artifact }}
-          tag_name: ${{ env.RELEASE_VERSION }}
+          tag_name: ${{ steps.date.outputs.date }}
+          files: |
+            tizenbrew-app/TizenBrew/release/TizenBrew.wgt
