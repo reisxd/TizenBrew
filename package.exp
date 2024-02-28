@@ -4,7 +4,7 @@ set timeout -1
 
 cd tizenbrew-app/TizenBrew
 
-spawn ../tizen-studio/tools/ide/bin/tizen package -t wgt -o ./release -s TizenBrew -- .buildResult
+spawn /home/runner/work/TizenBrew/TizenBrew/tizen-studio/tools/ide/bin/tizen package -t wgt -o ./release -s TizenBrew -- .buildResult
 
 expect "Author password:"
 
