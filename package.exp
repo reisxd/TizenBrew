@@ -2,7 +2,7 @@
 
 set timeout -1
 
-cd TizenBrew
+cd tizenbrew-app/TizenBrew
 
 spawn ../tizen-studio/tools/ide/bin/tizen package -t wgt -o ./release -s TizenBrew -- .buildResult
 
