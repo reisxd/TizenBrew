@@ -64,11 +64,11 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
             name: app-${{ github.sha }}.wgt
-            path: tizenbrew-app/TizenBrew/release/TizenBrew.wgt
+            path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt
 
       - name: Release Build Result
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.RELEASE_VERSION }}
           files: |
-            tizenbrew-app/TizenBrew/release/TizenBrew.wgt
+            tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt
