@@ -34,27 +34,27 @@ jobs:
       - name: Install Tizen-Studio
         run: |
           chmod +x tizen-installer
-          ./tizen-installer --accept-license "~/tizen-studio"
+          ./tizen-installer --accept-license "${GITHUB_WORKSPACE}/tizen-studio"
           rm ./tizen-installer
-          echo 'export PATH=$PATH:~/tizen-studio/tools/ide/bin' >> .bashrc
+          echo 'export PATH=$PATH:${GITHUB_WORKSPACE}/tizen-studio/tools/ide/bin' >> .bashrc
           
       - name: Prepare Tizen Certificate
         run: |
-          ~/tizen-studio/tools/ide/bin/tizen certificate -a TizenBrew -p 1234 -c NZ -s Aukland -ct Aukland -o Tizen -n TizenBrew -e reis@tizentube.live -f tizencert
-          ~/tizen-studio/tools/ide/bin/tizen security-profiles add -n TizenBrew -a "~/tizen-studio-data/keystore/author/tizencert.p12" -p 1234
-          ~/tizen-studio/tools/ide/bin/tizen cli-config "profiles.path=~/tizen-studio-data/profile/profiles.xml"
-          chmod 755 "~/tizen-studio-data/profile/profiles.xml"
+          ./tizen-studio/tools/ide/bin/tizen certificate -a TizenBrew -p 1234 -c NZ -s Aukland -ct Aukland -o Tizen -n TizenBrew -e reis@tizentube.live -f tizencert
+          ./tizen-studio/tools/ide/bin/tizen security-profiles add -n TizenBrew -a "${GITHUB_WORKSPACE}/tizen-studio-data/keystore/author/tizencert.p12" -p 1234
+          ./tizen-studio/tools/ide/bin/tizen cli-config "profiles.path=${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml"
+          chmod 755 "./tizen-studio-data/profile/profiles.xml"
 
       - name: Build
         working-directory: tizenbrew-app/TizenBrew
         run: |
-          ~/tizen-studio/tools/ide/bin/tizen build-web -e ".*" -e "node_modules/*" -e "package*.json" -e "yarn.lock"
+          ${GITHUB_WORKSPACE}/tizen-studio/tools/ide/bin/tizen build-web -e ".*" -e "node_modules/*" -e "package*.json" -e "yarn.lock"
 
       - name: Prepare for password prompt
         run: |
-          sed -i "s|~/tizen-studio-data/keystore/author/tizencert.pwd|1234|g" ~/tizen-studio-data/profile/profiles.xml
-          sed -i "s|~/tizen-studio-data/tools/certificate-generator/certificates/distributor/tizen-distributor-signer.pwd|tizenpkcs12passfordsigner|g" ~/tizen-studio-data/profile/profiles.xml
-          sed -i 's|password=""|password="tizenpkcs12passfordsigner"|g' ~/tizen-studio-data/profile/profiles.xml
+          sed -i "s|${GITHUB_WORKSPACE}/tizen-studio-data/keystore/author/tizencert.pwd|1234|g" ${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml
+          sed -i "s|${GITHUB_WORKSPACE}/tizen-studio-data/tools/certificate-generator/certificates/distributor/tizen-distributor-signer.pwd|tizenpkcs12passfordsigner|g" ${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml
+          sed -i 's|password=""|password="tizenpkcs12passfordsigner"|g' ${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml
           
       - name: Package WGT
         run: |
