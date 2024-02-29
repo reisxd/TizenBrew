@@ -83,6 +83,10 @@
             case 13:
                 var packageName = selectedItem.getAttribute("data-packagename");
                 var appPath = selectedItem.getAttribute("data-appPath");
+                if (!canLaunchModules) {
+                    alert("You can't launch modules while the service hasn't connected yet.");
+                    break;
+                }
                 window.send({ type: 'launch', packageName });
                 if (appPath.startsWith("http")) {
                     location.href = appPath;

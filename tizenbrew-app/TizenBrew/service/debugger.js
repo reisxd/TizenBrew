@@ -6,19 +6,29 @@ let currentID = 12;
 let contextID = 1;
 
 function startDebugging(port, adb_conn, ip) {
-    global.inDebug = true;
-    try {
+    let attempts = 1;
+    global.inDebug.tizenDebug = true;
+    const connectionInterval = setInterval(() => {
         fetch(`http://${ip}:${port}/json`).then(
             res => res.json()
         ).then(
             debuggerJson => {
+                global.inDebug.webDebug = true;
+                global.currentClient.send(JSON.stringify({ type: 'canLaunchModules' }));
+                clearInterval(connectionInterval);
                 return attachDebugger(debuggerJson[0].webSocketDebuggerUrl, adb_conn);
-            });
-    } catch (error) {
-        global.inDebug = false;
-        console.log('Error attaching debugger:', error.message);
-        adb_conn._stream.end();
-    }
+            }).catch(
+                e => {
+                    if (attempts >= 5) {
+                        global.currentClient.send(JSON.stringify({ type: 'error', message: 'Failed to connect to debugger.' }));
+                        clearInterval(connectionInterval);
+                        global.inDebug.tizenDebug = false;
+                        adb_conn._stream.end();
+                        return;
+                    }
+                    attempts++;
+                });
+    }, 1250);
 }
 
 function attachDebugger(wsUrl, adb_conn) {
@@ -46,12 +56,18 @@ function attachDebugger(wsUrl, adb_conn) {
 
     client.onclose = () => {
         global.currentModule = null;
-        global.inDebug = false;
+        global.inDebug = {
+            tizenDebug: false,
+            webDebug: false
+        };;
     }
 
     client.onerror = () => {
         global.currentModule = null;
-        global.inDebug = false;
+        global.inDebug = {
+            tizenDebug: false,
+            webDebug: false
+        };;
     }
     return client;
 }

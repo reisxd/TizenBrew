@@ -2,6 +2,7 @@
 
 let client;
 const isTizen3 = navigator.userAgent.includes('Tizen 3.0');
+let canLaunchModules = false;
 
 function connect() {
     const ip = localStorage.getItem('ip');
@@ -32,11 +33,12 @@ function onMessage(msg) {
     const message = JSON.parse(msg.data);
     switch (message.type) {
         case 'debugStatus': {
-            if (message.inDebug) {
+            if (message.inDebug.tizenDebug) {
+                canLaunchModules = message.inDebug.webDebug;
                 send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
             } else {
                 send({ type: 'relaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
-                send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
+                tizen.application.getCurrentApplication().exit();
             }
             break;
         }
@@ -72,6 +74,13 @@ function onMessage(msg) {
             setTimeout(() => {
                 document.getElementById('errorDiv').innerHTML = '';
             }, 5000);
+            break;
+        }
+
+        case 'canLaunchModules': {
+            canLaunchModules = true;
+            document.getElementById('wsText').innerText = 'Connected to server.';
+            break;
         }
         default: {
            // This should never happen.

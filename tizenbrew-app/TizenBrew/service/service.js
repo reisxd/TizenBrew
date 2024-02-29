@@ -11,7 +11,11 @@ module.exports.onStart = function () {
     const server = new WebSocket.Server({ port: 8081 });
 
     let adb;
-    global.inDebug = false;
+    global.inDebug = {
+        tizenDebug: false,
+        webDebug: false
+    };
+    global.currentClient = null;
 
     function createAdbConnection(isTizen3, ip) {
         if (adb) {
@@ -37,8 +41,8 @@ module.exports.onStart = function () {
             });
         });
 
-        adb._stream.on('error', () => {
-            console.log('ADB connection error.');
+        adb._stream.on('error', (e) => {
+            console.log('ADB connection error. ' + e);
         });
         adb._stream.on('close', () => {
             console.log('ADB connection closed.');
@@ -47,6 +51,7 @@ module.exports.onStart = function () {
     }
 
     server.on('connection', (ws) => {
+        global.currentClient = ws;
         ws.on('message', (msg) => {
             let message;
             try {
@@ -61,7 +66,9 @@ module.exports.onStart = function () {
                     break;
                 }
                 case 'relaunchInDebug': {
-                    createAdbConnection(message.isTizen3, message.tvIp);
+                    setTimeout(() => {
+                        createAdbConnection(message.isTizen3, message.tvIp);
+                    }, 1000);
                     break;
                 }
                 case 'loadModules': {
