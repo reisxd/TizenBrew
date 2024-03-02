@@ -63,7 +63,7 @@ jobs:
 
       - name: Package WGT as USB Demo Package
         run: |
-          wgt-to-usb tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt -o tizenbrew-app/TizenBrew/release
+          wgt-to-usb tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt 
         
       - name: Upload Tizen package artifact
         uses: actions/upload-artifact@v2
@@ -80,7 +80,7 @@ jobs:
 
       - name: Zip USB Demo Package
         run: |
-          zip -r tizenbrew-app/TizenBrew/release/TizenBrewStandaloneUSBDemo.zip tizenbrew-app/TizenBrew/release/userwidget
+          zip -r tizenbrew-app/TizenBrew/release/TizenBrewStandaloneUSBDemo.zip userwidget/
 
       - name: Release USB Demo Package
         uses: softprops/action-gh-release@v1
