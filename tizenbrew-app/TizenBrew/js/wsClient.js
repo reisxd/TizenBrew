@@ -34,11 +34,21 @@ function onMessage(msg) {
     switch (message.type) {
         case 'debugStatus': {
             if (message.inDebug.tizenDebug) {
+                localStorage.setItem('failedStartupAttempts', '0');
                 canLaunchModules = message.inDebug.webDebug;
                 send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
             } else {
-                send({ type: 'relaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
-                tizen.application.getCurrentApplication().exit();
+                const failedStartupAttempts = parseInt(localStorage.getItem('failedStartupAttempts'));
+                if (failedStartupAttempts < 3) {
+                    localStorage.setItem('failedStartupAttempts', failedStartupAttempts + 1);
+                    send({ type: 'relaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
+                    tizen.application.getCurrentApplication().exit();
+                } else {
+                    document.getElementById('errorDiv').innerHTML = `<div class="alert has-mb-none item" style="background-color: #db2b2b;">
+                    <h1 class="has-text-light">Error: Could not connect to the server after 3 attempts. Are you sure you changed the Host PC IP to 127.0.0.1?</h1>
+                    </div>`;
+                    localStorage.setItem('failedStartupAttempts', '0');
+                }
             }
             break;
         }

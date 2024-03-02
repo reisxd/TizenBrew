@@ -21,9 +21,10 @@ jobs:
       - name: Install modules and build service
         working-directory: tizenbrew-app/TizenBrew/service
         run: |
-          sudo apt install -y expect
+          sudo apt install -y expect zip
           npm install
           npm install -g @vercel/ncc
+          npm install -g wgt-to-usb
           ncc build service.js
           rm -r node_modules
 
@@ -60,6 +61,10 @@ jobs:
         run: |
           expect ./package.exp
 
+      - name: Package WGT as USB Demo Package
+        run: |
+          wgt-to-usb tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt -o tizenbrew-app/TizenBrew/release
+        
       - name: Upload Tizen package artifact
         uses: actions/upload-artifact@v2
         with:
@@ -72,3 +77,14 @@ jobs:
           tag_name: ${{ env.RELEASE_VERSION }}
           files: |
             tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt
+
+      - name: Zip USB Demo Package
+        run: |
+          zip -r tizenbrew-app/TizenBrew/release/TizenBrewStandaloneUSBDemo.zip tizenbrew-app/TizenBrew/release/userwidget
+
+      - name: Release USB Demo Package
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          files: |
+            tizenbrew-app/TizenBrew/release/TizenBrewStandaloneUSBDemo.zip

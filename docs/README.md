@@ -6,7 +6,25 @@ TizenBrew is a modular system, meaning you can install new modded websites and a
 
 ## Installation
 
-To install TizenBrew, you need to have a Samsung TV (Tizen) device that has at least Tizen 3.0 (2017 or newer). You can install TizenBrew by following the instructions below:
+To install TizenBrew, you need to have a Samsung TV (Tizen) device that has at least Tizen 3.0 (2017 or newer). There are two ways to install TizenBrew.
+
+### Using USB Demo Package
+
+Note that this method could be temporary. If you want to have TizenBrew permanently installed, use the command line method. This method is the easiest way to install TizenBrew.
+
+1. Download the latest TizenBrew USB Demo Package from the [releases page](https://github.com/reisxd/TizenBrew/releases/latest).
+
+2. Extract the contents of the zip file to a USB drive.
+
+3. Connect the USB drive to your TV.
+
+4. Wait for the TV to recognize the USB drive and it'll automatically install TizenBrew.
+
+5. Change the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
+
+6. You can now launch the TizenBrew app on your TV.
+
+### Using The Command Line
 
 1. Install Tizen Studio by following the instructions [here](https://developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk/installing-tv-sdk.html).
 

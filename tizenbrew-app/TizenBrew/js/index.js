@@ -3,6 +3,7 @@ window.begin = function() {
     // Check if IP was set
     localStorage.setItem("ip", "127.0.0.1");
     if (localStorage.getItem('modules') == null) localStorage.setItem('modules', '[]');
+    if (localStorage.getItem('failedStartupAttempts') == null) localStorage.setItem('failedStartupAttempts', '0');
     if (localStorage.getItem("ip") == null) {
         // Set IP by prompt
         selectedItem.innerHTML = `
