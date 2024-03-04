@@ -1,140 +1,182 @@
 <!DOCTYPE html>
+
 <html>
+    <head>
+        <title>TizenBrew</title>
 
-<head>
-    <title>TizenBrew</title>
-    <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
-    <script src="./js/wsClient.js"></script>
-    <script src="./js/index.js"></script>
-    <link rel="stylesheet" href="./css/siimple.css" />
-    <style>
-        .item {
-            margin-left: 2rem;
-            margin-top: 1rem;
-        }
-    </style>
-</head>
+        <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
 
-<body class="has-bg-dark">
-    <div class="has-bg-dark has-p-16" style="display: flex; flex-wrap: wrap; margin-left: -1rem;">
-        <div class="is-three-fifths is-full-mobile">
-            <div class="has-size-7 has-weight-black has-mb-4 has-lh-none has-text-white">
-                <span class="has-text-primary">TizenBrew</span> Modules
+        <script src="./js/wsClient.js"></script>
+
+        <script src="./js/index.js"></script>
+
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="header">
+                <div>
+                    <div class="title">Tizen<span style="color: #0dc1e9;">Brew</span> Modules</div>
+
+                    <div class="subtitle">
+                        <p>Launch your favorite apps with mods and tweaks on your Tizen device.</p>
+
+                        <p>Use the <span style="color: lightgreen;">GREEN</span> button to access the module manager.</p>
+                    </div>
+                </div>
+
+                <p class="status" id="wsText">Status</p>
             </div>
-            <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent">
-                You can launch your favorite apps with mods and tweaks on your Tizen device. Use the [GREEN] button to access the module manager.
-            </div>
-            <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent" id="wsText">
 
+            <div class="error-card">
+                <span class="exclamation-mark">!</span>
+
+                <span id="errorDiv" class="error-text">Error Message Here</span>
+            </div>
+
+            <div class="content">
+                <div data-selecteditem="0">
+                    <div id="appList">
+                        <div class="card selected" tabindex="0">
+                        </div>
+                        <!-- cards will be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p id="navigateText">Use the LEFT and RIGHT arrow keys to navigate through the list.</p>
             </div>
         </div>
-    </div>
 
-    <div class="has-size-3 has-lh-heading has-text-white has-mb-8 is-semitransparent item" id="navigateText">
-        Use the LEFT and RIGHT arrow keys to navigate through the list.
-    </div>
-
-    <div style="display: flex; flex-wrap: wrap; margin-left: -1rem;" id="errorDiv">
-
-    </div>
-
-    <div class="row" data-selecteditem="0">
-        <div style="display: flex; flex-wrap: wrap; margin-left: -1rem;" id="appList">
-            <div class="card has-w-96 is-shadowed column is-one-quarter is-full-mobile is-flex has-bg-primary item">
-            </div>
-        </div>
-    </div>
-</body>
-<script>
-    window.selectedItem = document.querySelector(".has-bg-primary");
-    window.currentRow = selectedItem.parentElement.parentElement;
-
-    function indexOf(array, item) {
-        for (var i = 0; i < array.length; i++) {
-            if (array[i] === item) {
-                return i;
+        <script>
+            function hideError() {
+                document.querySelector(".error-card").style.display = "none";
             }
-        }
-        return -1;
-    }
 
-    document.onkeydown = e => {
-        switch (e.keyCode) {
-            case 37:
-                if (selectedItem.previousElementSibling != null) {
-                    selectedItem.classList.remove("has-bg-primary");
-                    selectedItem.classList.add("has-bg-secondary");
-                    selectedItem.previousElementSibling.classList.remove("has-bg-secondary");
-                    selectedItem.previousElementSibling.classList.add("has-bg-primary");
-                    selectedItem = selectedItem.previousElementSibling;
-                    currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
-                }
-                break;
-            case 39:
-                if (selectedItem.nextElementSibling != null) {
-                    selectedItem.classList.remove("has-bg-primary");
-                    selectedItem.classList.add("has-bg-secondary");
-                    selectedItem.nextElementSibling.classList.remove("has-bg-secondary");
-                    selectedItem.nextElementSibling.classList.add("has-bg-primary");
-                    selectedItem = selectedItem.nextElementSibling;
-                    currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
-                }
-                break;
-            case 13:
-                var packageName = selectedItem.getAttribute("data-packagename");
-                var appPath = selectedItem.getAttribute("data-appPath");
-                if (!canLaunchModules) {
-                    alert("You can't launch modules while the service hasn't connected yet.");
-                    break;
-                }
-                window.send({ type: 'launch', packageName });
-                if (appPath.startsWith("http")) {
-                    location.href = appPath;
-                }
-                break;
-            case 404:
-                location.href = "/moduleManager.html";
-                break;
-        }
-    };
+            function showError(errortext) {
+                document.getElementById("errorDiv").innerText = errortext;
 
-    document.onkeyup = e => {
-        setTimeout(() => {
-            selectedItem.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-                inline: "center"
-            });
-        }, 100);
-    };
+                document.querySelector(".error-card").style.display = "flex";
+            }
+        </script>
 
-</script>
-<script>
-    var testWS = new WebSocket(`ws://127.0.0.1:8081`);
-    testWS.onerror = () => {
-        var pkg_id = tizen.application.getCurrentApplication().appInfo.packageId;
-        var service_id = pkg_id + ".StandaloneService";
-        tizen.application.launchAppControl(new tizen.ApplicationControl('http://tizen.org/appcontrol/operation/service'), service_id, function () {
-            document.getElementById('wsText').innerText = "Service started.";
-            window.begin();
-        }, function (e) {
-            alert('Launch Service failed: ' + e.message);
-        });
-    };
+        <script>
+            window.selectedItem = document.querySelector(".selected");
 
-    testWS.onopen = () => {
-        document.getElementById('wsText').innerText = "Service is already running.";
-        window.begin();
-        testWS.close();
-    };
-</script>
-<script>
-    tizen.tvinputdevice.registerKey('ColorF1Green');
-    tizen.tvinputdevice.registerKey('ColorF3Blue');
-    tizen.tvinputdevice.registerKey('ColorF0Red');
-    tizen.tvinputdevice.registerKey('ColorF2Yellow');
-    tizen.tvinputdevice.registerKey('MediaPlayPause');
-    tizen.tvinputdevice.registerKey('Back');
-    tizen.tvinputdevice.registerKey('Exit');
-</script>
+            window.currentRow = selectedItem.parentElement.parentElement;
+
+            function indexOf(array, item) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i] === item) {
+                        return i;
+                    }
+                }
+
+                return -1;
+            }
+
+            document.onkeydown = (e) => {
+                switch (e.keyCode) {
+                    case 37:
+                        if (selectedItem.previousElementSibling != null) {
+                            selectedItem.classList.remove("selected");
+
+                            selectedItem.previousElementSibling.classList.add("selected");
+
+                            selectedItem = selectedItem.previousElementSibling;
+
+                            currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
+                        }
+
+                        break;
+
+                    case 39:
+                        if (selectedItem.nextElementSibling != null) {
+                            selectedItem.classList.remove("selected");
+
+                            selectedItem.nextElementSibling.classList.add("selected");
+
+                            selectedItem = selectedItem.nextElementSibling;
+
+                            currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
+                        }
+
+                        break;
+
+                    case 13:
+                        var packageName = selectedItem.getAttribute("data-packagename");
+
+                        var appPath = selectedItem.getAttribute("data-appPath");
+
+                        if (!canLaunchModules) {
+                            alert("You can't launch modules while the service hasn't connected yet.");
+
+                            break;
+                        }
+
+                        window.send({ type: "launch", packageName });
+
+                        if (appPath.startsWith("http")) {
+                            location.href = appPath;
+                        }
+
+                        break;
+
+                    case 404:
+                        location.href = "/moduleManager.html";
+
+                        break;
+                }
+            };
+        </script>
+
+        <script>
+            var testWS = new WebSocket(`ws://127.0.0.1:8081`);
+
+            testWS.onerror = () => {
+                var pkg_id = tizen.application.getCurrentApplication().appInfo.packageId;
+
+                var service_id = pkg_id + ".StandaloneService";
+
+                tizen.application.launchAppControl(
+                    new tizen.ApplicationControl("http://tizen.org/appcontrol/operation/service"),
+                    service_id,
+                    function () {
+                        document.getElementById("wsText").innerText = "Service started.";
+
+                        window.begin();
+                    },
+                    function (e) {
+                        alert("Launch Service failed: " + e.message);
+                    }
+                );
+            };
+
+            testWS.onopen = () => {
+                document.getElementById("wsText").innerText = "Service is already running.";
+
+                window.begin();
+
+                testWS.close();
+            };
+        </script>
+
+        <script>
+            tizen.tvinputdevice.registerKey("ColorF1Green");
+
+            tizen.tvinputdevice.registerKey("ColorF3Blue");
+
+            tizen.tvinputdevice.registerKey("ColorF0Red");
+
+            tizen.tvinputdevice.registerKey("ColorF2Yellow");
+
+            tizen.tvinputdevice.registerKey("MediaPlayPause");
+
+            tizen.tvinputdevice.registerKey("Back");
+
+            tizen.tvinputdevice.registerKey("Exit");
+        </script>
+    </body>
 </html>
