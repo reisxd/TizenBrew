@@ -3,6 +3,7 @@
 let client;
 const isTizen3 = navigator.userAgent.includes('Tizen 3.0');
 let canLaunchModules = false;
+let canAutoLaunch = true;
 
 function connect() {
     const ip = localStorage.getItem('ip');
@@ -87,6 +88,18 @@ function onMessage(msg) {
         case 'canLaunchModules': {
             canLaunchModules = true;
             document.getElementById('wsText').innerText = 'Connected to server.';
+
+            if (canAutoLaunch && localStorage.getItem('autoLaunch')) {
+                const app = document.querySelector(`[data-packagename="${localStorage.getItem('autoLaunch')}"]`);
+                if (!app) {
+                    showError(`Error: Could not find the module ${localStorage.getItem('autoLaunch')}.`);
+                    return;
+                } else {
+                    const appPath = app.getAttribute('data-appPath');
+                    send({ type: 'launch', packageName: localStorage.getItem('autoLaunch') });
+                    location.href = appPath;
+                }
+            }
             break;
         }
         default: {

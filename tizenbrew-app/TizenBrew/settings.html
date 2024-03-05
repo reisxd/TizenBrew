@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TizenBrew</title>
+    <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
+    <script src="./js/wsClient.js"></script>
+    <script src="./js/index.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <div class="title">Tizen<span style="color: #0dc1e9;">Brew</span> Modules</div>
+                <div class="subtitle">
+                    <p>Launch your favorite apps with mods and tweaks on your Tizen device.</p>
+                    <p>Use the <span style="color: #0dc1e9;">BLUE</span> button to go back to module launcher.</p>
+                </div>
+            </div>
+            <p class="status" id="wsText">Status</p>
+        </div>
+        <div class="error-card">
+            <span class="exclamation-mark">!</span>
+            <span class="error-text">Error Message Here</span>
+        </div>
+        <div class="content">
+            <div data-selecteditem="0">
+                <div id="appList">
+                    <div class="card selected" tabindex="0" id="autoLaunch">
+                        <h1>Autolaunch Settings</h1>
+                        <h3>Launch your favorite module automatically when you launch TizenBrew.</h3>
+                    </div>
+                    <!--Does not work properly, not shown for now.-->
+                    <!--
+                        Current issues are:
+                        The back button does not work properly in TizenTube.
+                        The UI is broken in TizenTube. (TizenTube Settings, Video Speed Settings)
+
+                        Hopefully will be fixed in the future.
+                    -->
+                    <!--<div class="card" tabindex="0" id="userAgent">
+                        <h1>User-Agent Settings</h1>
+                        <h3>Change the User-Agent of TizenBrew modules for some effects like fixing the UI on TizenBrew.
+                        </h3>
+                    </div><!-->
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p id="navigateText">Use the LEFT and RIGHT arrow keys to navigate through the list.</p>
+        </div>
+    </div>
+</body>
+<script>
+    function hideError() {
+        document.querySelector(".error-card").style.display = "none";
+    }
+    function showError(errortext) {
+        document.getElementById("errorDiv").innerText = errortext;
+        document.querySelector("error-card").style.display = "flex";
+    }
+</script>
+<script>
+    window.selectedItem = document.querySelector(".selected");
+    window.currentRow = selectedItem.parentElement.parentElement;
+    function indexOf(array, item) {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] === item) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    document.onkeydown = (e) => {
+        switch (e.keyCode) {
+            case 37:
+                if (selectedItem.previousElementSibling != null) {
+                    selectedItem.classList.remove("selected");
+                    selectedItem.previousElementSibling.classList.add("selected");
+                    selectedItem = selectedItem.previousElementSibling;
+                    currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
+                }
+                break;
+            case 39:
+                if (selectedItem.nextElementSibling != null) {
+                    selectedItem.classList.remove("selected");
+                    selectedItem.nextElementSibling.classList.add("selected");
+                    selectedItem = selectedItem.nextElementSibling;
+                    currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
+                }
+                break;
+            case 13:
+                var packageName = selectedItem.getAttribute("data-packagename");
+                if (packageName != null) {
+                    var hasConfirmined = confirm(`Do you want to set ${packageName} to launch on start?`);
+                    if (hasConfirmined) {
+                        localStorage.setItem('autoLaunch', packageName);
+                        location.reload();
+                    }
+                } else if (selectedItem.id == "autoLaunch") {
+                    loadModules();
+                } else if (selectedItem.id == "userAgent") {
+                    setUserAgentMenu();
+                } else if (selectedItem.id == "disableAutoLaunch") {
+                    var hasConfirmined = confirm(`Do you want to disable autolaunch?`);
+                    if (hasConfirmined) {
+                        localStorage.removeItem('autoLaunch');
+                        location.reload();
+                    }
+                } else if (selectedItem.id == "removeUserAgent") {
+                    userAgentWarnMenu(null, false)
+                } else if (selectedItem.id == "cobalt9") {
+                    userAgentWarnMenu("Mozilla/5.0 Cobalt/9", true);
+                } else if (selectedItem.id == "cobalt23") {
+                    userAgentWarnMenu("Mozilla/5.0 Cobalt/23", true);
+                }
+                break;
+            case 406:
+                location.href = "/index.html";
+                break;
+            case 65376:
+                var input = document.getElementById("appName");
+                var modules = JSON.parse(localStorage.getItem("modules"));
+                modules.push(input.value);
+                localStorage.setItem("modules", JSON.stringify(modules));
+                location.reload();
+                break;
+        }
+    };
+</script>
+<script>
+    "use strict";
+
+    function loadModules() {
+        const modules = JSON.parse(localStorage.getItem("modules"));
+        if (modules.length != 0) {
+            let firstOne = true;
+            document.getElementById("appList").innerHTML = "";
+            for (const module of modules) {
+                document.getElementById("appList").innerHTML += `
+                    <div data-packagename="${module}" class="card ${firstOne ? "selected" : ""}" tabindex="0">
+                            <h1>${module}</h1>
+                    </div>
+                    `;
+                firstOne = false;
+            }
+            document.getElementById("appList").innerHTML += `
+                    <div class="card" tabindex="0" id="disableAutoLaunch">
+                            <h1>Disable Autolaunch</h1>
+                    </div>
+                    `;
+            window.selectedItem = document.querySelector(".selected");
+            window.currentRow = selectedItem.parentElement.parentElement;
+        } else {
+            alert('No modules found.');
+            location.reload();
+        }
+    }
+
+    function setUserAgentMenu() {
+        document.getElementById("appList").innerHTML = "";
+        document.getElementById("appList").innerHTML = `
+            <div class="card selected" tabindex="0" id="removeUserAgent">
+                    <h1>Default</h1>
+            </div>
+            <div class="card" tabindex="0" id="cobalt9">
+                    <h1>Cobalt 9 (Stable, works on Tizen 3+</h1>
+            </div>
+            <div class="card" tabindex="0" id="cobalt23">
+                    <h1>Cobalt 23 (Works on Tizen 5+)</h1>
+            </div>
+            `;
+        window.selectedItem = document.querySelector(".selected");
+        window.currentRow = selectedItem.parentElement.parentElement;
+    }
+
+    function setUserAgent(userAgent) {
+        if (!userAgent) {
+            localStorage.removeItem('userAgent');
+        } else localStorage.setItem('userAgent', userAgent);
+    }
+
+    function userAgentWarnMenu(userAgent, warn) {
+        var hasConfirmined = confirm(`Do you want to set the User-Agent to ${userAgent}?${warn ? '\nNote that while this could have positive effects, there could also be negative effects.' : ''}`);
+        if (hasConfirmined) {
+            setUserAgent(userAgent);
+            location.reload();
+        }
+    }
+</script>
+
+</html>

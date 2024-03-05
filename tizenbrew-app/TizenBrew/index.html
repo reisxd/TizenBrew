@@ -23,6 +23,7 @@
                         <p>Launch your favorite apps with mods and tweaks on your Tizen device.</p>
 
                         <p>Use the <span style="color: lightgreen;">GREEN</span> button to access the module manager.</p>
+                        <p>Use the <span style="color: #0dc1e9">BLUE</span> button to access the settings.</p>
                     </div>
                 </div>
 
@@ -128,6 +129,14 @@
                         location.href = "/moduleManager.html";
 
                         break;
+                    case 406:
+                        location.href = "/settings.html";
+
+                        break;
+                    case 38:
+                        canAutoLaunch = false;
+
+                        break;
                 }
             };
         </script>
@@ -164,6 +173,13 @@
         </script>
 
         <script>
+            if (localStorage.getItem('userAgent') != null) {
+                tizen.websetting.setUserAgentString(localStorage.getItem('userAgent'));
+            }
+
+            if (localStorage.getItem('autoLaunch') != null) {
+                document.getElementsByClassName('subtitle')[0].innerHTML += `<p>AutoLaunch is enabled. Press the [Arrow Up] button to disable AutoLaunch.</p>`;
+            }
             tizen.tvinputdevice.registerKey("ColorF1Green");
 
             tizen.tvinputdevice.registerKey("ColorF3Blue");
