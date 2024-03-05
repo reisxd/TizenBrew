@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="https://tizentube.live"
-   version="1.1.0" viewmodes="maximized">
+   version="1.1.1" viewmodes="maximized">
    <access origin="*" subdomains="true" />
    <tizen:application id="xvvl3S1bvH.TizenBrewStandalone" package="xvvl3S1bvH" required_version="2.3" />
    <author href="https://tizentube.live">Reis Can</author>
