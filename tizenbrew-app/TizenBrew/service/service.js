@@ -92,7 +92,7 @@ module.exports.onStart = function () {
                         } else {
                             global.currentModule = {
                                 type: 'app',
-                                path: `https://cdn.jsdelivr.net/npm/${module.name}/${module.appPath}`
+                                path: `https://unpkg.com/${module.name}/${module.appPath}`
                             }
                         }
                     });

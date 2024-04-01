@@ -14,7 +14,7 @@ function loadModules(moduleList) {
                         appName: moduleJson.appName,
                         description: moduleJson.description,
                         packageType: moduleJson.packageType,
-                        appPath: moduleJson.appPath,
+                        appPath: `https://unpkg.com/${moduleJson.name}/${moduleJson.appPath}`
                     };
                 } else {
                     moduleData = {
