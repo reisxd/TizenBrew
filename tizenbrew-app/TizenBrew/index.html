@@ -118,9 +118,17 @@
                         }
 
                         window.send({ type: "launch", packageName });
-
+                        var keys = selectedItem.getAttribute("data-keys");
                         if (appPath.startsWith("http")) {
-                            location.href = appPath;
+                            if (keys.length > 0) {
+                                var keys = selectedItem.getAttribute("data-keys").split(',');
+                                for (var i = 0; i < keys.length; i++) {
+                                    tizen.tvinputdevice.registerKey(keys[i]);
+                                }
+                            }
+                            setTimeout(() => {
+                                location.href = appPath;
+                            }, 250);
                         }
 
                         break;
@@ -187,8 +195,6 @@
             tizen.tvinputdevice.registerKey("ColorF0Red");
 
             tizen.tvinputdevice.registerKey("ColorF2Yellow");
-
-            tizen.tvinputdevice.registerKey("MediaPlayPause");
 
             tizen.tvinputdevice.registerKey("Back");
 

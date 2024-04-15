@@ -17,7 +17,7 @@ module.exports.onStart = function () {
     };
     global.currentClient = null;
 
-    function createAdbConnection(isTizen3, ip) {
+    function createAdbConnection(isTizen3, ip, testConnection) {
         if (adb) {
             if (adb._stream !== null || adb._stream !== undefined) {
                 adb._stream.removeAllListeners('connect');
@@ -30,22 +30,28 @@ module.exports.onStart = function () {
 
         adb._stream.on('connect', () => {
             console.log('ADB connection established');
-            //Launch app
-            const shellCmd = adb.createStream(`shell:0 debug xvvl3S1bvH.TizenBrewStandalone${isTizen3 ? ' 0' : ''}`);
-            shellCmd.on('data', function dataIncoming(data) {
-                const dataString = data.toString();
-                if (dataString.includes('debug')) {
-                    const port = dataString.substr(dataString.indexOf(':') + 1, 6).replace(' ', '');
-                    startDebugging(port, adb, ip);
-                }
-            });
+            if (!testConnection) {
+                //Launch app
+                const shellCmd = adb.createStream(`shell:0 debug xvvl3S1bvH.TizenBrewStandalone${isTizen3 ? ' 0' : ''}`);
+                shellCmd.on('data', function dataIncoming(data) {
+                    const dataString = data.toString();
+                    if (dataString.includes('debug')) {
+                        const port = dataString.substr(dataString.indexOf(':') + 1, 6).replace(' ', '');
+                        startDebugging(port, adb, ip);
+                    }
+                });
+            } else {
+                global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: true }));
+            }
         });
 
         adb._stream.on('error', (e) => {
             console.log('ADB connection error. ' + e);
+            global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: false }));
         });
         adb._stream.on('close', () => {
             console.log('ADB connection closed.');
+            global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: false }));
         });
 
     }
@@ -65,6 +71,10 @@ module.exports.onStart = function () {
                     ws.send(JSON.stringify({ type: 'debugStatus', inDebug: global.inDebug }));
                     break;
                 }
+                case 'canLaunchInDebug': {
+                    createAdbConnection(message.isTizen3, message.tvIp, true);
+                    break;
+                }
                 case 'relaunchInDebug': {
                     setTimeout(() => {
                         createAdbConnection(message.isTizen3, message.tvIp);
@@ -79,7 +89,7 @@ module.exports.onStart = function () {
                 }
                 case 'launch': {
                     loadModules([message.packageName]).then(modules => {
-                        const module =  modules.find(m => m.name === message.packageName);
+                        const module = modules.find(m => m.name === message.packageName);
                         if (!module) {
                             ws.send(JSON.stringify({ type: 'error', message: 'Module not found.' }));
                             return;

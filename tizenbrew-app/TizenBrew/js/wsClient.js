@@ -40,6 +40,8 @@ function onMessage(msg) {
                 canLaunchModules = message.inDebug.webDebug;
                 send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
             } else {
+                send({ type: 'canLaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
+                /*
                 const failedStartupAttempts = parseInt(localStorage.getItem('failedStartupAttempts'));
                 if (failedStartupAttempts < 2) {
                     localStorage.setItem('failedStartupAttempts', failedStartupAttempts + 1);
@@ -48,7 +50,7 @@ function onMessage(msg) {
                 } else {
                     showError(`Error: Could not connect to the server after 3 attempts. Are you sure you changed the Host PC IP to 127.0.0.1?`);
                     localStorage.setItem('failedStartupAttempts', '0');
-                }
+                }*/
             }
             break;
         }
@@ -58,7 +60,7 @@ function onMessage(msg) {
                 document.getElementById('appList').innerHTML = '';
                 for (const module of message.modules) {
                     document.getElementById('appList').innerHTML += `
-                    <div data-packagename="${module.name}" data-appPath="${module.appPath}" class="card ${firstOne ? 'selected' : ''}" tabimdex="0">
+                    <div data-packagename="${module.name}" data-appPath="${module.appPath}" class="card ${firstOne ? 'selected' : ''}" tabindex="0" data-keys="${module.keys.join(',')}>
                         <div>
                             <h1>${module.appName}</h1>
                             <h3>
@@ -99,6 +101,15 @@ function onMessage(msg) {
                     send({ type: 'launch', packageName: localStorage.getItem('autoLaunch') });
                     location.href = appPath;
                 }
+            }
+            break;
+        }
+        case 'canLaunchInDebug': {
+            if (message.status) {
+                send({ type: 'relaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
+                tizen.application.getCurrentApplication().exit();
+            } else {
+                showError(`Error: Could not connect to the server. Are you sure you changed the Host PC IP to 127.0.0.1? If you have, hold the power button till you see the Samsung logo.`);
             }
             break;
         }
