@@ -42,6 +42,7 @@ module.exports.onStart = function () {
                 });
             } else {
                 global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: true }));
+                adb._stream.end();
             }
         });
 
