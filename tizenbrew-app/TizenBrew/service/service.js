@@ -52,7 +52,6 @@ module.exports.onStart = function () {
         });
         adb._stream.on('close', () => {
             console.log('ADB connection closed.');
-            global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: false }));
         });
 
     }
