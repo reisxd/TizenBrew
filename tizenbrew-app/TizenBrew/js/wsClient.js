@@ -60,7 +60,7 @@ function onMessage(msg) {
                 document.getElementById('appList').innerHTML = '';
                 for (const module of message.modules) {
                     document.getElementById('appList').innerHTML += `
-                    <div data-packagename="${module.name}" data-appPath="${module.appPath}" class="card ${firstOne ? 'selected' : ''}" tabindex="0" data-keys="${module.keys.join(',')}>
+                    <div data-packagename="${module.name}" data-appPath="${module.appPath}" class="card ${firstOne ? 'selected' : ''}" tabindex="0" data-keys="${module.keys.join(',')}">
                         <div>
                             <h1>${module.appName}</h1>
                             <h3>
