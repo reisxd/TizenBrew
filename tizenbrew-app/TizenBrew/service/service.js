@@ -18,6 +18,7 @@ module.exports.onStart = function () {
     global.currentClient = null;
 
     function createAdbConnection(isTizen3, ip, testConnection) {
+        let timeout = null;
         if (adb) {
             if (adb._stream !== null || adb._stream !== undefined) {
                 adb._stream.removeAllListeners('connect');
@@ -41,8 +42,12 @@ module.exports.onStart = function () {
                     }
                 });
             } else {
-                global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: true }));
-                adb._stream.end();
+                timeout = setTimeout(() => {
+                    global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: true }))
+                    adb._stream.removeAllListeners('close');
+                    adb._stream.end();
+                }, 250);
+                
             }
         });
 
@@ -52,6 +57,8 @@ module.exports.onStart = function () {
         });
         adb._stream.on('close', () => {
             console.log('ADB connection closed.');
+            clearTimeout(timeout);
+            global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: false }));
         });
 
     }
