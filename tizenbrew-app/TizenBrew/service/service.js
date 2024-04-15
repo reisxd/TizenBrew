@@ -77,7 +77,7 @@ module.exports.onStart = function () {
                 }
                 case 'relaunchInDebug': {
                     setTimeout(() => {
-                        createAdbConnection(message.isTizen3, message.tvIp);
+                        createAdbConnection(message.isTizen3, message.tvIp, false);
                     }, 1000);
                     break;
                 }
