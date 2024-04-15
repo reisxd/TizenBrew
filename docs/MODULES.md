@@ -16,6 +16,8 @@ The format is pretty same as a normal package.json file, but with some differenc
 
 `main`: The main file of the mods module. Required if `packageType` is `mods`.
 
+`keys`: The keys that should be registered using the [TVInputDevice](https://developer.samsung.com/smarttv/develop/api-references/tizen-web-device-api-references/tvinputdevice-api.html) API. Not required.
+
 Here's an example mods module:
 ```json
 {
