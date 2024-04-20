@@ -40,7 +40,7 @@ function onMessage(msg) {
                 canLaunchModules = message.inDebug.webDebug;
                 send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
             } else {
-                send({ type: 'canLaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
+                send({ type: 'canLaunchInDebug' });
                 /*
                 const failedStartupAttempts = parseInt(localStorage.getItem('failedStartupAttempts'));
                 if (failedStartupAttempts < 2) {
@@ -105,7 +105,12 @@ function onMessage(msg) {
             break;
         }
         case 'canLaunchInDebug': {
-            if (message.status) {
+            if (message.status === null) {
+                setTimeout(() => {
+                    send({ type: 'canLaunchInDebug' });
+                }, 1000);
+                break;
+            } else if (message.status) {
                 send({ type: 'relaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
                 tizen.application.getCurrentApplication().exit();
             } else {

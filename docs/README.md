@@ -6,7 +6,7 @@ TizenBrew is a modular system, meaning you can install new modded websites and a
 
 ## Installation
 
-To install TizenBrew, you need to have a Samsung TV (Tizen) device that has at least Tizen 3.0 (2017 or newer). There are two ways to install TizenBrew.
+To install TizenBrew, you need to have a Samsung TV (Tizen) device that has at least Tizen 3.0 (2017 or newer). There are three ways to install TizenBrew.
 
 ### Using TizenBrew Installer
 

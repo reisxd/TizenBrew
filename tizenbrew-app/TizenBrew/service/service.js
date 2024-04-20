@@ -11,11 +11,13 @@ module.exports.onStart = function () {
     const server = new WebSocket.Server({ port: 8081 });
 
     let adb;
+    let canLaunchInDebug = null;
     global.inDebug = {
         tizenDebug: false,
         webDebug: false
     };
     global.currentClient = null;
+    createAdbConnection(null, null, true);
 
     function createAdbConnection(isTizen3, ip, testConnection) {
         let timeout = null;
@@ -43,22 +45,23 @@ module.exports.onStart = function () {
                 });
             } else {
                 timeout = setTimeout(() => {
-                    global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: true }))
+                    canLaunchInDebug = true;
                     adb._stream.removeAllListeners('close');
                     adb._stream.end();
-                }, 250);
+                }, 1000);
                 
             }
         });
 
         adb._stream.on('error', (e) => {
             console.log('ADB connection error. ' + e);
-            global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: false }));
+            clearTimeout(timeout);
+            canLaunchInDebug = false;
         });
         adb._stream.on('close', () => {
             console.log('ADB connection closed.');
             clearTimeout(timeout);
-            global.currentClient.send(JSON.stringify({ type: 'canLaunchInDebug', status: false }));
+            canLaunchInDebug = false;
         });
 
     }
@@ -79,7 +82,7 @@ module.exports.onStart = function () {
                     break;
                 }
                 case 'canLaunchInDebug': {
-                    createAdbConnection(message.isTizen3, message.tvIp, true);
+                    ws.send(JSON.stringify({ type: 'canLaunchInDebug', status: canLaunchInDebug }));
                     break;
                 }
                 case 'relaunchInDebug': {

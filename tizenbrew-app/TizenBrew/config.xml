@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="https://tizentube.live"
-   version="1.2.0" viewmodes="maximized">
+   version="1.2.1" viewmodes="maximized">
    <access origin="*" subdomains="true" />
    <tizen:app-control>
       <tizen:src name='index.html' reload='disable'></tizen:src>
