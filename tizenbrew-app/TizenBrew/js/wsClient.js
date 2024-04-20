@@ -19,11 +19,11 @@ function connect() {
             localStorage.removeItem('ip');
             window.location.reload();
         }
-    } catch(e) {
+    } catch (e) {
         localStorage.removeItem('ip');
         window.location.reload();
     }
-    
+
 }
 
 window.send = (message) => {
@@ -98,8 +98,18 @@ function onMessage(msg) {
                     return;
                 } else {
                     const appPath = app.getAttribute('data-appPath');
-                    send({ type: 'launch', packageName: localStorage.getItem('autoLaunch') });
-                    location.href = appPath;
+                    let keys = app.getAttribute("data-keys");
+                    if (keys.length > 0) {
+                        keys = selectedItem.getAttribute("data-keys").split(',');
+                        for (var i = 0; i < keys.length; i++) {
+                            tizen.tvinputdevice.registerKey(keys[i]);
+                        }
+                    }
+
+                    setTimeout(() => {
+                        send({ type: 'launch', packageName: localStorage.getItem('autoLaunch') });
+                        location.href = appPath;
+                    }, 250);
                 }
             }
             break;
@@ -119,7 +129,7 @@ function onMessage(msg) {
             break;
         }
         default: {
-           // This should never happen.
+            // This should never happen.
         }
     }
 }
