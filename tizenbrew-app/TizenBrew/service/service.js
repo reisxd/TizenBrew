@@ -55,13 +55,18 @@ module.exports.onStart = function () {
 
         adb._stream.on('error', (e) => {
             console.log('ADB connection error. ' + e);
-            clearTimeout(timeout);
-            canLaunchInDebug = false;
+            if (testConnection) {
+                clearTimeout(timeout);
+                canLaunchInDebug = false;
+            }
         });
         adb._stream.on('close', () => {
             console.log('ADB connection closed.');
             clearTimeout(timeout);
-            canLaunchInDebug = false;
+            if (testConnection) {
+                clearTimeout(timeout);
+                canLaunchInDebug = false;
+            }
         });
 
     }
