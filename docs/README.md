@@ -10,7 +10,7 @@ To install TizenBrew, you need to have a Samsung TV (Tizen) device that has at l
 
 ### Using TizenBrew Installer
 
-This method is easier than the USB Demo Package method, but it works only on Tizen 3.0 to 5.5 (2017 to 2020). If you have a newer TV, use the USB Demo Package method.
+This method is easier than the USB Demo Package method, but it works only on Tizen 3.0 to 6.0 (2017 to 2021). If you have a newer TV, use the USB Demo Package method or the Command Line method.
 
 1. Change the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
 
