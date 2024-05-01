@@ -10,6 +10,7 @@
    <author href="https://tizentube.live">Reis Can</author>
    <content src="index.html" />
    <feature name="http://tizen.org/feature/screen.size.all" />
+   <tizen:privilege name="http://developer.samsung.com/privilege/hostedapp_deviceapi_allow" />
    <tizen:privilege name="http://tizen.org/privilege/internet" />
    <tizen:privilege name="http://developer.samsung.com/privilege/network.public" />
    <tizen:privilege name="http://tizen.org/privilege/tv.inputdevice" />
@@ -19,7 +20,6 @@
    <tizen:privilege name="http://tizen.org/privilege/application.launch" />
    <feature name="http://tizen.org/feature/web.service" />
    <icon src="icon.png" />
-   <tizen:metadata key="http://samsung.com/tv/metadata/prelaunch.support" value="true" />
    <tizen:metadata key="http://tizen.org/metadata/app_ui_type/base_screen_resolution" value="4k_only"/>
    <tizen:metadata key="multiview_support" value="true"/>
    <tizen:metadata key="multiview_min_resource" value="FHD+"/>
@@ -28,10 +28,11 @@
    <tizen:metadata key="http://samsung.com/tv/metadata/microphone.support" value="1"/>
    <tizen:metadata key="http://samsung.com/tv/metadata/microphone.area" value="open"/>
    <tizen:metadata key='http://samsung.com/tv/metadata/use.preview' value='endpoint_URL=https://tizentube.live/smartHubPreview.json'></tizen:metadata> 
+   <tizen:metadata key="http://samsung.com/tv/metadata/application/state.by.rotation" value="terminate"/>
+   <tizen:metadata key="http://samsung.com/tv/metadata/application/launch.on.mismatched.orientation" value="rotate_screen_and_launch"/>
    <name>TizenBrewStandalone</name>
    <tizen:profile name="tv-samsung" />
-   <tizen:setting screen-orientation="landscape" context-menu="enable" background-support="enable" encryption="disable"
-      install-location="auto" hwkey-event="enable" />
+   <tizen:setting screen-orientation="landscape" context-menu="enable" background-support="enable" encryption="disable" install-location="auto" hwkey-event="enable"/>
    <tizen:service id="xvvl3S1bvH.StandaloneService">
       <tizen:content src="service/dist/index.js" />
       <tizen:name>TizenBrewService</tizen:name>
