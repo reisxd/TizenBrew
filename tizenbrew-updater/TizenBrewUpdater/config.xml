@@ -21,7 +21,7 @@
    <tizen:profile name="tv-samsung" />
    <tizen:setting screen-orientation="landscape" context-menu="enable" background-support="enable" encryption="disable"
       install-location="auto" hwkey-event="enable" />
-   <tizen:service id="CvGD31Zr00.StandaloneService">
+   <tizen:service id="CvGD31Zr00.UpdaterService">
       <tizen:content src="service/dist/index.js" />
       <tizen:name>TizenBrewService</tizen:name>
       <tizen:description>TizenBrewService</tizen:description>

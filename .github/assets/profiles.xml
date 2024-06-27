@@ -2,12 +2,12 @@
 <profiles active="TizenBrew-New" version="3.1">
 <profile name="TizenBrew-Old">
 <profileitem ca="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/developer/tizen-developer-ca.cer" distributor="0" key="$GITHUB_WORKSPACE/tizen-studio-data/keystore/author/tizenbrew-author.p12" password="$KEY_PW" rootca=""/>
-<profileitem ca="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-partner/tizen-distributor-ca.cer" distributor="1" key="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-partner/tizen-distributor-signer.p12" password="tizenpkcs12passfordsigner" rootca=""/>
+<profileitem ca="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-ca.cer" distributor="1" key="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer.p12" password="tizenpkcs12passfordsigner" rootca=""/>
 <profileitem ca="" distributor="2" key="" password="" rootca=""/>
 </profile>
 <profile name="TizenBrew-New">
 <profileitem ca="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/developer/tizen-developer-ca.cer" distributor="0" key="$GITHUB_WORKSPACE/tizen-studio-data/keystore/author/tizenbrew-author.p12" password="$KEY_PW" rootca=""/>
-<profileitem ca="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-partner/tizen-distributor-ca-new.cer" distributor="1" key="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-partner/tizen-distributor-signer-new.p12" password="tizenpkcs12passfordsigner" rootca=""/>
+<profileitem ca="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-ca-new.cer" distributor="1" key="$GITHUB_WORKSPACE/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer-new.p12" password="tizenpkcs12passfordsigner" rootca=""/>
 <profileitem ca="" distributor="2" key="" password="" rootca=""/>
 </profile>
 </profiles>
