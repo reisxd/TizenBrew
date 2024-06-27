@@ -32,6 +32,10 @@
                         <h1>Autolaunch Settings</h1>
                         <h3>Launch your favorite module automatically when you launch TizenBrew.</h3>
                     </div>
+                    <div class="card" tabindex="0" id="autoLaunchService">
+                        <h1>Autolaunch Settings for services</h1>
+                        <h3>Launch your favorite service automatically when you launch TizenBrew.</h3>
+                    </div>
                     <!--Does not work properly, not shown for now.-->
                     <!--
                         Current issues are:
@@ -95,20 +99,33 @@
                 break;
             case 13:
                 var packageName = selectedItem.getAttribute("data-packagename");
+                var isForService = selectedItem.getAttribute("data-isForService");
+                var packageType = selectedItem.getAttribute("data-packagetype");
                 if (packageName != null) {
                     var hasConfirmined = confirm(`Do you want to set ${packageName} to launch on start?`);
-                    if (hasConfirmined) {
-                        localStorage.setItem('autoLaunch', packageName);
+                    if (hasConfirmined && isForService === 'false') {
+                        localStorage.setItem('autoLaunch', JSON.stringify({ name: packageName, type: packageType }));
+                        location.reload();
+                    } else if (hasConfirmined && isForService === 'true') {
+                        localStorage.setItem('autoLaunchService', JSON.stringify({ name: packageName, type: packageType }));
                         location.reload();
                     }
                 } else if (selectedItem.id == "autoLaunch") {
-                    loadModules();
+                    loadModules(false);
+                } else if (selectedItem.id == "autoLaunchService") {
+                    loadModules(true);
                 } else if (selectedItem.id == "userAgent") {
                     setUserAgentMenu();
                 } else if (selectedItem.id == "disableAutoLaunch") {
                     var hasConfirmined = confirm(`Do you want to disable autolaunch?`);
                     if (hasConfirmined) {
                         localStorage.removeItem('autoLaunch');
+                        location.reload();
+                    }
+                } else if (selectedItem.id == "disableAutoLaunchService") {
+                    var hasConfirmined = confirm(`Do you want to disable autolaunch?`);
+                    if (hasConfirmined) {
+                        localStorage.removeItem('autoLaunchService');
                         location.reload();
                     }
                 } else if (selectedItem.id == "removeUserAgent") {
@@ -135,21 +152,21 @@
 <script>
     "use strict";
 
-    function loadModules() {
+    function loadModules(isForService) {
         const modules = JSON.parse(localStorage.getItem("modules"));
         if (modules.length != 0) {
             let firstOne = true;
             document.getElementById("appList").innerHTML = "";
             for (const module of modules) {
                 document.getElementById("appList").innerHTML += `
-                    <div data-packagename="${module}" class="card ${firstOne ? "selected" : ""}" tabindex="0">
-                            <h1>${module}</h1>
+                    <div data-packagename="${module.name}" class="card ${firstOne ? "selected" : ""}" tabindex="0" data-isForService="${isForService ? 'true' : 'false'}" data-packageType="${module.type}">
+                            <h1>${module.name}</h1>
                     </div>
                     `;
                 firstOne = false;
             }
             document.getElementById("appList").innerHTML += `
-                    <div class="card" tabindex="0" id="disableAutoLaunch">
+                    <div class="card" tabindex="0" id="disableAutoLaunch${isForService ? 'Service' : ''}">
                             <h1>Disable Autolaunch</h1>
                     </div>
                     `;

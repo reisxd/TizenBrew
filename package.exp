@@ -2,16 +2,8 @@
 
 set timeout -1
 
-cd tizenbrew-app/TizenBrew
+cd $env(APP_PATH)
 
-spawn /home/runner/work/TizenBrew/TizenBrew/tizen-studio/tools/ide/bin/tizen package -t wgt -o ./release -s TizenBrew -- .buildResult
-
-expect "Author password:"
-
-send -- "1234\r"
-
-expect "Yes: (Y), No: (N) ?"
-
-send -- "N\r"
+spawn /home/runner/work/TizenBrew/TizenBrew/tizen-studio/tools/ide/bin/tizen package -t wgt -o ./release -s $env(CERT) -- .buildResult
 
 expect eof

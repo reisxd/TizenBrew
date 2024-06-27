@@ -7,6 +7,5 @@
     </platforms>
     <package>
         <blacklist/>
-        <resFallback autoGen="true"/>
     </package>
 </tproject>

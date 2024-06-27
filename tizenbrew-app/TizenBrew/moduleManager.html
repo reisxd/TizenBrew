@@ -79,15 +79,16 @@
                 case 13:
                     shouldIgnore = true;
                     var packageName = selectedItem.getAttribute("data-packagename");
+                    var packageType = selectedItem.getAttribute("data-packagetype");
                     if (packageName != null) {
                         var hasConfirmined = confirm(`Do you want to remove ${packageName}?`);
                         if (hasConfirmined) {
                             var modules = JSON.parse(localStorage.getItem("modules"));
-                            var newModules = modules.filter((module) => module != packageName);
+                            var newModules = modules.filter((module) => module.name != packageName && module.type != packageType);
                             localStorage.setItem("modules", JSON.stringify(newModules));
                             location.reload();
                         }
-                    } else newModuleDialog();
+                    } else newModuleDialog(packageType);
                     break;
                 case 404:
                     location.href = "/index.html";
@@ -95,7 +96,11 @@
                 case 65376:
                     var input = document.getElementById("appName");
                     var modules = JSON.parse(localStorage.getItem("modules"));
-                    modules.push(input.value);
+                    var type = selectedItem.getAttribute("data-packagetype");
+                    modules.push({
+                        name: input.value,
+                        type
+                    });
                     localStorage.setItem("modules", JSON.stringify(modules));
                     location.reload();
                     break;
@@ -111,8 +116,8 @@
                 document.getElementById("appList").innerHTML = "";
                 for (const module of modules) {
                     document.getElementById("appList").innerHTML += `
-                    <div data-packagename="${module}" class="card ${firstOne ? "selected" : ""}" tabindex="0">
-                            <h1>${module}</h1>
+                    <div data-packagename="${module}" class="card ${firstOne ? "selected" : ""}" tabindex="0" data-packagetype="${module.type}">
+                            <h1>${module.name}</h1>
                     </div>
                     `;
                     firstOne = false;
@@ -131,8 +136,13 @@
 
         function addButton(primary) {
             document.getElementById("appList").innerHTML += `
-        <div class="card ${primary ? "selected" : ""}" id="add" tabindex="0">
-                <h1>Add</h1>
+        <div class="card ${primary ? "selected" : ""}" id="add" tabindex="0" data-packagetype="npm">
+                <h1>Add NPM Module</h1>
+                <h3>This is primarily for production and for users.</h3>
+        </div>
+        <div class="card" id="addGh" tabindex="0" data-packagetype="gh">
+                <h1>Add GitHub Module</h1>
+                <h3>This is primarily for development and for developers.</h3>
         </div>
         `;
             if (primary) {
@@ -141,12 +151,12 @@
             }
         }
 
-        function newModuleDialog() {
+        function newModuleDialog(type) {
             document.getElementById("appList").innerHTML = "";
             document.getElementById("appList").innerHTML += `
-                <div class="card" id="add">
+                <div class="card" id="add" data-packagetype="${type}">
                 <h1>Add Module</h1>
-                <label class="label">Module Name (NPM Only):</label>
+                <label class="label">Module Name (For ${type.toUpperCase}):</label>
                 <input type="text" class="form-input" placeholder="@foxreis/tizentube" id="appName" tabindex="0">
         </div>
         `;
@@ -156,7 +166,10 @@
             input.focus();
             input.onblur = () => {
                 var modules = JSON.parse(localStorage.getItem("modules"));
-                modules.push(input.value);
+                modules.push({
+                    name: input.value,
+                    type
+                });
                 localStorage.setItem("modules", JSON.stringify(modules));
                 location.reload();
             };

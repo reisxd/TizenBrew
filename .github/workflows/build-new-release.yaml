@@ -6,7 +6,7 @@ on:
       - 'v*.*.*'
 
 env:
-  TIZEN_STUDIO_VER: 4.5.1
+  TIZEN_STUDIO_VER: 5.6
 
 jobs:
   build:
@@ -18,13 +18,20 @@ jobs:
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       
-      - name: Install modules and build service
+      - name: Install modules and build standalone service
         working-directory: tizenbrew-app/TizenBrew/service
         run: |
           sudo apt install -y expect zip
           npm install
           npm install -g @vercel/ncc
           npm install -g wgt-to-usb
+          ncc build service.js
+          rm -r node_modules
+
+      - name: Install modules and build updater service
+        working-directory: tizenbrew-updater/TizenBrewUpdater/service
+        run: |
+          npm install
           ncc build service.js
           rm -r node_modules
 
@@ -41,50 +48,107 @@ jobs:
           
       - name: Prepare Tizen Certificate
         run: |
-          ./tizen-studio/tools/ide/bin/tizen certificate -a TizenBrew -p 1234 -c NZ -s Aukland -ct Aukland -o Tizen -n TizenBrew -e reis@tizentube.live -f tizencert
-          ./tizen-studio/tools/ide/bin/tizen security-profiles add -n TizenBrew -a "${GITHUB_WORKSPACE}/tizen-studio-data/keystore/author/tizencert.p12" -p 1234
+          ${{ secrets.TIZEN_AUTHOR_KEY }} | base64 -d > "${GITHUB_WORKSPACE}/tizen-studio-data/keystore/author/tizenbrew-author.p12"
           ./tizen-studio/tools/ide/bin/tizen cli-config "profiles.path=${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml"
+          cp .github/assets/profiles.xml "${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml"
+          sed -i "s|\$GITHUB_WORKSPACE|${GITHUB_WORKSPACE}|g" "${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml"
+          sed -i "s|\$KEY_PW|${{ secrets.TIZEN_AUTHOR_KEY_PW }}|g" "${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml"
           chmod 755 "./tizen-studio-data/profile/profiles.xml"
 
-      - name: Build
+      - name: Build TizenBrew
         working-directory: tizenbrew-app/TizenBrew
         run: |
           ${GITHUB_WORKSPACE}/tizen-studio/tools/ide/bin/tizen build-web -e ".*" -e "node_modules/*" -e "package*.json" -e "yarn.lock"
 
-      - name: Prepare for password prompt
+      - name: Build TizenBrew Updater
+        working-directory: tizenbrew-updater/TizenBrewUpdater
         run: |
-          sed -i "s|${GITHUB_WORKSPACE}/tizen-studio-data/keystore/author/tizencert.pwd|1234|g" ${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml
-          sed -i "s|${GITHUB_WORKSPACE}/tizen-studio-data/tools/certificate-generator/certificates/distributor/tizen-distributor-signer.pwd|tizenpkcs12passfordsigner|g" ${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml
-          sed -i 's|password=""|password="tizenpkcs12passfordsigner"|g' ${GITHUB_WORKSPACE}/tizen-studio-data/profile/profiles.xml
-          
-      - name: Package WGT
+          ${GITHUB_WORKSPACE}/tizen-studio/tools/ide/bin/tizen build-web -e ".*" -e "node_modules/*" -e "package*.json" -e "yarn.lock"
+
+      - name: Package TizenBrew for Old Tizen
+        env:
+          PASSWORD: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
+          APP_PATH: tizenbrew-app/TizenBrew
+          CERT: TizenBrew-Old
         run: |
           expect ./package.exp
+          mv tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt
 
-      - name: Package WGT as USB Demo Package
+      - name: Package TizenBrew for New Tizen
+        env:
+          PASSWORD: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
+          APP_PATH: tizenbrew-app/TizenBrew
+          CERT: TizenBrew-New
         run: |
-          wgt-to-usb tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt 
+          expect ./package.exp
+          mv tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
+      
+      - name: Package TizenBrew Updater for Old Tizen
+        env:
+          PASSWORD: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
+          APP_PATH: tizenbrew-updater/TizenBrewUpdater
+          CERT: TizenBrew-Old
+        run: |
+          expect ./package.exp
+          mv tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater.wgt tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
+
+      - name: Package TizenBrew Updater for New Tizen
+        env:
+          PASSWORD: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
+          APP_PATH: tizenbrew-updater/TizenBrewUpdater
+          CERT: TizenBrew-New
+        run: |
+          expect ./package.exp
+          mv tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater.wgt tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
+
+      - name: Package TizenBrew as USB Demo Package
+        run: |
+          wgt-to-usb tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt 
         
-      - name: Upload Tizen package artifact
+      - name: Package Updater as USB Demo Package
+        run: |
+          wgt-to-usb tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
+
+      - name: Upload TizenBrew package artifact for Old Tizen
         uses: actions/upload-artifact@v2
         with:
-            name: app-${{ github.sha }}.wgt
-            path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt
-
-      - name: Release Build Result
-        uses: softprops/action-gh-release@v1
+            name: app-${{ github.sha }}-old.wgt
+            path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt
+      
+      - name: Upload TizenBrew package artifact for New Tizen
+        uses: actions/upload-artifact@v2
         with:
-          tag_name: ${{ env.RELEASE_VERSION }}
-          files: |
-            tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt
+            name: app-${{ github.sha }}-new.wgt
+            path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
 
+      - name: Upload TizenBrew Updater package artifact for Old Tizen
+        uses: actions/upload-artifact@v2
+        with:
+            name: updater-${{ github.sha }}-old.wgt
+            path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
+
+      - name: Upload TizenBrew Updater package artifact for New Tizen
+        uses: actions/upload-artifact@v2
+        with:
+            name: updater-${{ github.sha }}-new.wgt
+            path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
+      
       - name: Zip USB Demo Package
         run: |
           zip -r tizenbrew-app/TizenBrew/release/TizenBrewStandaloneUSBDemo.zip userwidget/
-
-      - name: Release USB Demo Package
+      
+      - name: Zip Updater USB Demo Package
+        run: |
+          zip -r tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdaterUSBDemo.zip userwidget/
+      
+      - name: Release TizenBrew Build Results
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.RELEASE_VERSION }}
           files: |
+            tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt
+            tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
+            tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
+            tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
             tizenbrew-app/TizenBrew/release/TizenBrewStandaloneUSBDemo.zip
+            tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdaterUSBDemo.zip

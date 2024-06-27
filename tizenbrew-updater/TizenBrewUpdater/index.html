@@ -2,13 +2,11 @@
 
 <html>
     <head>
-        <title>TizenBrew</title>
+        <title>TizenBrew Updater</title>
 
         <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
 
         <script src="./js/wsClient.js"></script>
-
-        <script src="./js/index.js"></script>
 
         <link rel="stylesheet" href="./css/style.css" />
     </head>
@@ -16,14 +14,11 @@
     <body>
         <div class="container">
             <div class="header">
-                <div>
-                    <div class="title">Tizen<span style="color: #0dc1e9;">Brew</span> Modules</div>
+                <div id="header">
+                    <div class="title">Tizen<span style="color: #0dc1e9;">Brew</span> Updater</div>
 
                     <div class="subtitle">
-                        <p>Launch your favorite apps with mods and tweaks on your Tizen device.</p>
-
-                        <p>Use the <span style="color: lightgreen;">GREEN</span> button to access the module manager.</p>
-                        <p>Use the <span style="color: #0dc1e9">BLUE</span> button to access the settings.</p>
+                        <p>Install and update your TizenBrew installation.</p>
                     </div>
                 </div>
 
@@ -106,65 +101,17 @@
 
                         break;
 
-                    case 13:
-                        var packageName = selectedItem.getAttribute("data-packagename");
-
-                        var appPath = selectedItem.getAttribute("data-appPath");
-                        
-                        var packageType = selectedItem.getAttribute("data-packageType");
-
-                        var moduleType = selectedItem.getAttribute("data-moduleType");
-
-                        if (!canLaunchModules) {
-                            alert("You can't launch modules while the service hasn't connected yet.");
-
-                            break;
-                        }
-
-                        if (packageType === 'service') {
-                            window.send({ type: "startService", package: { name: packageName, type: moduleType } });
-                        }
-                        window.send({ type: "launch", package: { name: packageName, type: moduleType }, isTizen3, tvIp: webapis.network.getIp() });
-                        var keys = selectedItem.getAttribute("data-keys");
-                        if (appPath.startsWith("http")) {
-                            if (keys.length > 0) {
-                                keys = selectedItem.getAttribute("data-keys").split(',');
-                                for (var i = 0; i < keys.length; i++) {
-                                    tizen.tvinputdevice.registerKey(keys[i]);
-                                }
-                            }
-                            setTimeout(() => {
-                                if (selectedItem.getAttribute('data-moddedTizenApp') === 'false') {
-                                    location.href = appPath;
-                                }
-                            }, 250);
-                        }
-
-                        break;
-
-                    case 404:
-                        location.href = "/moduleManager.html";
-
-                        break;
-                    case 406:
-                        location.href = "/settings.html";
-
-                        break;
-                    case 38:
-                        canAutoLaunch = false;
-
-                        break;
                 }
             };
         </script>
 
         <script>
-            var testWS = new WebSocket(`ws://127.0.0.1:8081`);
+            var testWS = new WebSocket(`ws://127.0.0.1:8082`);
 
             testWS.onerror = () => {
                 var pkg_id = tizen.application.getCurrentApplication().appInfo.packageId;
 
-                var service_id = pkg_id + ".StandaloneService";
+                var service_id = pkg_id + ".UpdaterService";
 
                 tizen.application.launchAppControl(
                     new tizen.ApplicationControl("http://tizen.org/appcontrol/operation/service"),
@@ -172,7 +119,7 @@
                     function () {
                         document.getElementById("wsText").innerText = "Service started.";
 
-                        window.begin();
+                        window.connect();
                     },
                     function (e) {
                         alert("Launch Service failed: " + e.message);
@@ -183,31 +130,10 @@
             testWS.onopen = () => {
                 document.getElementById("wsText").innerText = "Service is already running.";
 
-                window.begin();
+                window.connect();
 
                 testWS.close();
             };
-        </script>
-
-        <script>
-            if (localStorage.getItem('userAgent') != null) {
-                tizen.websetting.setUserAgentString(localStorage.getItem('userAgent'));
-            }
-
-            if (localStorage.getItem('autoLaunch') != null) {
-                document.getElementsByClassName('subtitle')[0].innerHTML += `<p>AutoLaunch is enabled. Press the [Arrow Up] button to disable AutoLaunch.</p>`;
-            }
-            tizen.tvinputdevice.registerKey("ColorF1Green");
-
-            tizen.tvinputdevice.registerKey("ColorF3Blue");
-
-            tizen.tvinputdevice.registerKey("ColorF0Red");
-
-            tizen.tvinputdevice.registerKey("ColorF2Yellow");
-
-            tizen.tvinputdevice.registerKey("Back");
-
-            tizen.tvinputdevice.registerKey("Exit");
         </script>
     </body>
 </html>

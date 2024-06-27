@@ -39,6 +39,10 @@ function onMessage(msg) {
                 localStorage.setItem('failedStartupAttempts', '0');
                 canLaunchModules = message.inDebug.webDebug;
                 send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
+                if (localStorage.getItem('autoLaunchService')) {
+                    send({ type: 'startService', packageName: localStorage.getItem('autoLaunchService') });
+                }
+                send({ type: 'getServiceStatuses' });
             } else {
                 send({ type: 'canLaunchInDebug' });
                 /*
@@ -60,7 +64,7 @@ function onMessage(msg) {
                 document.getElementById('appList').innerHTML = '';
                 for (const module of message.modules) {
                     document.getElementById('appList').innerHTML += `
-                    <div data-packagename="${module.name}" data-appPath="${module.appPath}" class="card ${firstOne ? 'selected' : ''}" tabindex="0" data-keys="${module.keys.join(',')}">
+                    <div data-packagename="${module.name}" data-appPath="${module.appPath}" class="card ${firstOne ? 'selected' : ''}" tabindex="0" data-keys="${module.keys.join(',')}" data-moddedTizenApp="${module.tizenAppId ? true : false}" data-packageType="${module.packageType}" data-moduleType="${module.moduleType}">
                         <div>
                             <h1>${module.appName}</h1>
                             <h3>
@@ -92,9 +96,10 @@ function onMessage(msg) {
             document.getElementById('wsText').innerText = 'Connected to server.';
 
             if (canAutoLaunch && localStorage.getItem('autoLaunch')) {
-                const app = document.querySelector(`[data-packagename="${localStorage.getItem('autoLaunch')}"]`);
+                const autoLaunch = JSON.parse(localStorage.getItem('autoLaunch'));
+                const app = document.querySelector(`[data-packagename="${autoLaunch.name}"]`);
                 if (!app) {
-                    showError(`Error: Could not find the module ${localStorage.getItem('autoLaunch')}.`);
+                    showError(`Error: Could not find the module ${autoLaunch.name}.`);
                     return;
                 } else {
                     const appPath = app.getAttribute('data-appPath');
@@ -105,10 +110,24 @@ function onMessage(msg) {
                             tizen.tvinputdevice.registerKey(keys[i]);
                         }
                     }
+                    var packageType = selectedItem.getAttribute("data-packageType");
 
+                    var moduleType = selectedItem.getAttribute("data-moduleType");
+
+                    if (!canLaunchModules) {
+                        alert("You can't launch modules while the service hasn't connected yet.");
+
+                        break;
+                    }
+
+                    if (packageType === 'service') {
+                        send({ type: "startService", package: autoLaunch });
+                    }
                     setTimeout(() => {
-                        send({ type: 'launch', packageName: localStorage.getItem('autoLaunch') });
-                        location.href = appPath;
+                        send({ type: 'launch', package: autoLaunch, isTizen3, tvIp: webapis.network.getIp() });
+                        if (app.getAttribute('data-moddedTizenApp') === 'false') {
+                            location.href = appPath;
+                        }
                     }, 250);
                 }
             }
@@ -125,6 +144,13 @@ function onMessage(msg) {
                 tizen.application.getCurrentApplication().exit();
             } else {
                 showError(`Error: Could not connect to the server. Are you sure you changed the Host PC IP to 127.0.0.1? If you have, hold the power button till you see the Samsung logo.`);
+            }
+            break;
+        }
+        case 'serviceStatuses': {
+            const crashedServices = message.services.filter(service => service.hasCrashed);
+            if (crashedServices.length > 0) {
+                showError(`Error: The following services have crashed: ${crashedServices.map(service => service.name).join(', ')}`);
             }
             break;
         }
