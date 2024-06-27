@@ -45,7 +45,11 @@ jobs:
           ./tizen-installer --accept-license "${GITHUB_WORKSPACE}/tizen-studio"
           rm ./tizen-installer
           echo 'export PATH=$PATH:${GITHUB_WORKSPACE}/tizen-studio/tools/ide/bin' >> .bashrc
-          
+        
+      - name: Test
+        run: |
+          whereis base64
+
       - name: Prepare Tizen Certificate
         run: |
           ${{ secrets.TIZEN_AUTHOR_KEY }} | base64 -d > "${GITHUB_WORKSPACE}/tizen-studio-data/keystore/author/tizenbrew-author.p12"
