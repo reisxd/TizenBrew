@@ -73,6 +73,7 @@ jobs:
           CERT: TizenBrew-Old
         run: |
           expect ./package.exp
+          cat "${GITHUB_WORKSPACE}/tizen-studio-data/cli/logs/cli.log"
           mv tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt
 
       - name: Package TizenBrew for New Tizen
