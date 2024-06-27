@@ -92,7 +92,7 @@ jobs:
           CERT: TizenBrew-Old
         run: |
           expect ./package.exp
-          mv tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater.wgt tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
+          mv "tizenbrew-updater/TizenBrewUpdater/release/TizenBrew Updater.wgt" tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
 
       - name: Package TizenBrew Updater for New Tizen
         env:
@@ -101,7 +101,7 @@ jobs:
           CERT: TizenBrew-New
         run: |
           expect ./package.exp
-          mv tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater.wgt tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
+          mv "tizenbrew-updater/TizenBrewUpdater/release/TizenBrew Updater.wgt" tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
 
       - name: Package TizenBrew as USB Demo Package
         run: |
