@@ -104,12 +104,14 @@ jobs:
           mv "tizenbrew-updater/TizenBrewUpdater/release/TizenBrew Updater.wgt" tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
 
       - name: Package TizenBrew as USB Demo Package
+        working-directory: tizenbrew-app/TizenBrew
         run: |
-          wgt-to-usb tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt 
+          wgt-to-usb release/TizenBrewStandalone-Old.wgt 
         
       - name: Package Updater as USB Demo Package
+        working-directory: tizenbrew-updater/TizenBrewUpdater
         run: |
-          wgt-to-usb tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
+          wgt-to-usb release/TizenBrewUpdater-Old.wgt
 
       - name: Upload TizenBrew package artifact for Old Tizen
         uses: actions/upload-artifact@v2
@@ -136,12 +138,14 @@ jobs:
             path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
       
       - name: Zip USB Demo Package
+        working-directory: tizenbrew-app/TizenBrew
         run: |
-          zip -r tizenbrew-app/TizenBrew/release/TizenBrewStandaloneUSBDemo.zip userwidget/
+          zip -r release/TizenBrewStandaloneUSBDemo.zip userwidget/
       
       - name: Zip Updater USB Demo Package
+        working-directory: tizenbrew-updater/TizenBrewUpdater
         run: |
-          zip -r tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdaterUSBDemo.zip userwidget/
+          zip -r release/TizenBrewUpdaterUSBDemo.zip userwidget/
       
       - name: Release TizenBrew Build Results
         uses: softprops/action-gh-release@v1
