@@ -79,7 +79,7 @@ Note that tizen is in `C:\tizen-studio\tools\ide\bin` on Windows and in `~/tizen
 7. You can now launch the TizenBrew app on your TV.
 
 
-## Rebuiding TizenBrew
+## Rebuilding TizenBrew
 
 To rebuild TizenBrew, you need to have Node.js installed on your system. You can install Node.js from [here](https://nodejs.org/). You also need to have Tizen Studio installed on your system. You can install Tizen Studio from [here](https://developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk/installing-tv-sdk.html).
 
