@@ -21,10 +21,11 @@ jobs:
       - name: Install modules and build standalone service
         working-directory: tizenbrew-app/TizenBrew/service
         run: |
-          sudo apt install -y expect zip coreutils 
+          sudo apt install -y expect zip coreutils
+          sudo curl -Lo /usr/bin/ldid https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_x86_64
+          sudo chmod a+rwx /usr/bin/ldid
           npm install
-          npm install -g @vercel/ncc
-          npm install -g wgt-to-usb
+          npm install -g @vercel/ncc wgt-to-usb pkg
           ncc build service.js
           rm -r node_modules
 
@@ -113,6 +114,11 @@ jobs:
         run: |
           wgt-to-usb release/TizenBrewUpdater-Old.wgt
 
+      - name: Package Updater for Desktop
+        working-directory: tizenbrew-updater/TizenBrewUpdater
+        run: |
+          pkg -C GZip -t node18-win-x64,node18-linux-x64,node18-macos-arm64 -o dist/tizenbrew-updater service/dist/index.js
+
       - name: Upload TizenBrew package artifact for Old Tizen
         uses: actions/upload-artifact@v2
         with:
@@ -152,9 +158,6 @@ jobs:
         with:
           tag_name: ${{ env.RELEASE_VERSION }}
           files: |
-            tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt
-            tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
-            tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
-            tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
-            tizenbrew-app/TizenBrew/release/TizenBrewStandaloneUSBDemo.zip
-            tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdaterUSBDemo.zip
+            tizenbrew-app/TizenBrew/release/*
+            tizenbrew-updater/TizenBrewUpdater/release/*
+            tizenbrew-updater/TizenBrewUpdater/dist/*

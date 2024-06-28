@@ -1,14 +1,18 @@
 "use strict";
 // TizenBrew Updater Service
 
-const isTV = process.platform === 'linux' && process.title.startsWith('/opt/usr/apps/');
+const isTV = process.platform === 'linux' && process.title.startsWith('/opt/usr/home/');
 module.exports.onStart = function () {
     console.log('Service started.');
     const adbhost = require('adbhost');
     const WebSocket = require('ws');
     const pushFile = require('./filePush.js');
     const ghApi = require('./ghApi.js');
-    const server = new WebSocket.Server({ port: 8082 });
+    const fetch = require('node-fetch');
+    const express = require('express');
+    const app = express();
+    app.use(express.static('./'));
+    const server = new WebSocket.Server({ server: app.listen(8083) });
 
     global.currentClient = null;
     let adb;
@@ -69,7 +73,7 @@ module.exports.onStart = function () {
                     break;
                 }
                 case 'connectToDaemon': {
-                    createAdbConnection(message.ip);
+                    createAdbConnection(message.ip ? message.ip : '127.0.0.1');
                     break;
                 }
                 case 'isAppInstalled': {
@@ -102,7 +106,7 @@ module.exports.onStart = function () {
                         if (tvVersion >= 8) {
                             type = 'New';
                         } else type = 'Old';
-                    } else type = message.type;
+                    } else type = message.installType;
 
                     ghApi.downloadLatestRelease(type).then((data) => {
                         pushFile(adb, '/home/owner/share/tmp/sdk_tools', 'TizenBrewStandalone.wgt', data, () => installApp());
@@ -118,30 +122,31 @@ module.exports.onStart = function () {
     });
 
     function installApp() {
-        const stream = adb.createStream('shell:0 vd_appinstall xvvl3S1bvH /home/owner/share/tmp/sdk_tools/TizenBrewStandalone.wgt');
+        global.currentClient.send(JSON.stringify({ type: 'message', msg: 'Installing...' }));
+        const stream = adb.createStream('shell:0 vd_appinstall xvvl3S1bvH.TizenBrewStandalone /home/owner/share/tmp/sdk_tools/TizenBrewStandalone.wgt');
         const installTimeout = setTimeout(() => {
-            const stream = adb.createStream('shell:0 vd_appinstall xvvl3S1bvH.TizenBrewStandalone /home/owner/share/tmp/sdk_tools/TizenBrewStandalone.wgt');
+            const stream = adb.createStream('shell:0 vd_appinstall xvvl3S1bvH /home/owner/share/tmp/sdk_tools/TizenBrewStandalone.wgt');
             const failedTimeout = setTimeout(() => global.currentClient.send(JSON.stringify({ type: 'error', message: 'Could not install app.' })), 2500);
             stream.on('data', (data) => {
                 const string = data.toString();
-                if (string.includes('18')) {
+                if (string.includes('installing')) {
                     clearTimeout(failedTimeout);
                 } else if (string.includes('failed')) {
                     clearTimeout(failedTimeout);
                     global.currentClient.send(JSON.stringify({ type: 'error', message: `Could not install app. Reason: ${string}` }));
-                } else if (string.includes('100')) {
+                } else if (string.includes('completed')) {
                     global.currentClient.send(JSON.stringify({ type: 'message', msg: 'App installed' }));
                 }
             });
-        }, 1500);
+        }, 5000);
         stream.on('data', (data) => {
             const string = data.toString();
-            if (string.includes('18')) {
+            if (string.includes('installing')) {
                 clearTimeout(installTimeout);
             } else if (string.includes('failed')) {
                 clearTimeout(installTimeout);
                 global.currentClient.send(JSON.stringify({ type: 'error', message: `Could not install app. Reason: ${string}` }));
-            } else if (string.includes('100')) {
+            } else if (string.includes('completed')) {
                 global.currentClient.send(JSON.stringify({ type: 'message', msg: 'App installed' }));
             }
         });
@@ -171,4 +176,5 @@ module.exports.onStart = function () {
 
 if (!isTV) {
     module.exports.onStart();
+    console.log('Please open up http://localhost:8083 in your browser.')
 }

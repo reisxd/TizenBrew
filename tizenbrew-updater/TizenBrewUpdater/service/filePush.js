@@ -4,6 +4,7 @@ const AdbPacket = require('adbhost/lib/packet.js');
 const commands = AdbPacket.commands;
 
 module.exports = function (adb, path, fileName, data, cb) {
+    global.currentClient.send(JSON.stringify({ type: 'message', message: 'Pushing file...'}));
     const shell = adb.createStream('sync:');
     setTimeout(() => {
         const statBuffer = new Buffer(8);

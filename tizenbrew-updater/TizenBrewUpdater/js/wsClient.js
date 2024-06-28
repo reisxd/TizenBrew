@@ -6,7 +6,7 @@ let client;
 
 window.connect = function() {
     try {
-        client = new WebSocket(`ws://127.0.0.1:8082`);
+        client = new WebSocket(`ws://127.0.0.1:8083`);
         client.onmessage = onMessage;
         client.onopen = onOpen;
         client.onerror = () => {
@@ -40,7 +40,9 @@ function onMessage(msg) {
             break;
         }
         case 'connectedToDaemon': {
-            isTizen8 = document.getElementById('tizen8').checked;
+            if (!isTV) {
+                isTizen8 = document.getElementById('tizen8').checked;
+            }
             document.getElementById('wsText').innerText = 'Connected to Daemon';
             try {
                 if (isTV) {
@@ -49,7 +51,7 @@ function onMessage(msg) {
                 } else {
                     send({ type: 'isAppInstalled' })
                 }
-            } catch {
+            } catch(_) {
                 addButtons(false);
             }
             break;
@@ -120,5 +122,5 @@ window.manageTizenBrew = function(isUpdate) {
     } else {
         send({ type: 'installApp' });
     }*/
-    send({ type: 'installApp', type: isTizen8 ? 'New' : 'Old' });
+    send({ type: 'installApp', installType: isTizen8 ? 'New' : 'Old' });
 }

@@ -101,12 +101,15 @@
 
                         break;
 
+                    case 13:
+                        selectedItem.click();
+
                 }
             };
         </script>
 
         <script>
-            var testWS = new WebSocket(`ws://127.0.0.1:8082`);
+            var testWS = new WebSocket(`ws://127.0.0.1:8083`);
 
             testWS.onerror = () => {
                 var pkg_id = tizen.application.getCurrentApplication().appInfo.packageId;
