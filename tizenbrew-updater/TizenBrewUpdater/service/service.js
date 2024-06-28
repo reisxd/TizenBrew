@@ -11,7 +11,8 @@ module.exports.onStart = function () {
     const fetch = require('node-fetch');
     const express = require('express');
     const app = express();
-    app.use(express.static('./'));
+    app.use(express.static('/snapshot/TizenBrewUpdater'));
+    const fs = require('fs');
     const server = new WebSocket.Server({ server: app.listen(8083) });
 
     global.currentClient = null;

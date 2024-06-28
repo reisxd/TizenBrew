@@ -1,0 +1,18 @@
+{
+    "name": "tizenbrew-updater",
+    "bin": "service/dist/index.js",
+    "main": "service/dist/index.js",
+    "pkg": {
+        "assets": [
+            "js/*.js",
+            "css/*.css",
+            "*.html"
+        ],
+        "targets": [
+            "node18-linux-x64",
+            "node18-win-x64",
+            "node18-macos-arm64"
+        ],
+        "outputPath": "dist"
+    }
+}
