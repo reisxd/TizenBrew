@@ -18,6 +18,7 @@ Site modification modules are basically the same as application modules, but the
 - `packageType`: The type of the module. Should be `mods`
 - `appName`: The name of the module (user friendly, like "TizenTube").
 - `websiteURL`: The URL of the website.
+- `serviceFile`: The main JavaScript file of the service. Used if exists.
 - `main`: The JavaScript file to be injected to the website.
 - `keys`: The keys that should be registered using the [TVInputDevice](https://developer.samsung.com/smarttv/develop/api-references/tizen-web-device-api-references/tvinputdevice-api.html) API.
 - `tizenAppId`: The Tizen application ID of the application that should be modified. Will be used if it exists.

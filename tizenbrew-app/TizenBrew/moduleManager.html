@@ -84,7 +84,8 @@
                         var hasConfirmined = confirm(`Do you want to remove ${packageName}?`);
                         if (hasConfirmined) {
                             var modules = JSON.parse(localStorage.getItem("modules"));
-                            var newModules = modules.filter((module) => module.name != packageName && module.type != packageType);
+                        
+                            var newModules = modules.filter((module) => module.name != packageName);
                             localStorage.setItem("modules", JSON.stringify(newModules));
                             location.reload();
                         }
@@ -116,7 +117,7 @@
                 document.getElementById("appList").innerHTML = "";
                 for (const module of modules) {
                     document.getElementById("appList").innerHTML += `
-                    <div data-packagename="${module}" class="card ${firstOne ? "selected" : ""}" tabindex="0" data-packagetype="${module.type}">
+                    <div data-packagename="${module.name}" class="card ${firstOne ? "selected" : ""}" tabindex="0" data-packagetype="${module.type}">
                             <h1>${module.name}</h1>
                     </div>
                     `;
@@ -156,7 +157,7 @@
             document.getElementById("appList").innerHTML += `
                 <div class="card" id="add" data-packagetype="${type}">
                 <h1>Add Module</h1>
-                <label class="label">Module Name (For ${type.toUpperCase}):</label>
+                <label class="label">Module Name (For ${type.toUpperCase()}):</label>
                 <input type="text" class="form-input" placeholder="@foxreis/tizentube" id="appName" tabindex="0">
         </div>
         `;

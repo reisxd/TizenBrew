@@ -49,6 +49,7 @@ module.exports.onStart = function () {
     };
     global.currentClient = null;
     global.services = new Map();
+    global.appControlData = null;
 
     function createAdbConnection(isTizen3, ip, appId) {
         if (adb) {
@@ -94,6 +95,20 @@ module.exports.onStart = function () {
             }
 
             switch (message.type) {
+                case 'launchAppControl': {
+                    loadModules([message.package]).then(modules => {
+                        const module = modules.find(m => m.name === message.package.name);
+                        if (!module) {
+                            ws.send(JSON.stringify({ type: 'error', message: 'Module not found.' }));
+                            return;
+                        }
+                        global.appControlData = {
+                            module,
+                            args: message.args
+                        };
+                    });
+                    break;
+                }
                 case 'getDebugStatus': {
                     ws.send(JSON.stringify({ type: 'debugStatus', inDebug: global.inDebug }));
                     break;
@@ -139,6 +154,9 @@ module.exports.onStart = function () {
                                 type: 'app',
                                 path: `http://127.0.0.1:8081/module/${message.package.type}/${encodeURIComponent(message.package.name)}/${module.appPath}`
                             }
+
+                            global.inDebug.tizenDebug = false;
+                            global.inDebug.webDebug = false;
                         }
                     });
                     break;

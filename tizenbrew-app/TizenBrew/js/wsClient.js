@@ -45,16 +45,6 @@ function onMessage(msg) {
                 send({ type: 'getServiceStatuses' });
             } else {
                 send({ type: 'canLaunchInDebug' });
-                /*
-                const failedStartupAttempts = parseInt(localStorage.getItem('failedStartupAttempts'));
-                if (failedStartupAttempts < 2) {
-                    localStorage.setItem('failedStartupAttempts', failedStartupAttempts + 1);
-                    send({ type: 'relaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
-                    tizen.application.getCurrentApplication().exit();
-                } else {
-                    showError(`Error: Could not connect to the server after 3 attempts. Are you sure you changed the Host PC IP to 127.0.0.1?`);
-                    localStorage.setItem('failedStartupAttempts', '0');
-                }*/
             }
             break;
         }
@@ -64,7 +54,7 @@ function onMessage(msg) {
                 document.getElementById('appList').innerHTML = '';
                 for (const module of message.modules) {
                     document.getElementById('appList').innerHTML += `
-                    <div data-packagename="${module.name}" data-appPath="${module.appPath}" class="card ${firstOne ? 'selected' : ''}" tabindex="0" data-keys="${module.keys.join(',')}" data-moddedTizenApp="${module.tizenAppId ? true : false}" data-packageType="${module.packageType}" data-moduleType="${module.moduleType}">
+                    <div data-packagename="${module.name}" data-appPath="${module.appPath}" class="card ${firstOne ? 'selected' : ''}" tabindex="0" data-keys="${module.keys.join(',')}" data-moddedTizenApp="${module.tizenAppId ? true : false}" data-packageType="${module.serviceFile && module.packageType === 'mods' ? 'service-mods' : module.packageType}" data-moduleType="${module.moduleType}">
                         <div>
                             <h1>${module.appName}</h1>
                             <h3>
@@ -95,6 +85,39 @@ function onMessage(msg) {
             canLaunchModules = true;
             document.getElementById('wsText').innerText = 'Connected to server.';
 
+            const autoLaunchService = JSON.parse(localStorage.getItem('autoLaunchService'));
+
+            if (autoLaunchService) {
+                send({ type: 'startService', package: autoLaunchService });
+            }
+
+            if (message.appControlData) {
+                const moduleName = message.appControlData.module.name;
+                const moduleType = message.appControlData.module.type;
+                const keys = message.appControlData.module.keys;
+                const appPath = message.appControlData.module.appPath;
+                const tizenAppId = message.appControlData.module.tizenAppId;
+                const args = message.appControlData.args;
+
+                if (keys.length > 0) {
+                    keys.forEach(key => {
+                        tizen.tvinputdevice.registerKey(key);
+                    });
+                }
+
+                if (message.appControlData.module.serviceFile) {
+                    send({ type: 'startService', package: { name: moduleName, type: moduleType } });
+                }
+
+                setTimeout(() => {
+                    send({ type: 'launch', package: { name: moduleName, type: moduleType } });
+                    if (!tizenAppId) {
+                        location.href = `${appPath}${args ? `?${args}` : ''}`;
+                    }
+                }, 250);
+                return;
+            }
+
             if (canAutoLaunch && localStorage.getItem('autoLaunch')) {
                 const autoLaunch = JSON.parse(localStorage.getItem('autoLaunch'));
                 const app = document.querySelector(`[data-packagename="${autoLaunch.name}"]`);
@@ -110,19 +133,13 @@ function onMessage(msg) {
                             tizen.tvinputdevice.registerKey(keys[i]);
                         }
                     }
+
                     var packageType = selectedItem.getAttribute("data-packageType");
 
-                    var moduleType = selectedItem.getAttribute("data-moduleType");
-
-                    if (!canLaunchModules) {
-                        alert("You can't launch modules while the service hasn't connected yet.");
-
-                        break;
-                    }
-
-                    if (packageType === 'service') {
+                    if (packageType === 'service' || packageType === 'service-mods') {
                         send({ type: "startService", package: autoLaunch });
                     }
+
                     setTimeout(() => {
                         send({ type: 'launch', package: autoLaunch, isTizen3, tvIp: webapis.network.getIp() });
                         if (app.getAttribute('data-moddedTizenApp') === 'false') {
@@ -163,4 +180,14 @@ function onMessage(msg) {
 function onOpen() {
     // We have to get the debug status to know if we need to relaunch in debug mode.
     send({ type: 'getDebugStatus' });
+    const data = tizen.application.getCurrentApplication().getRequestedAppControl().appControl.data;
+    if (data.length > 0) {
+        // TizenBrew allows other apps to launch a specific module outside of the TizenBrew app.
+        const moduleName = data[0].value.moduleName;
+        const moduleType = data[0].value.moduleType;
+        const args = data[0].value.args;
+
+        // Send the data to the server and launch it after TizenBrew relaunches.
+        send({ type: 'launchAppControl', package: { name: moduleName, type: moduleType }, args });
+    }
 }

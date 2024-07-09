@@ -35,6 +35,7 @@ function loadModules(moduleList) {
                         appName: moduleJson.appName,
                         description: moduleJson.description,
                         appPath: moduleJson.websiteURL,
+                        serviceFile: moduleJson.serviceFile,
                         packageType: moduleJson.packageType,
                         mainFile: moduleJson.main,
                         keys: moduleJson.keys || [],
@@ -47,6 +48,11 @@ function loadModules(moduleList) {
             .catch(e => {
                 return {
                     appName: module.name,
+                    name: module.name,
+                    appPath: 'file://index.html',
+                    keys: [],
+                    moduleType: module.type,
+                    packageType: 'app',
                     description: `Unknown module ${module.name}. Please check the module name and try again.`
                 }
             });

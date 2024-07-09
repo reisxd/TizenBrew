@@ -14,8 +14,9 @@ function startDebugging(port, adb_conn, ip) {
         ).then(
             debuggerJson => {
                 global.inDebug.webDebug = true;
-                global.currentClient.send(JSON.stringify({ type: 'canLaunchModules' }));
+                global.currentClient.send(JSON.stringify({ type: 'canLaunchModules', appControlData: global.appControlData }));
                 clearInterval(connectionInterval);
+                global.appControlData = null;
                 return attachDebugger(debuggerJson[0].webSocketDebuggerUrl, adb_conn);
             }).catch(
                 e => {

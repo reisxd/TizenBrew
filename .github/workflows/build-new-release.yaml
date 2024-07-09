@@ -117,7 +117,7 @@ jobs:
       - name: Package Updater for Desktop
         working-directory: tizenbrew-updater/TizenBrewUpdater
         run: |
-          pkg -C GZip .
+          pkg -C GZip . --no-bytecode --public
 
       - name: Upload TizenBrew package artifact for Old Tizen
         uses: actions/upload-artifact@v2
