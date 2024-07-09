@@ -49,7 +49,7 @@ function loadModules(moduleList) {
                 return {
                     appName: module.name,
                     name: module.name,
-                    appPath: 'file://index.html',
+                    appPath: '',
                     keys: [],
                     moduleType: module.type,
                     packageType: 'app',
