@@ -33,6 +33,10 @@ window.send = (message) => {
 function onMessage(msg) {
     const message = JSON.parse(msg.data);
     switch (message.type) {
+        case 'launchAppControlFinished': {
+            send({ type: 'getDebugStatus' });
+            break;
+        }
         case 'debugStatus': {
             if (message.inDebug.tizenDebug) {
                 hideError();
@@ -40,7 +44,7 @@ function onMessage(msg) {
                 canLaunchModules = message.inDebug.webDebug;
                 send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
                 if (localStorage.getItem('autoLaunchService')) {
-                    send({ type: 'startService', packageName: localStorage.getItem('autoLaunchService') });
+                    send({ type: 'startService', package: JSON.parse(localStorage.getItem('autoLaunchService')) });
                 }
                 send({ type: 'getServiceStatuses' });
             } else {
@@ -93,7 +97,7 @@ function onMessage(msg) {
 
             if (message.appControlData) {
                 const moduleName = message.appControlData.module.name;
-                const moduleType = message.appControlData.module.type;
+                const moduleType = message.appControlData.module.moduleType;
                 const keys = message.appControlData.module.keys;
                 const appPath = message.appControlData.module.appPath;
                 const tizenAppId = message.appControlData.module.tizenAppId;
@@ -110,7 +114,7 @@ function onMessage(msg) {
                 }
 
                 setTimeout(() => {
-                    send({ type: 'launch', package: { name: moduleName, type: moduleType } });
+                    send({ type: 'launch', package: { name: moduleName, type: moduleType }, isTizen3, tvIp: webapis.network.getIp() });
                     if (!tizenAppId) {
                         location.href = `${appPath}${args ? `?${args}` : ''}`;
                     }
@@ -179,15 +183,18 @@ function onMessage(msg) {
 
 function onOpen() {
     // We have to get the debug status to know if we need to relaunch in debug mode.
-    send({ type: 'getDebugStatus' });
     const data = tizen.application.getCurrentApplication().getRequestedAppControl().appControl.data;
-    if (data.length > 0) {
+    if (data.length > 0 && data[0].value.length > 0) {
         // TizenBrew allows other apps to launch a specific module outside of the TizenBrew app.
-        const moduleName = data[0].value.moduleName;
-        const moduleType = data[0].value.moduleType;
-        const args = data[0].value.args;
-
-        // Send the data to the server and launch it after TizenBrew relaunches.
-        send({ type: 'launchAppControl', package: { name: moduleName, type: moduleType }, args });
-    }
+        try {
+            const parsedData = JSON.parse(data[0].value[0]);
+            const moduleName = parsedData.moduleName;
+            const moduleType = parsedData.moduleType;
+            const args = parsedData.args;
+            // Send the data to the server and launch it after TizenBrew relaunches.
+            send({ type: 'launchAppControl', package: { name: moduleName, type: moduleType }, args });
+        } catch (e) {
+            send({ type: 'getDebugStatus' });
+        }
+    } else send({ type: 'getDebugStatus' });
 }

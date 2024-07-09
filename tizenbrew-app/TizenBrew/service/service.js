@@ -106,6 +106,8 @@ module.exports.onStart = function () {
                             module,
                             args: message.args
                         };
+
+                        ws.send(JSON.stringify({ type: 'launchAppControlFinished' }));
                     });
                     break;
                 }
