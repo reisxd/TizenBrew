@@ -30,7 +30,7 @@ This method is easier than the USB Demo Package method, but it works only on Tiz
 
 1. Change the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
 
-2. Open up https://tizentube.live/installer on your TV's browser.
+2. Open up https://tizentube.vercel.app/installer on your TV's browser.
 
 3. Click on the "Install TizenBrew" button.
 

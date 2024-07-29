@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="https://tizentube.live"
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="https://tizentube.vercel.app"
    version="1.0.1" viewmodes="maximized">
    <access origin="*" subdomains="true" />
    <tizen:app-control>
@@ -7,7 +7,7 @@
       <tizen:operation name='http://samsung.com/appcontrol/operation/eden_resume'></tizen:operation> 
    </tizen:app-control>
    <tizen:application id="CvGD31Zr00.TizenBrewUpdater" package="CvGD31Zr00" required_version="3.0" />
-   <author href="https://tizentube.live">Reis Can</author>
+   <author href="https://tizentube.vercel.app">Reis Can</author>
    <content src="index.html" />
    <feature name="http://tizen.org/feature/screen.size.all" />
    <tizen:privilege name="http://tizen.org/privilege/internet" />
