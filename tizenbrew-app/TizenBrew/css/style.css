@@ -38,18 +38,18 @@ body {
 }
 
 .title {
-    font-size: 3rem;
+    font-size: 3vw;
     font-weight: bold;
     color: #ffffff;
 }
 
 .subtitle p {
-    font-size: 1.5rem;
+    font-size: 1.3vw;
     color: #cccccc;
     margin: 0.2rem;
 }
 .status {
-    font-size: 1.2rem;
+    font-size: 1.5vw;
     padding: 0.5rem;
     border: 0.5px solid #aaa;
     color: snow;
@@ -65,11 +65,11 @@ body {
 }
 
 .card {
-    width: 23.5rem;
-    height: 16.5rem;
-    margin: 0.5rem;
-    padding: 0.8rem;
-    border-radius: 0.5rem;
+    width: 25vw;
+    height: 18vw;
+    margin: 0.5vw;
+    padding: 0.8vw;
+    border-radius: 0.5vw;
     background-color: #202020;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -86,13 +86,13 @@ body {
     border: 1px solid #0dc1e9;
 }
 .card h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5vw;
+    margin-bottom: 0.5vw;
     color: #ffffff;
 }
 
 .card h3 {
-    font-size: 1rem;
+    font-size: 1vw;
     color: #cccccc;
     font-weight: 400;
     overflow: hidden;
@@ -101,22 +101,21 @@ body {
     display: none;
     align-items: center;
     padding: 0.3rem;
-    margin: 0.3rem 0;
+    margin: 0.3vw 0;
     border: 2px solid red;
     border-radius: 8px;
     background-color: #222;
     align-self: center;
     width: 80%;
     color: #ccc;
-    font-size: 1.2rem;
     animation: blink-border 1s linear infinite;
     z-index: 1;
-    font-size: 1.5rem;
+    font-size: 1.5vw;
 }
 
 .exclamation-mark {
-    font-size: 2rem;
-    margin: 0 1rem;
+    font-size: 2vw;
+    margin: 0 1vw;
     animation: fade 1s linear infinite;
 }
 
@@ -144,15 +143,15 @@ body {
     border: 1px solid #0dc1e9;
     border-radius: 8px;
     background-color: #191919;
-    font-size: 1rem;
+    font-size: 1vw;
 }
 
 .footer {
     text-align: center;
-    padding: 0.5rem;
+    padding: 0.5vw;
 }
 
 .footer p {
     color: silver;
-    font-size: 1.5rem;
+    font-size: 1.5vw;
 }

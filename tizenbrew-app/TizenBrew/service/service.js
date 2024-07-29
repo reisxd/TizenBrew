@@ -65,7 +65,8 @@ module.exports.onStart = function () {
         adb._stream.on('connect', () => {
             console.log('ADB connection established');
             //Launch app
-            const shellCmd = adb.createStream(`shell:0 debug ${appId ? appId : 'xvvl3S1bvH.TizenBrewStandalone'}${isTizen3 ? ' 0' : ''}`);
+            const tbPackageId =  tizen.application.getAppInfo().packageId;
+            const shellCmd = adb.createStream(`shell:0 debug ${appId ? appId : `${tbPackageId}.TizenBrewStandalone`}${isTizen3 ? ' 0' : ''}`);
             shellCmd.on('data', function dataIncoming(data) {
                 const dataString = data.toString();
                 if (dataString.includes('debug')) {
@@ -91,7 +92,7 @@ module.exports.onStart = function () {
             try {
                 message = JSON.parse(msg);
             } catch (e) {
-                return ws.send(JSON.stringify({ type: 'error', message: 'Invalid JSON.' }));
+                return ws.send(JSON.stringify({ type: 'error', message: `Invalid JSON: ${msg}` }));
             }
 
             switch (message.type) {
