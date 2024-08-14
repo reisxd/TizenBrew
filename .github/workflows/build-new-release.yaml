@@ -1,4 +1,4 @@
-name: Build TizenBrew Standalone Application and Release
+name: Build TizenBrew
 
 on:
   push:
@@ -192,14 +192,15 @@ jobs:
               "tizenbrew-updater/TizenBrewUpdater/dist"
           )
           OUTDIR="all-build-files"
+          mkdir $OUTDIR
 
           for DIR in "${DIRS[@]}"; do
-            for FILE in "./$DIR"/*; do
-              cp "./$FILE" "./$OUTDIR"
+            for FILE in "$DIR"/*; do
+              cp "$FILE" "$OUTDIR"
             done
           done
 
-          for FILE in "./$OUTDIR"/*; do
+          for FILE in "$OUTDIR"/*; do
             if [ -f "$FILE" ]; then
               BASENAME=$(basename "$FILE" | cut -d. -f1)
               EXTENSION="${FILE##*.}"
