@@ -2,8 +2,9 @@ name: Build TizenBrew Standalone Application and Release
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches:
+      - '**'
+  workflow_dispatch:
 
 env:
   TIZEN_STUDIO_VER: 5.6
@@ -13,38 +14,66 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
-      - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Set env and variables
+        id: variables
+        run: |
+          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+          echo "hash=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_OUTPUT
       
-      - name: Install modules and build standalone service
-        working-directory: tizenbrew-app/TizenBrew/service
+      - name: Install additional packages and npm modules
         run: |
           sudo apt install -y expect zip coreutils
           sudo curl -Lo /usr/bin/ldid https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_x86_64
           sudo chmod a+rwx /usr/bin/ldid
-          npm install
           npm install -g @vercel/ncc wgt-to-usb pkg
-          ncc build service.js
-          rm -r node_modules
 
-      - name: Install modules and build updater service
+      - name: Install modules for standalone service
+        working-directory: tizenbrew-app/TizenBrew/service
+        run: |
+          npm install
+
+      - name: Install modules for updater service
         working-directory: tizenbrew-updater/TizenBrewUpdater/service
         run: |
           npm install
+
+      - name: Build standalone service
+        working-directory: tizenbrew-app/TizenBrew/service
+        run: |
+          ncc build service.js
+          rm -r node_modules
+  
+      - name: Build updater service
+        working-directory: tizenbrew-updater/TizenBrewUpdater/service
+        run: |
           ncc build service.js
           rm -r node_modules
 
-      - name: Download Tizen-Studio
+      - name: Cache Tizen Studio
+        id: cache-tizen-studio
+        uses: actions/cache@v4
+        with:
+          path: |
+            tizen-studio
+            tizen-studio-data
+          key: tizen-studio-v${{ env.TIZEN_STUDIO_VER }}-cache
+
+      - name: Download Tizen Studio
+        if: steps.cache-tizen-studio.outputs.cache-hit != 'true'
         run: |
           curl -o tizen-installer "https://download.tizen.org/sdk/Installer/tizen-studio_${TIZEN_STUDIO_VER}/web-cli_Tizen_Studio_${TIZEN_STUDIO_VER}_ubuntu-64.bin"
 
-      - name: Install Tizen-Studio
+      - name: Install Tizen Studio
+        if: steps.cache-tizen-studio.outputs.cache-hit != 'true'
         run: |
           chmod +x tizen-installer
           ./tizen-installer --accept-license "${GITHUB_WORKSPACE}/tizen-studio"
           rm ./tizen-installer
+      
+      - name: Configure Tizen Studio
+        run: |
           echo 'export PATH=$PATH:${GITHUB_WORKSPACE}/tizen-studio/tools/ide/bin' >> .bashrc
 
       - name: Prepare Tizen Certificate
@@ -120,25 +149,25 @@ jobs:
           pkg -C GZip . --no-bytecode --public
 
       - name: Upload TizenBrew package artifact for Old Tizen
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
             name: app-${{ github.sha }}-old.wgt
             path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt
       
       - name: Upload TizenBrew package artifact for New Tizen
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
             name: app-${{ github.sha }}-new.wgt
             path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
 
       - name: Upload TizenBrew Updater package artifact for Old Tizen
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
             name: updater-${{ github.sha }}-old.wgt
             path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
 
       - name: Upload TizenBrew Updater package artifact for New Tizen
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
             name: updater-${{ github.sha }}-new.wgt
             path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
@@ -153,11 +182,42 @@ jobs:
         run: |
           zip -r release/TizenBrewUpdaterUSBDemo.zip userwidget/
       
-      - name: Release TizenBrew Build Results
-        uses: softprops/action-gh-release@v1
+      - name: Rename Build Files
+        if: github.ref == 'refs/heads/improve-actions' 
+        # ^^^^ TODO: put github.ref == 'refs/heads/main' above this line
+        run: |
+          DIRS=(
+              "tizenbrew-app/TizenBrew/release"
+              "tizenbrew-updater/TizenBrewUpdater/release"
+              "tizenbrew-updater/TizenBrewUpdater/dist"
+          )
+          OUTDIR="all-build-files"
+
+          for DIR in "${DIRS[@]}"; do
+            for FILE in "./$DIR"/*; do
+              cp "./$FILE" "./$OUTDIR"
+            done
+          done
+
+          for FILE in "./$OUTDIR"/*; do
+            if [ -f "$FILE" ]; then
+              BASENAME=$(basename "$FILE" | cut -d. -f1)
+              EXTENSION="${FILE##*.}"
+              NEWNAME="$DIR/${BASENAME}-${{ steps.variables.outputs.hash }}.$EXTENSION"
+              mv "$FILE" "$NEWNAME"
+            fi
+          done
+
+      - name: Update Nightly Build
+        if: github.ref == 'refs/heads/improve-actions'
+        # ^^^^ TODO: put github.ref == 'refs/heads/main' above this line
+        uses: andelf/nightly-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.RELEASE_VERSION }}
+          tag_name: nightly
+          name: 'TizenBrew Development Release'
+          body: |
+            Nightly TizenBrew build for commit ${{ github.sha }}. Recommended to not use the nightly build versions as these can be very unstable. Please use the latest release instead.
           files: |
-            tizenbrew-app/TizenBrew/release/*
-            tizenbrew-updater/TizenBrewUpdater/release/*
-            tizenbrew-updater/TizenBrewUpdater/dist/*
+            all-build-files/*

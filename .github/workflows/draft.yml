@@ -1,0 +1,88 @@
+name: Draft Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  draft:
+    name: Draft Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Development Release
+        uses: robinraju/release-downloader@v1.11
+        with:
+          out-file-path: 'nightly'
+          fileName: '*'
+          tag: 'nightly'
+          tarBall: false
+          zipBall: true
+
+      - name: Get Version
+        id: ver
+        shell: bash
+        run: |
+          # VERSION=$(unzip -p ${{ github.workspace }}/nightly/TizenBrew-nightly.zip ${{ github.repository_owner }}-TizenBrew-*/VERSION | xargs)
+          echo $(unzip -p ${{ github.workspace }}/nightly/TizenBrew-nightly.zip ${{ github.repository_owner }}-TizenBrew-*/tizenbrew-app/TizenBrew/config.xml) > config.xml
+          echo $(cat https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/assets/get-version.py) > get-version.py
+          python get-version.py config.xml
+
+      - name: Check Version
+        shell: bash
+        run: |
+          set +e
+          curl --fail "https://api.github.com/repos/${{ github.repository }}/releases/tags/v${{ steps.ver.outputs.version }}" --silent --output /dev/null
+          RESULT=$?
+          set -e
+          
+          if [ $RESULT -eq 0 ]; then
+            echo "Release ${{ steps.ver.outputs.version }} exists, not touching it."
+            exit 1
+          fi
+
+      - name: Get Latest Commit
+        id: latest-commit
+        run: |
+          mkdir temp-TizenBrew
+          cd temp-TizenBrew
+          git init
+          git remote add origin https://github.com/${{ github.repository }}.git
+          git fetch --tags
+          latest_commit=$(git rev-list -n 1 nightly)
+          short=$(git rev-parse --short "$latest_commit")
+          echo "Latest commit SHA is: $short"
+          echo "Full SHA: $latest_commit"
+          echo "commit=$latest_commit" >> $GITHUB_OUTPUT
+          echo "reg=$latest_commit" >> $GITHUB_OUTPUT
+          echo "long=$latest_commit" >> $GITHUB_OUTPUT
+          echo "short=$short" >> $GITHUB_OUTPUT
+          cd ../
+          rm temp-TizenBrew
+
+      - name: Rename Files
+        run: |
+          for FILE in "nightly"/*; do
+            if [ -f "$FILE" && "$FILE" == *${{ steps.latest-commit.outputs.short }}* ]; then
+                FILEDIR=$(dirname "$FILE")
+                FILENAME=$(basename "$FILE")
+                NEWNAME="${FILENAME//${{ steps.latest-commit.outputs.short }}/v${{ steps.ver.outputs.version }}}"
+                mv "$FILE" "$FILEDIR/$NEWNAME"
+            else
+              if [ -f "$FILE" ]; then
+                rm $FILE
+              fi
+            fi
+          done
+
+      - name: Create Draft Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: TizenBrew v${{ steps.ver.outputs.version }}
+          draft: true
+          body: |
+            This release includes
+            - some changes!
+          files: |
+            nightly/*
