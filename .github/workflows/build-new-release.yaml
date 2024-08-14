@@ -21,7 +21,7 @@ jobs:
         run: |
           echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
           echo "hash=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_OUTPUT
-      
+
       - name: Install additional packages and npm modules
         run: |
           sudo apt install -y expect zip coreutils
@@ -38,12 +38,23 @@ jobs:
         working-directory: tizenbrew-updater/TizenBrewUpdater/service
         run: |
           npm install
-
-      - name: Build standalone service
+      
+      - name: Build transpiled service
         working-directory: tizenbrew-app/TizenBrew/service
         run: |
-          ncc build service.js
+          npx babel . --out-dir transpiled --copy-files
           rm -r node_modules
+      
+      - name: Build standalone service
+        working-directory: tizenbrew-app/TizenBrew/service/transpiled
+        run: |
+          ncc build service.js -o ../dist
+          rm -r node_modules
+          
+       - name: Clean up transpiled files
+        working-directory: tizenbrew-app/TizenBrew/service
+        run: |
+          rm -r transpiled
   
       - name: Build updater service
         working-directory: tizenbrew-updater/TizenBrewUpdater/service
@@ -59,10 +70,6 @@ jobs:
             tizen-studio
             tizen-studio-data/profile
           key: tizen-studio-v${{ env.TIZEN_STUDIO_VER }}-cache
-
-      # - name: Create "tizen-studio-data" folder
-      #   if: steps.cache-tizen-studio.outputs.cache-hit == 'true'
-      #   run: mkdir tizen-studio-data
 
       - name: Download Tizen Studio
         if: steps.cache-tizen-studio.outputs.cache-hit != 'true'

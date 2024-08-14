@@ -1,5 +1,5 @@
 "use strict";
-const WebSocket = require('ws');
+const WebSocket = require('ws-old');
 const fetch = require('node-fetch');
 let client = null;
 let currentID = 12;
