@@ -121,7 +121,7 @@
                             break;
                         }
 
-                        window.send({ type: "launch", package: `${moduleType}/${packageName}`, tvIp: webapis.network.getIp() });
+                        window.send({ type: "launch", package: `${moduleType}/${packageName}`, tvIp: webapis.network.getIp(), isTizen3 });
                         var keys = selectedItem.getAttribute("data-keys");
                         if (appPath.startsWith("http")) {
                             if (keys.length > 0) {

@@ -122,7 +122,7 @@ function onMessage(msg) {
                 }
 
                 setTimeout(() => {
-                    send({ type: 'launch', package: `${moduleType}/${moduleName}`, tvIp: webapis.network.getIp() });
+                    send({ type: 'launch', package: `${moduleType}/${moduleName}`, tvIp: webapis.network.getIp(), isTizen3 });
                     if (!tizenAppId) {
                         location.href = `${appPath}${args ? `?${args}` : ''}`;
                     }

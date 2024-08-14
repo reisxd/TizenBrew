@@ -134,8 +134,7 @@ module.exports.onStart = function () {
                 }
                 case 'relaunchInDebug': {
                     setTimeout(() => {
-                        const isTizen3 = tizen.systeminfo.getCapability('http://tizen.org/feature/platform.version').split('.')[0] === '3';
-                        createAdbConnection(isTizen3, message.tvIp);
+                        createAdbConnection(message.isTizen3, message.tvIp);
                     }, 1000);
                     break;
                 }
@@ -172,9 +171,7 @@ module.exports.onStart = function () {
                             }
 
                             if (module.tizenAppId) {
-                                const isTizen3 = tizen.systeminfo.getCapability('http://tizen.org/feature/platform.version').split('.')[0] === '3';
-                                // TODO: Get TV IP from os.networkInterfaces()
-                                createAdbConnection(isTizen3, message.tvIp, module.tizenAppId);
+                                createAdbConnection(message.isTizen3, message.tvIp, module.tizenAppId);
                             }
                         } else {
                             global.currentModule = {

@@ -20,7 +20,7 @@ function startDebugging(port, adb_conn, ip) {
                 return attachDebugger(debuggerJson[0].webSocketDebuggerUrl, adb_conn);
             }).catch(
                 e => {
-                    if (attempts >= 5) {
+                    if (attempts >= 10) {
                         global.currentClient.send(JSON.stringify({ type: 'error', message: 'Failed to connect to debugger.' }));
                         clearInterval(connectionInterval);
                         global.inDebug.tizenDebug = false;
