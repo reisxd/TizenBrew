@@ -1,6 +1,9 @@
 name: Draft Release
 
 on:
+  push:
+    branches:
+      - '**'
   workflow_dispatch:
 
 jobs:
