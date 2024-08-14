@@ -18,7 +18,7 @@ jobs:
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       
-      - name: Install modules and build standalone service
+      - name: Install modules and transpile service
         working-directory: tizenbrew-app/TizenBrew/service
         run: |
           sudo apt install -y expect zip coreutils
@@ -26,9 +26,15 @@ jobs:
           sudo chmod a+rwx /usr/bin/ldid
           npm install
           npm install -g @vercel/ncc wgt-to-usb pkg
-          ncc build service.js
+          npx babel . --out-dir transpiled --copy-files
           rm -r node_modules
 
+      - name: Build service
+        working-directory: tizenbrew-app/TizenBrew/service/transpiled
+        run: |
+          ncc build service.js -o ../dist
+          rm -r node_modules
+          
       - name: Install modules and build updater service
         working-directory: tizenbrew-updater/TizenBrewUpdater/service
         run: |

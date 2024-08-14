@@ -198,7 +198,7 @@ function autoLaunchModule() {
         }
 
         setTimeout(() => {
-            send({ type: 'launch', package: `${autoLaunch.type}/${autoLaunch.name}`, tvIp: webapis.network.getIp() });
+            send({ type: 'launch', package: `${autoLaunch.type}/${autoLaunch.name}`, tvIp: webapis.network.getIp(), isTizen3 });
             if (app.getAttribute('data-moddedTizenApp') === 'false') {
                 location.href = appPath;
             }
