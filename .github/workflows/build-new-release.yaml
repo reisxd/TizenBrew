@@ -6,6 +6,7 @@ on:
       - '**'
   workflow_dispatch:
 
+
 env:
   TIZEN_STUDIO_VER: 5.6
 

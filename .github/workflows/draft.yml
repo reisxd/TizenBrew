@@ -1,7 +1,8 @@
 name: Draft Release
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: 
+
 
 jobs:
   draft:
