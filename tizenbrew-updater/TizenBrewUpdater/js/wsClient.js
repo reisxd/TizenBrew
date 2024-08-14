@@ -73,7 +73,10 @@ function onMessage(msg) {
         case 'message': { 
             document.getElementById('wsText').innerText = message.msg;
             if (message.msg === 'App installed') {
-                alert('TizenBrew has been installed. You can find TizenBrew by going into the app store and clicking the settings icon.');
+                const sponsor = confirm('TizenBrew has been installed. You can find TizenBrew by going into the app store and clicking the settings icon..\n\nYou can support the development of TizenBrew by sponsoring reisxd.\nWould you like to do it?');
+                if (sponsor) {
+                    window.open('https://github.com/sponsors/reisxd');
+                }
             }
             break;
         }

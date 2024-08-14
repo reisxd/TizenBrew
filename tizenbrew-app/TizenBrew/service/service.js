@@ -6,7 +6,12 @@ module.exports.onStart = function () {
     console.log('Service started.');
     const adbhost = require('adbhost');
     const express = require('express');
-    const WebSocket = require('ws');
+    let WebSocket;
+    if (process.version === 'v4.4.3') {
+        WebSocket = require('ws-old');
+    } else {
+        WebSocket = require('ws-new');
+    }
     const startDebugging = require('./debugger.js');
     const fetch = require('node-fetch');
     const loadModules = require('./moduleLoader.js');
@@ -18,16 +23,15 @@ module.exports.onStart = function () {
     app.all('*', (req, res) => {
         if (req.url.startsWith('/module/')) {
             const splittedUrl = req.url.split('/');
-            const moduleType = splittedUrl[2];
-            const encodedModuleName = splittedUrl[3];
+            const encodedModuleName = splittedUrl[2];
             const moduleName = decodeURIComponent(encodedModuleName);
-            fetch(`https://cdn.jsdelivr.net/${moduleType}/${moduleName}/${req.url.replace(`/module/${moduleType}/${encodedModuleName}/`, '')}`)
+            fetch(`https://cdn.jsdelivr.net/${moduleName}/${req.url.replace(`/module/${encodedModuleName}/`, '')}`)
                 .then(fetchRes => {
                     return fetchRes.body.pipe(res);
                 })
                 .then(() => {
                     res.setHeader('Access-Control-Allow-Origin', '*');
-                    res.type(path.basename(req.url.replace(`/module/${moduleType}/${encodedModuleName}/`, '')).split('.').slice(-1)[0].split('?')[0]);
+                    res.type(path.basename(req.url.replace(`/module/${encodedModuleName}/`, '')).split('.').slice(-1)[0].split('?')[0]);
                 });
         } else {
             res.send('Hello from TizenBrew Standalone Service!');
@@ -65,7 +69,7 @@ module.exports.onStart = function () {
         adb._stream.on('connect', () => {
             console.log('ADB connection established');
             //Launch app
-            const tbPackageId =  tizen.application.getAppInfo().packageId;
+            const tbPackageId = tizen.application.getAppInfo().packageId;
             const shellCmd = adb.createStream(`shell:0 debug ${appId ? appId : `${tbPackageId}.TizenBrewStandalone`}${isTizen3 ? ' 0' : ''}`);
             shellCmd.on('data', function dataIncoming(data) {
                 const dataString = data.toString();
@@ -98,7 +102,11 @@ module.exports.onStart = function () {
             switch (message.type) {
                 case 'launchAppControl': {
                     loadModules([message.package]).then(modules => {
-                        const module = modules.find(m => m.name === message.package.name);
+                        const moduleList = [
+                            message.package.substring(0, message.package.indexOf('/')),
+                            message.package.substring(message.package.indexOf('/') + 1)
+                        ];
+                        const module = modules.find(m => m.name === moduleList[1]);
                         if (!module) {
                             ws.send(JSON.stringify({ type: 'error', message: 'Module not found.' }));
                             return;
@@ -126,7 +134,8 @@ module.exports.onStart = function () {
                 }
                 case 'relaunchInDebug': {
                     setTimeout(() => {
-                        createAdbConnection(message.isTizen3, message.tvIp);
+                        const isTizen3 = tizen.systeminfo.getCapability('http://tizen.org/feature/platform.version').split('.')[0] === '3';
+                        createAdbConnection(isTizen3, message.tvIp);
                     }, 1000);
                     break;
                 }
@@ -138,7 +147,11 @@ module.exports.onStart = function () {
                 }
                 case 'launch': {
                     loadModules([message.package]).then(modules => {
-                        const module = modules.find(m => m.name === message.package.name);
+                        const moduleList = [
+                            message.package.substring(0, message.package.indexOf('/')),
+                            message.package.substring(message.package.indexOf('/') + 1)
+                        ];
+                        const module = modules.find(m => m.name === moduleList[1]);
                         if (!module) {
                             ws.send(JSON.stringify({ type: 'error', message: 'Module not found.' }));
                             return;
@@ -146,16 +159,27 @@ module.exports.onStart = function () {
                         if (module.packageType === 'mods') {
                             global.currentModule = {
                                 type: 'mods',
-                                path: `https://cdn.jsdelivr.net/${message.package.type}/${message.package.name}/${module.mainFile}`
+                                path: `https://cdn.jsdelivr.net/${message.package}/${module.mainFile}`
+                            }
+
+                            if (module.serviceFile) {
+                                if (global.services.has(message.package)) {
+                                    if (global.services.get(message.package).hasCrashed) {
+                                        global.services.delete(message.package);
+                                        startService(module, message.package);
+                                    } else ws.send(JSON.stringify({ type: 'error', message: 'Service already running.' }));
+                                } else startService(module, message.package);
                             }
 
                             if (module.tizenAppId) {
-                                createAdbConnection(message.isTizen3, message.tvIp, module.tizenAppId);
+                                const isTizen3 = tizen.systeminfo.getCapability('http://tizen.org/feature/platform.version').split('.')[0] === '3';
+                                // TODO: Get TV IP from os.networkInterfaces()
+                                createAdbConnection(isTizen3, message.tvIp, module.tizenAppId);
                             }
                         } else {
                             global.currentModule = {
                                 type: 'app',
-                                path: `http://127.0.0.1:8081/module/${message.package.type}/${encodeURIComponent(message.package.name)}/${module.appPath}`
+                                path: `http://127.0.0.1:8081/module/${encodeURIComponent(message.package)}/${module.appPath}`
                             }
 
                             global.inDebug.tizenDebug = false;
@@ -166,17 +190,21 @@ module.exports.onStart = function () {
                 }
                 case 'startService': {
                     loadModules([message.package]).then(modules => {
-                        const module = modules.find(m => m.name === message.package.name);
+                        const moduleList = [
+                            message.package.substring(0, message.package.indexOf('/')),
+                            message.package.substring(message.package.indexOf('/') + 1)
+                        ];
+                        const module = modules.find(m => m.name === moduleList[1]);
 
                         if (!module) {
                             ws.send(JSON.stringify({ type: 'error', message: 'Module not found.' }));
                             return;
                         }
 
-                        if (global.services.has(message.package.name)) {
-                            if (global.services.get(message.package.name).hasCrashed) {
-                                global.services.delete(message.package.name);
-                                startService(module, message.package.type);
+                        if (global.services.has(message.package)) {
+                            if (global.services.get(message.package).hasCrashed) {
+                                global.services.delete(message.package);
+                                startService(module, message.package);
                             } else ws.send(JSON.stringify({ type: 'error', message: 'Service already running.' }));
                         } else startService(module, message.package);
                     });
@@ -184,12 +212,13 @@ module.exports.onStart = function () {
                 }
                 case 'getServiceStatuses': {
                     const serviceList = [];
-                    global.services.forEach((key, value) => {
+                    for (const map of global.services) {
                         serviceList.push({
-                            name: key,
-                            hasCrashed: value.hasCrashed
+                            name: map[0],
+                            hasCrashed: map[1].hasCrashed,
+                            error: map[1].error
                         });
-                    });
+                    }
                     ws.send(JSON.stringify({ type: 'serviceStatuses', services: serviceList }));
                     break;
                 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="https://tizentube.vercel.app" version="1.3.2" viewmodes="maximized">
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="https://tizentube.vercel.app" version="1.3.3" viewmodes="maximized">
     <access origin="*" subdomains="true"></access>
     <tizen:app-control>
         <tizen:src name="index.html" reload="disable"/>
@@ -19,7 +19,6 @@
     <tizen:metadata key="http://samsung.com/tv/metadata/prelaunch.support" value="true"/>
     <tizen:metadata key="http://samsung.com/tv/metadata/microphone.support" value="1"/>
     <tizen:metadata key="http://samsung.com/tv/metadata/microphone.area" value="open"/>
-    <tizen:metadata key="http://samsung.com/tv/metadata/use.preview" value="endpoint_URL=https://tizentube.vercel.app/smartHubPreview.json"/>
     <name>TizenBrewStandalone</name>
     <tizen:privilege name="http://tizen.org/privilege/internet"/>
     <tizen:privilege name="http://developer.samsung.com/privilege/network.public"/>

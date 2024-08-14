@@ -4,6 +4,7 @@ let client;
 const isTizen3 = navigator.userAgent.includes('Tizen 3.0');
 let canLaunchModules = false;
 let canAutoLaunch = true;
+let loadedModules = false;
 
 function connect() {
     const ip = localStorage.getItem('ip');
@@ -49,7 +50,7 @@ function onMessage(msg) {
                 hideError();
                 localStorage.setItem('failedStartupAttempts', '0');
                 canLaunchModules = message.inDebug.webDebug;
-                send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')) });
+                send({ type: 'loadModules', modules: JSON.parse(localStorage.getItem('modules')).map(item => `${item.type}/${item.name}`) });
                 if (localStorage.getItem('autoLaunchService')) {
                     send({ type: 'startService', package: JSON.parse(localStorage.getItem('autoLaunchService')) });
                 }
@@ -75,6 +76,10 @@ function onMessage(msg) {
                     </div>
                     `;
                     firstOne = false;
+                }
+                loadedModules = true;
+                if (canLaunchModules && localStorage.getItem('autoLaunch')) {
+                    autoLaunchModule();
                 }
                 window.selectedItem = document.querySelector(".selected");
                 window.currentRow = selectedItem.parentElement.parentElement;
@@ -116,12 +121,8 @@ function onMessage(msg) {
                     });
                 }
 
-                if (message.appControlData.module.serviceFile) {
-                    send({ type: 'startService', package: { name: moduleName, type: moduleType } });
-                }
-
                 setTimeout(() => {
-                    send({ type: 'launch', package: { name: moduleName, type: moduleType }, isTizen3, tvIp: webapis.network.getIp() });
+                    send({ type: 'launch', package: `${moduleType}/${moduleName}`, tvIp: webapis.network.getIp() });
                     if (!tizenAppId) {
                         location.href = `${appPath}${args ? `?${args}` : ''}`;
                     }
@@ -130,34 +131,8 @@ function onMessage(msg) {
             }
 
             if (canAutoLaunch && localStorage.getItem('autoLaunch')) {
-                const autoLaunch = JSON.parse(localStorage.getItem('autoLaunch'));
-                const app = document.querySelector(`[data-packagename="${autoLaunch.name}"]`);
-                if (!app) {
-                    showError(`Error: Could not find the module ${autoLaunch.name}.`);
-                    return;
-                } else {
-                    const appPath = app.getAttribute('data-appPath');
-                    let keys = app.getAttribute("data-keys");
-                    if (keys.length > 0) {
-                        keys = selectedItem.getAttribute("data-keys").split(',');
-                        for (var i = 0; i < keys.length; i++) {
-                            tizen.tvinputdevice.registerKey(keys[i]);
-                        }
-                    }
-
-                    var packageType = selectedItem.getAttribute("data-packageType");
-
-                    if (packageType === 'service' || packageType === 'service-mods') {
-                        send({ type: "startService", package: autoLaunch });
-                    }
-
-                    setTimeout(() => {
-                        send({ type: 'launch', package: autoLaunch, isTizen3, tvIp: webapis.network.getIp() });
-                        if (app.getAttribute('data-moddedTizenApp') === 'false') {
-                            location.href = appPath;
-                        }
-                    }, 250);
-                }
+                if (!loadedModules) return;
+                autoLaunchModule();
             }
             break;
         }
@@ -204,4 +179,29 @@ function onOpen() {
             send({ type: 'getDebugStatus' });
         }
     } else send({ type: 'getDebugStatus' });
+}
+
+function autoLaunchModule() {
+    const autoLaunch = JSON.parse(localStorage.getItem('autoLaunch'));
+    const app = document.querySelector(`[data-packagename="${autoLaunch.name}"]`);
+    if (!app) {
+        showError(`Error: Could not find the module ${autoLaunch.name}.`);
+        return;
+    } else {
+        const appPath = app.getAttribute('data-appPath');
+        let keys = app.getAttribute("data-keys");
+        if (keys.length > 0) {
+            keys = selectedItem.getAttribute("data-keys").split(',');
+            for (var i = 0; i < keys.length; i++) {
+                tizen.tvinputdevice.registerKey(keys[i]);
+            }
+        }
+
+        setTimeout(() => {
+            send({ type: 'launch', package: `${autoLaunch.type}/${autoLaunch.name}`, tvIp: webapis.network.getIp() });
+            if (app.getAttribute('data-moddedTizenApp') === 'false') {
+                location.href = appPath;
+            }
+        }, 250);
+    }
 }

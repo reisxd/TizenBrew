@@ -121,10 +121,7 @@
                             break;
                         }
 
-                        if (packageType === 'service' || packageType === 'service-mods') {
-                            window.send({ type: "startService", package: { name: packageName, type: moduleType } });
-                        }
-                        window.send({ type: "launch", package: { name: packageName, type: moduleType }, isTizen3, tvIp: webapis.network.getIp() });
+                        window.send({ type: "launch", package: `${moduleType}/${packageName}`, tvIp: webapis.network.getIp() });
                         var keys = selectedItem.getAttribute("data-keys");
                         if (appPath.startsWith("http")) {
                             if (keys.length > 0) {
