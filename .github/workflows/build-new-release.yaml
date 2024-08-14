@@ -57,8 +57,11 @@ jobs:
         with:
           path: |
             tizen-studio
-            tizen-studio-data
           key: tizen-studio-v${{ env.TIZEN_STUDIO_VER }}-cache
+
+      - name: Create "tizen-studio-data" folder
+        if: steps.cache-tizen-studio.outputs.cache-hit == 'true'
+        run: mkdir tizen-studio-data
 
       - name: Download Tizen Studio
         if: steps.cache-tizen-studio.outputs.cache-hit != 'true'
@@ -202,12 +205,13 @@ jobs:
 
           for FILE in "$OUTDIR"/*; do
             if [ -f "$FILE" ]; then
-              BASENAME=$(basename "$FILE" | cut -d. -f1)
+              FILENAME=$(basename "$FILE")
+              BASENAME="${FILENAME%.*}"
               if [ "$FILE" == *.* ]; then
-                EXTENSION="${FILE##*.}"
-                NEWNAME="$DIR/${BASENAME}-${{ steps.variables.outputs.hash }}.$EXTENSION"
+                EXTENSION="${FILENAME##*.}"
+                NEWNAME="$OUTDIR/${BASENAME}-${{ steps.variables.outputs.hash }}.$EXTENSION"
               else
-                NEWNAME="$DIR/${BASENAME}-${{ steps.variables.outputs.hash }}"
+                NEWNAME="$OUTDIR/${BASENAME}-${{ steps.variables.outputs.hash }}"
               fi
               mv "$FILE" "$NEWNAME"
             fi
