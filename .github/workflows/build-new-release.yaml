@@ -51,7 +51,7 @@ jobs:
           ncc build service.js -o ../dist
           rm -r node_modules
           
-       - name: Clean up transpiled files
+      - name: Clean up transpiled files
         working-directory: tizenbrew-app/TizenBrew/service
         run: |
           rm -r transpiled
