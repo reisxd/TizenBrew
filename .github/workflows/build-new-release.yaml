@@ -203,8 +203,12 @@ jobs:
           for FILE in "$OUTDIR"/*; do
             if [ -f "$FILE" ]; then
               BASENAME=$(basename "$FILE" | cut -d. -f1)
-              EXTENSION="${FILE##*.}"
-              NEWNAME="$DIR/${BASENAME}-${{ steps.variables.outputs.hash }}.$EXTENSION"
+              if [ "$FILE" == *.* ]; then
+                EXTENSION="${FILE##*.}"
+                NEWNAME="$DIR/${BASENAME}-${{ steps.variables.outputs.hash }}.$EXTENSION"
+              else
+                NEWNAME="$DIR/${BASENAME}-${{ steps.variables.outputs.hash }}"
+              fi
               mv "$FILE" "$NEWNAME"
             fi
           done
