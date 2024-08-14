@@ -24,7 +24,7 @@ jobs:
         run: |
           # VERSION=$(unzip -p ${{ github.workspace }}/nightly/TizenBrew-nightly.zip ${{ github.repository_owner }}-TizenBrew-*/VERSION | xargs)
           echo $(unzip -p ${{ github.workspace }}/nightly/TizenBrew-nightly.zip ${{ github.repository_owner }}-TizenBrew-*/tizenbrew-app/TizenBrew/config.xml) > config.xml
-          echo $(cat https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/assets/get-version.py) > get-version.py
+          curl -o get-version.py https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/assets/get-version.py
           python get-version.py config.xml
 
       - name: Check Version
@@ -62,7 +62,7 @@ jobs:
       - name: Rename Files
         run: |
           for FILE in "nightly"/*; do
-            if [ -f "$FILE" && "$FILE" == *${{ steps.latest-commit.outputs.short }}* ]; then
+            if [[ -f "$FILE" && "$FILE" == *"${{ steps.latest-commit.outputs.short }}"* ]]; then
                 FILEDIR=$(dirname "$FILE")
                 FILENAME=$(basename "$FILE")
                 NEWNAME="${FILENAME//${{ steps.latest-commit.outputs.short }}/v${{ steps.ver.outputs.version }}}"
