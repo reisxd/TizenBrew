@@ -1,9 +1,6 @@
 name: Draft Release
 
 on:
-  push:
-    branches:
-      - '**'
   workflow_dispatch:
 
 jobs:
@@ -59,7 +56,7 @@ jobs:
           echo "long=$latest_commit" >> $GITHUB_OUTPUT
           echo "short=$short" >> $GITHUB_OUTPUT
           cd ../
-          rm temp-TizenBrew
+          rm -rf temp-TizenBrew
 
       - name: Rename Files
         run: |
