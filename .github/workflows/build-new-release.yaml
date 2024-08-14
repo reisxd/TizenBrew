@@ -57,11 +57,12 @@ jobs:
         with:
           path: |
             tizen-studio
+            tizen-studio-data/profile
           key: tizen-studio-v${{ env.TIZEN_STUDIO_VER }}-cache
 
-      - name: Create "tizen-studio-data" folder
-        if: steps.cache-tizen-studio.outputs.cache-hit == 'true'
-        run: mkdir tizen-studio-data
+      # - name: Create "tizen-studio-data" folder
+      #   if: steps.cache-tizen-studio.outputs.cache-hit == 'true'
+      #   run: mkdir tizen-studio-data
 
       - name: Download Tizen Studio
         if: steps.cache-tizen-studio.outputs.cache-hit != 'true'
