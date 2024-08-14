@@ -208,7 +208,7 @@ jobs:
             if [ -f "$FILE" ]; then
               FILENAME=$(basename "$FILE")
               BASENAME="${FILENAME%.*}"
-              if [ "$FILE" == *.exe || "$FILE" == *.wgt || "$FILE" == *.zip || "$FILE" == *.tpk ]; then
+              if [[ "$FILE" == *".exe"* || "$FILE" == *".wgt"* || "$FILE" == *".zip"* || "$FILE" == *".tpk"* ]]; then
                 EXTENSION="${FILENAME##*.}"
                 NEWNAME="$OUTDIR/${BASENAME}-${{ steps.variables.outputs.hash }}.$EXTENSION"
               else
