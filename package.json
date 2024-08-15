@@ -14,5 +14,9 @@
     "adbhost": "^0.0.2",
     "express": "^4.18.2",
     "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/tizen-common-web": "^2.0.6",
+    "@types/tizen-tv-webapis": "^2.0.6"
   }
 }
