@@ -104,7 +104,7 @@ function onMessage(msg) {
             const autoLaunchService = JSON.parse(localStorage.getItem('autoLaunchService'));
 
             if (autoLaunchService) {
-                send({ type: 'startService', package: autoLaunchService });
+                send({ type: 'startService', package: `${autoLaunchService.type}/${autoLaunchService.name}` });
             }
 
             if (message.appControlData) {
@@ -174,7 +174,7 @@ function onOpen() {
             const moduleType = parsedData.moduleType;
             const args = parsedData.args;
             // Send the data to the server and launch it after TizenBrew relaunches.
-            send({ type: 'launchAppControl', package: { name: moduleName, type: moduleType }, args });
+            send({ type: 'launchAppControl', package: `${moduleType}/${moduleName}`, args });
         } catch (e) {
             send({ type: 'getDebugStatus' });
         }

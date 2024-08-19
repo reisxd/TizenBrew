@@ -14,6 +14,7 @@ function startService(module, pkg) {
     });
     
     sandbox['require'] = require;
+    sandbox['tizen'] = global.tizen;
     sandbox['module'] = { exports: {} };
     fetch(`https://cdn.jsdelivr.net/${pkg}/${module.serviceFile}`)
         .then(res => res.text())
