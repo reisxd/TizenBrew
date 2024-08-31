@@ -2,6 +2,17 @@
 // TizenBrew Standalone Service
 // I wish I've seen running Node.JS on Tizen way before...
 
+const Sentry = require('@sentry/node');
+
+Sentry.init({ dsn: 'https://32b5ee2b4c114c3b875ee1716790c1ec@89.168.107.251:8001/1' });
+
+Sentry.configureScope(scope => {
+    scope.setTag('platformVersion', tizen.systeminfo.getCapability("http://tizen.org/feature/platform.version"));
+    scope.setTag('nodeVersion', process.version);
+});
+
+global.Sentry = Sentry;
+
 module.exports.onStart = function () {
     console.log('Service started.');
     const adbhost = require('adbhost');

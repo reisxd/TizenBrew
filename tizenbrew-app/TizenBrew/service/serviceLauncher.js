@@ -7,7 +7,7 @@ function startService(module, pkg) {
     let sandbox = {};
 
     Object.getOwnPropertyNames(global).forEach(prop => {
-        const disAllowed = ['services', 'module', 'global', 'inDebug', 'currentClient', 'currentModule'];
+        const disAllowed = ['services', 'module', 'global', 'inDebug', 'currentClient', 'currentModule', 'Sentry'];
         // Node.js v4.4.3 does not have Array.prototype.includes...
         if (disAllowed.indexOf(prop) >= 0) return;
         sandbox[prop] = global[prop];
@@ -29,6 +29,7 @@ function startService(module, pkg) {
             try {
                 vm.runInContext(script, global.services.get(pkg).context);
             } catch (e) {
+                global.Sentry.captureException(e);
                 global.services.get(pkg).hasCrashed = true;
                 global.services.get(pkg).error = e;
             }
