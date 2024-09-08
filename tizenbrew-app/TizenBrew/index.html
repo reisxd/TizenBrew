@@ -2,13 +2,6 @@
 
 <html>
     <head>
-        <script src="https://browser.sentry-cdn.com/6.0.0/bundle.min.js" crossorigin="anonymous"></script>
-        <script>
-            Sentry.init({
-                dsn: "https://5cd9d5128a06469c8edd626557478f12@89.168.107.251/gt/2",
-                tracesSampleRate: 0.01,
-            });
-        </script>
         <title>TizenBrew</title>
 
         <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
@@ -34,7 +27,10 @@
                     </div>
                 </div>
 
-                <p class="status" id="wsText">Status</p>
+                <div>
+                    <p class="status" id="wsText">Status</p>
+                    <p class="status" id="version">Version</p>
+                </div>
             </div>
 
             <div class="error-card">

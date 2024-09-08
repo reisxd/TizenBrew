@@ -51,6 +51,7 @@ body {
 .status {
     font-size: 1.5vw;
     padding: 0.5rem;
+    margin-top: 1rem;
     border: 0.5px solid #aaa;
     color: snow;
     border-radius: 16px;
