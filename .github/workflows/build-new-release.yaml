@@ -143,13 +143,13 @@ jobs:
             path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
 
       - name: Upload TizenBrew Updater package artifact for Old Tizen
-        uses: actions/upload-artifact@4
+        uses: actions/upload-artifact@v4
         with:
             name: updater-${{ github.sha }}-old.wgt
             path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
 
       - name: Upload TizenBrew Updater package artifact for New Tizen
-        uses: actions/upload-artifact@4
+        uses: actions/upload-artifact@v4
         with:
             name: updater-${{ github.sha }}-new.wgt
             path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
