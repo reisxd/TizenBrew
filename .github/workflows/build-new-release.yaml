@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -131,25 +131,25 @@ jobs:
           pkg -C GZip . --no-bytecode --public
 
       - name: Upload TizenBrew package artifact for Old Tizen
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
             name: app-${{ github.sha }}-old.wgt
             path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt
       
       - name: Upload TizenBrew package artifact for New Tizen
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
             name: app-${{ github.sha }}-new.wgt
             path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
 
       - name: Upload TizenBrew Updater package artifact for Old Tizen
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@4
         with:
             name: updater-${{ github.sha }}-old.wgt
             path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
 
       - name: Upload TizenBrew Updater package artifact for New Tizen
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@4
         with:
             name: updater-${{ github.sha }}-new.wgt
             path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
