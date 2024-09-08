@@ -55,13 +55,6 @@ function onMessage(msg) {
                     send({ type: 'startService', package: JSON.parse(localStorage.getItem('autoLaunchService')) });
                 }
                 send({ type: 'getServiceStatuses' });
-
-                fetch('config.xml').then(res => res.text()).then(xml => {
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(xml, 'text/xml');
-                    const version = xmlDoc.getElementsByTagName('widget')[0].attributes.version.nodeValue
-                    document.getElementById('version').innerText = `v${version}`;
-                });
             } else {
                 send({ type: 'canLaunchInDebug' });
             }
@@ -171,6 +164,7 @@ function onMessage(msg) {
 }
 
 function onOpen() {
+    document.getElementById('version').innerText = `v${tizen.application.getAppInfo().version}`;
     // We have to get the debug status to know if we need to relaunch in debug mode.
     const data = tizen.application.getCurrentApplication().getRequestedAppControl().appControl.data;
     if (data.length > 0 && data[0].value.length > 0) {
