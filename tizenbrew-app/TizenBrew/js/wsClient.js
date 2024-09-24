@@ -84,7 +84,7 @@ function onMessage(msg) {
                 window.selectedItem = document.querySelector(".selected");
                 window.currentRow = selectedItem.parentElement.parentElement;
             } else {
-                document.getElementById('navigateText').innerHTML = "Seems like you haven't installed any modules yet. Use the [GREEN] button to access the module manager.";
+                document.getElementById('navigateText').innerHTML = window.i18n.t('error.noModules');
                 window.selectedItem.style.display = 'none';
             }
             break;
