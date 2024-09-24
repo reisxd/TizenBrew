@@ -1,0 +1,52 @@
+{
+    "mainMenu": {
+        "modules": "Modules",
+        "description": "Start dine yndlingsapps med modifikationer og justeringer på din Tizen-enhed.",
+        "moduleManagerAccess": "Brug <span style=\"color: lightgreen\">{buttons.green}</span> knappen for at få adgang til moduladministratoren.",
+        "settingsAccess": "Brug <span style=\"color: #0dc1e9\">{buttons.blue}</span> knappen for at få adgang til indstillingerne.",
+        "navigationHelp": "Brug VENSTRE og HØJRE piletasterne til at navigere igennem listen.",
+        "autoLaunch": "<p>Automatisk Start er aktiveret. Tryk på [Pil Op] knappen for at deaktivere Automatisk Start.</p>"
+    },
+    "service": {
+        "alreadyRunning": "Service kører allerede.",
+        "started": "Service er startet.",
+        "connected": "Service forbundet til appen."
+    },
+    "buttons": {
+        "red": "RØD",
+        "green": "GRØN",
+        "yellow": "GUL",
+        "blue": "BLÅ"
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Du kan ikke starte moduler, før servicen er forbundet til appen."
+    },
+    "moduleManager": {
+        "confirmDelete": "Vil du fjerne {packageName}?",
+        "addNPM": "Tilføj NPM Modul",
+        "addNPMDesc": "Dette her er hovedsageligt for produktion og for brugere.", 
+        "addGH": "Tilføj GitHub Modul",
+        "addGHDesc": "Dette her er hovedsageligt for udvikling og for udviklere.",
+        "addModule": "Tilføj Modul",
+        "moduleName": "Modul Navn (For {type}):"
+    },
+    "settings": {
+        "autolaunch": "Automatisk Start Indstillinger",
+        "autolaunchDesc": "Start dit yndlingsmodul automatisk, når du starter TizenBrew.",
+        "autolaunchService": "Automatisk Start Indstillinger for tjenester",
+        "autolaunchServiceDesc": "Start din yndlingstjeneste automatisk, når du starter TizenBrew.",
+        "useragent": "User-Agent Indstillinger",
+        "useragentDesc": "Ændr User-Agent for TizenBrew-moduler for at opnå nogle funktioner, som f.eks. at fikse UI'en i TizenTube.",
+        "enableAutolaunchPrompt": "Vil du sætte {packageName} til at starte ved opstart?",
+        "disableAutolaunchPrompt": "Vil du deaktivere Automatisk Start?",
+        "disableAutolaunch": "Deaktiver Automatisk Start",
+        "noModules": "Ingen moduler fundet.",
+        "default": "Standardindstilling",
+        "worksOnTizen": "(Virker på Tizen {version}+)",
+        "uaBasedOnDevice": "User-Agent er baseret på din Enhed (kan aktivere visse funktioner)",
+        "setUaTo": "Vil du gerne sætte User-Agent til {userAgent}?",
+        "uaNegativeEffects": "Bemærk, at selvom dette kan have positive effekter, kan der også være negative effekter.",
+        "language": "Sprog Indstillinger",
+        "languageDesc": "Ændr sproget i appen."
+    }
+}
