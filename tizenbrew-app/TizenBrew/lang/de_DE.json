@@ -1,15 +1,15 @@
 {
     "mainMenu": {
-        "modules": "Modules",
-        "description": "Starte deine lieblingsapps mit Mods und Tweaks von Tizen.",
-        "moduleManagerAccess": "Benutze den <span style=\"color: lightgreen\">{buttons.green}</span> Knopf, um den Modulen Manager zu öffnen.",
-        "settingsAccess": "Benutze den <span style=\"color: #0dc1e9\">{buttons.blue}</span> Knopf, um die Einstellungen zu öffnen.",
-        "navigationHelp": "benutze die LINKE und RECHTE pfeiltasten, um das Menü zu Navigieren",
-        "autoLaunch": "<p>AutoLaunch ist angeschaltet. Drücke den [Pfeil Oben] Knopf, um AutoLaunch auszuschalten.</p>"
+        "modules": "Module",
+        "description": "Starte deine Lieblingsapps mit Mods und Tweaks auf deinem Tizen-Gerät.",
+        "moduleManagerAccess": "Benutze den <span style=\"color: lightgreen\">{buttons.green}</span> Button, um den Modul-Manager zu öffnen.",
+        "settingsAccess": "Benutze den <span style=\"color: #0dc1e9\">{buttons.blue}</span> Button, um die Einstellungen zu öffnen.",
+        "navigationHelp": "Benutze die LINKE und die RECHTE Pfeiltaste, um im Menü zu navigieren.",
+        "autoLaunch": "<p>AutoLaunch ist eingeschaltet. Drücke den [Pfeil Oben] Button, um AutoLaunch auszuschalten.</p>"
     },
     "service": {
         "alreadyRunning": "Service läuft bereits.",
-        "started": "Service startet.",
+        "started": "Service wurde gestartet.",
         "connected": "Service ist mit der App verbunden."
     },
     "buttons": {
@@ -19,37 +19,33 @@
         "blue": "BLAU"
     },
     "errors": {
-        "serviceDidntConnectYet": "Du kannst Module nicht starten, solang der Service noch nicht mit der App verbunden ist.",
-        "moduleNotFound": "Error: Could not find the module {moduleName}.",
-        "crashedServices": "Error: The following services have crashed: {services}.",
-        "debuggingNotEnabled": "Error: Could not connect to the SDB Daemon. Are you sure you changed the Host PC IP to 127.0.0.1? If you have, hold the power button till you see the Samsung logo.",
-        "noModules": "Seems like you haven't installed any modules yet. Use the [GREEN] button to access the module manager."
+        "serviceDidntConnectYet": "Du kannst Module nicht starten, solange der Service noch nicht mit der App verbunden ist."
     },
     "moduleManager": {
         "confirmDelete": "Willst du {packageName} entfernen?",
-        "addNPM": "NPM Modul hinzufügen",
-        "addNPMDesc": "Das ist für Produktion und Benutzer",
-        "addGH": "GitHub Modul hinzufügen",
-        "addGHDesc": "Das ist für Development und Developer.",
-        "addModule": "Modul Hinzufügen",
-        "moduleName": "Modul Name (For {type}):"
+        "addNPM": "NPM-Modul hinzufügen",
+        "addNPMDesc": "Das ist primär für Produktion und Benutzer",
+        "addGH": "GitHub-Modul hinzufügen",
+        "addGHDesc": "Das ist primär für Entwicklung und Entwickler.",
+        "addModule": "Modul hinzufügen",
+        "moduleName": "Modul-Name (For {type}):"
     },
     "settings": {
         "autolaunch": "Autolaunch Einstellungen",
-        "autolaunchDesc": "Starte deine lieblingsmodule automatisch sobald du TizenBrew startest.",
+        "autolaunchDesc": "Starte deine Lieblingsmodule automatisch sobald du TizenBrew startest.",
         "autolaunchService": "Autolaunch Einstellungen für Services.",
-        "autolaunchServiceDesc": "Starte deine lieblingssercives automatisch sobald du TizenBrew startest.",
+        "autolaunchServiceDesc": "Starte deine Lieblingsservices automatisch sobald du TizenBrew startest.",
         "useragent": "User-Agent Einstellungen",
-        "useragentDesc": "Ändere den User-Agent von TizenBrew, um dinge wie die UI zu reparieren.",
-        "enableAutolaunchPrompt": "Willst du {packageName} zum Autostart hinzufügen?",
-        "disableAutolaunchPrompt": "Willst du AutoLaunch ausschalten?",
-        "disableAutolaunch": "AutoLaunch ausschalten",
+        "useragentDesc": "Ändere den User-Agent von TizenBrew-Modulen zu verschiedenen Zwecken, z.B. für Verbesserungen des UI in TizenTube.",
+        "enableAutolaunchPrompt": "Willst du {packageName} zum Autolaunch hinzufügen?",
+        "disableAutolaunchPrompt": "Willst du Autolaunch ausschalten?",
+        "disableAutolaunch": "Autolaunch ausschalten",
         "noModules": "Keine Module gefunden.",
-        "default": "Standart",
-        "worksOnTizen": "(funktioniert auf Tizen {version}+)",
-        "uaBasedOnDevice": "User-Agent basierend auf Gerätemodelle (sollte features hinzufügen)",
-        "setUaTo": "Willst du den User-Agent auf {userAgent} stellen?",
-        "uaNegativeEffects": "Dies könnte Positive als auch Negative Effekte haben.",
+        "default": "Standard",
+        "worksOnTizen": "(Funktioniert auf Tizen {version}+)",
+        "uaBasedOnDevice": "User-Agent basierend auf Gerätemodell (sollte einige Features hinzufügen)",
+        "setUaTo": "Willst du den User-Agent auf {userAgent} setzen?",
+        "uaNegativeEffects": "Beachte: Dies könnte sowohl positive als auch negative Effekte haben.",
         "language": "Spracheinstellungen",
         "languageDesc": "Ändere die Sprache der App."
     },
