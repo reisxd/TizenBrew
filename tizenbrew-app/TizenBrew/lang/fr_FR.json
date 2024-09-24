@@ -48,5 +48,8 @@
         "uaNegativeEffects": "Notice : ceci peut avoir des effets aussi bien positifs que négatifs.",
         "language": "Paramètres de langue",
         "languageDesc": "Changer le langage de votre application."
-    }
+    },
+    "__contributors": [
+        "Red2Je"
+    ]
 }

@@ -48,5 +48,8 @@
         "uaNegativeEffects": "Note that while this could have positive effects, there could also be negative effects.",
         "language": "Language Settings",
         "languageDesc": "Change the language of the app."
-    }
+    },
+    "__contributors": [
+        "reisxd"
+    ]
 }

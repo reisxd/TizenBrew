@@ -48,5 +48,8 @@
         "uaNegativeEffects": "Bunun olumlu etkileri olabileceği gibi, olumsuz etkileri de olabileceğini unutmayın.",
         "language": "Dil Ayarları",
         "languageDesc": "Uygulamanın dilini değiştirin."
-    }
+    },
+    "__contributors": [
+        "reisxd"
+    ]
 }

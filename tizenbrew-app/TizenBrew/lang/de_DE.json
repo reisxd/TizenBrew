@@ -1,0 +1,55 @@
+{
+    "mainMenu": {
+        "modules": "Modules",
+        "description": "Starte deine lieblingsapps mit Mods und Tweaks von Tizen.",
+        "moduleManagerAccess": "Benutze den <span style=\"color: lightgreen\">{buttons.green}</span> Knopf, um den Modulen Manager zu öffnen.",
+        "settingsAccess": "Benutze den <span style=\"color: #0dc1e9\">{buttons.blue}</span> Knopf, um die Einstellungen zu öffnen.",
+        "navigationHelp": "benutze die LINKE und RECHTE pfeiltasten, um das Menü zu Navigieren",
+        "autoLaunch": "<p>AutoLaunch ist angeschaltet. Drücke den [Pfeil Oben] Knopf, um AutoLaunch auszuschalten.</p>"
+    },
+    "service": {
+        "alreadyRunning": "Service läuft bereits.",
+        "started": "Service startet.",
+        "connected": "Service ist mit der App verbunden."
+    },
+    "buttons": {
+        "red": "ROT",
+        "green": "GRÜN",
+        "yellow": "GELB",
+        "blue": "BLAU"
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Du kannst Module nicht starten, solang der Service noch nicht mit der App verbunden ist."
+    },
+    "moduleManager": {
+        "confirmDelete": "Willst du {packageName} entfernen?",
+        "addNPM": "NPM Modul hinzufügen",
+        "addNPMDesc": "Das ist für Produktion und Benutzer",
+        "addGH": "GitHub Modul hinzufügen",
+        "addGHDesc": "Das ist für Development und Developer.",
+        "addModule": "Modul Hinzufügen",
+        "moduleName": "Modul Name (For {type}):"
+    },
+    "settings": {
+        "autolaunch": "Autolaunch Einstellungen",
+        "autolaunchDesc": "Starte deine lieblingsmodule automatisch sobald du TizenBrew startest.",
+        "autolaunchService": "Autolaunch Einstellungen für Services.",
+        "autolaunchServiceDesc": "Starte deine lieblingssercives automatisch sobald du TizenBrew startest.",
+        "useragent": "User-Agent Einstellungen",
+        "useragentDesc": "Ändere den User-Agent von TizenBrew, um dinge wie die UI zu reparieren.",
+        "enableAutolaunchPrompt": "Willst du {packageName} zum Autostart hinzufügen?",
+        "disableAutolaunchPrompt": "Willst du AutoLaunch ausschalten?",
+        "disableAutolaunch": "AutoLaunch ausschalten",
+        "noModules": "Keine Module gefunden.",
+        "default": "Standart",
+        "worksOnTizen": "(funktioniert auf Tizen {version}+)",
+        "uaBasedOnDevice": "User-Agent basierend auf Gerätemodelle (sollte features hinzufügen)",
+        "setUaTo": "Willst du den User-Agent auf {userAgent} stellen?",
+        "uaNegativeEffects": "Dies könnte Positive als auch Negative Effekte haben.",
+        "language": "Spracheinstellungen",
+        "languageDesc": "Ändere die Sprache der App."
+    },
+    "__contributors": [
+        "zexalgames"
+    ]
+}

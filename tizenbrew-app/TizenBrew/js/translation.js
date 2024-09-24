@@ -7,7 +7,8 @@ const languages = {
     "en": "English",
     "tr_TR": "Turkish (Türkçe)",
     "da_DK": "Danish (Dansk)",
-    "fr_FR": "French (Français)"
+    "fr_FR": "French (Français)",
+    "de_DE": "German (Deutsch)"
 };
 
 function loadTranslation(lang) {

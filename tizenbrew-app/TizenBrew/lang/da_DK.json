@@ -48,5 +48,8 @@
         "uaNegativeEffects": "Bemærk, at selvom dette kan have positive effekter, kan der også være negative effekter.",
         "language": "Sprog Indstillinger",
         "languageDesc": "Skift sproget i appen."
-    }
+    },
+    "__contributors": [
+        "loui771wReal"
+    ]
 }
