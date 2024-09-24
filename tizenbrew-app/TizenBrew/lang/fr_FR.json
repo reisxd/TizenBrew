@@ -20,10 +20,10 @@
     },
     "errors": {
         "serviceDidntConnectYet": "Vous ne pouvez pas lancer de modules tant que le service n'est pas connecté à l'application.",
-        "moduleNotFound": "Error: Could not find the module {moduleName}.",
-        "crashedServices": "Error: The following services have crashed: {services}.",
-        "debuggingNotEnabled": "Error: Could not connect to the SDB Daemon. Are you sure you changed the Host PC IP to 127.0.0.1? If you have, hold the power button till you see the Samsung logo.",
-        "noModules": "Seems like you haven't installed any modules yet. Use the [GREEN] button to access the module manager."
+        "moduleNotFound": "Erreur : module {moduleName} introuvable.",
+        "crashedServices": "Erreur : Le service a crashé : {services}.",
+        "debuggingNotEnabled": "Erreur : Connexion impossible au daemon SDB. Etes-vous sûr d'avoir changer l'ip du pc hôte en 127.0.0.1? Si c'est le cas, maintenez le bouton d'alimentation jusqu'à ce que le logo Samsung apparaisse.",
+        "noModules": "Il semblerait que vous n'avez installé aucun module pour l'instant. Utilisez le bouton [VERT] pour accéder au gestionnaire de modules."
     },
     "moduleManager": {
         "confirmDelete": "Voulez-vous supprimer {packageName}?",
