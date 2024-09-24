@@ -2,8 +2,8 @@
     "mainMenu": {
         "modules": "Modules",
         "description": "Start dine yndlingsapps med modifikationer og justeringer på din Tizen-enhed.",
-        "moduleManagerAccess": "Brug <span style=\"color: lightgreen\">{buttons.green}</span> knappen for at få adgang til moduladministratoren.",
-        "settingsAccess": "Brug <span style=\"color: #0dc1e9\">{buttons.blue}</span> knappen for at få adgang til indstillingerne.",
+        "moduleManagerAccess": "Brug knappen <span style=\"color: lightgreen\">{buttons.green}</span> for at få adgang til moduladministratoren.",
+        "settingsAccess": "Brug knappen <span style=\"color: #0dc1e9\">{buttons.blue}</span> for at få adgang til indstillingerne.",
         "navigationHelp": "Brug VENSTRE og HØJRE piletasterne til at navigere igennem listen.",
         "autoLaunch": "<p>Automatisk Start er aktiveret. Tryk på [Pil Op] knappen for at deaktivere Automatisk Start.</p>"
     },
@@ -19,7 +19,7 @@
         "blue": "BLÅ"
     },
     "errors": {
-        "serviceDidntConnectYet": "Du kan ikke starte moduler, før servicen er forbundet til appen."
+        "serviceDidntConnectYet": "Du kan ikke starte moduler, før tjenesten er forbundet til appen."
     },
     "moduleManager": {
         "confirmDelete": "Vil du fjerne {packageName}?",
@@ -37,8 +37,8 @@
         "autolaunchServiceDesc": "Start din yndlingstjeneste automatisk, når du starter TizenBrew.",
         "useragent": "User-Agent Indstillinger",
         "useragentDesc": "Ændr User-Agent for TizenBrew-moduler for at opnå nogle funktioner, som f.eks. at fikse UI'en i TizenTube.",
-        "enableAutolaunchPrompt": "Vil du sætte {packageName} til at starte ved opstart?",
-        "disableAutolaunchPrompt": "Vil du deaktivere Automatisk Start?",
+        "enableAutolaunchPrompt": "Vil du indstille {packageName} til at starte automatisk ved opstart?",
+        "disableAutolaunchPrompt": "Ønsker du at deaktivere Automatisk Start?",
         "disableAutolaunch": "Deaktiver Automatisk Start",
         "noModules": "Ingen moduler fundet.",
         "default": "Standardindstilling",
@@ -47,6 +47,6 @@
         "setUaTo": "Vil du gerne sætte User-Agent til {userAgent}?",
         "uaNegativeEffects": "Bemærk, at selvom dette kan have positive effekter, kan der også være negative effekter.",
         "language": "Sprog Indstillinger",
-        "languageDesc": "Ændr sproget i appen."
+        "languageDesc": "Skift sproget i appen."
     }
 }
