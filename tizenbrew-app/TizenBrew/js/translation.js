@@ -5,7 +5,8 @@ let translationLoaded = false;
 
 const languages = {
     "en": "English",
-    "tr_TR": "Turkish (Türkçe)"
+    "tr_TR": "Turkish (Türkçe)",
+    "da_DK": "Danish (Denmark)"
 };
 
 function loadTranslation(lang) {
