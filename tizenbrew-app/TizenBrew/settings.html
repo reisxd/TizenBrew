@@ -6,6 +6,18 @@
     <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
     <script src="./js/wsClient.js"></script>
     <script src="./js/index.js"></script>
+    <script src="./js/translation.js"></script>
+    <script>
+        try {
+            tizen.systeminfo.getPropertyValue("LOCALE", function (locale) {
+                window.i18n.loadTranslation(localStorage.getItem('language') || locale.language.replace('.utf8', '') || navigator.language.replace('-', '_') || 'en');
+            }, function (e) {
+                window.i18n.loadTranslation(localStorage.getItem('language') || navigator.language.replace('-', '_') || 'en');
+            });
+        } catch (e) {
+            window.i18n.loadTranslation(localStorage.getItem('language') || navigator.language.replace('-', '_') || 'en');
+        }
+    </script>
     <link rel="stylesheet" href="./css/style.css" />
 </head>
 
@@ -13,10 +25,14 @@
     <div class="container">
         <div class="header">
             <div>
-                <div class="title">Tizen<span style="color: #0dc1e9;">Brew</span> Modules</div>
+                <div class="title">Tizen<span style="color: #0dc1e9;">Brew</span> <span
+                        data-i18n="mainMenu.modules"></span></div>
+
                 <div class="subtitle">
-                    <p>Launch your favorite apps with mods and tweaks on your Tizen device.</p>
-                    <p>Use the <span style="color: #0dc1e9;">BLUE</span> button to go back to module launcher.</p>
+                    <p data-i18n="mainMenu.description"></p>
+
+                    <p data-i18n="mainMenu.moduleManagerAccess"></p>
+                    <p data-i18n="mainMenu.settingsAccess"></p>
                 </div>
             </div>
             <p class="status" id="wsText">Status</p>
@@ -29,25 +45,28 @@
             <div data-selecteditem="0">
                 <div id="appList">
                     <div class="card selected" tabindex="0" id="autoLaunch">
-                        <h1>Autolaunch Settings</h1>
-                        <h3>Launch your favorite module automatically when you launch TizenBrew.</h3>
+                        <h1 data-i18n="settings.autolaunch"></h1>
+                        <h3 data-i18n="settings.autolaunchDesc"></h3>
                     </div>
                     <div class="card" tabindex="0" id="autoLaunchService">
-                        <h1>Autolaunch Settings for services</h1>
-                        <h3>Launch your favorite service automatically when you launch TizenBrew.</h3>
+                        <h1 data-i18n="settings.autolaunchService"></h1>
+                        <h3 data-i18n="settings.autolaunchServiceDesc"></h3>
                     </div>
                     <!--While it is still broken (CSP), it needs to be enabled for some features in TizenTube-->
                     <div class="card" tabindex="0" id="userAgent">
-                        <h1>User-Agent Settings</h1>
-                        <h3>Change the User-Agent of TizenBrew modules for some effects like fixing the UI on TizenBrew.
-                        </h3>
+                        <h1 data-i18n="settings.useragent"></h1>
+                        <h3 data-i18n="settings.useragentDesc"></h3>
+                    </div>
+                    <div class="card" tabindex="0" id="language">
+                        <h1 data-i18n="settings.language"></h1>
+                        <h3 data-i18n="settings.languageDesc"></h3>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <p id="navigateText">Use the LEFT and RIGHT arrow keys to navigate through the list.</p>
+            <p id="navigateText" data-i18n="mainMenu.navigationHelp"></p>
         </div>
     </div>
 </body>
@@ -79,6 +98,7 @@
                     selectedItem.classList.remove("selected");
                     selectedItem.previousElementSibling.classList.add("selected");
                     selectedItem = selectedItem.previousElementSibling;
+                    selectedItem.focus();
                     currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
                 }
                 break;
@@ -87,6 +107,7 @@
                     selectedItem.classList.remove("selected");
                     selectedItem.nextElementSibling.classList.add("selected");
                     selectedItem = selectedItem.nextElementSibling;
+                    selectedItem.focus();
                     currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
                 }
                 break;
@@ -95,7 +116,9 @@
                 var isForService = selectedItem.getAttribute("data-isForService");
                 var packageType = selectedItem.getAttribute("data-packagetype");
                 if (packageName != null) {
-                    var hasConfirmined = confirm(`Do you want to set ${packageName} to launch on start?`);
+                    var hasConfirmined = confirm(window.i18n.t('settings.enableAutolaunchPrompt', {
+                        packageName
+                    }));
                     if (hasConfirmined && isForService === 'false') {
                         localStorage.setItem('autoLaunch', JSON.stringify({ name: packageName, type: packageType }));
                         location.reload();
@@ -109,14 +132,20 @@
                     loadModules(true);
                 } else if (selectedItem.id == "userAgent") {
                     setUserAgentMenu();
+                } else if (selectedItem.id == "language") {
+                    languageMenu();
+                } else if (selectedItem.id == "languageSelection") {
+                    var lang = selectedItem.getAttribute("data-lang");
+                    localStorage.setItem('language', lang);
+                    location.reload();
                 } else if (selectedItem.id == "disableAutoLaunch") {
-                    var hasConfirmined = confirm(`Do you want to disable autolaunch?`);
+                    var hasConfirmined = confirm(window.i18n.t('settings.disableAutolaunchPrompt'));
                     if (hasConfirmined) {
                         localStorage.removeItem('autoLaunch');
                         location.reload();
                     }
                 } else if (selectedItem.id == "disableAutoLaunchService") {
-                    var hasConfirmined = confirm(`Do you want to disable autolaunch?`);
+                    var hasConfirmined = confirm(window.i18n.t('settings.disableAutolaunchPrompt'));
                     if (hasConfirmined) {
                         localStorage.removeItem('autoLaunchService');
                         location.reload();
@@ -140,7 +169,7 @@
                     chipsetModel = buildString.split("-")[3];
                     deviceName = `_TV_${chipsetModel}`;
                     var newUserAgent = `${window.navigator.userAgent}, ${deviceName}/${firmware} (Samsung, ${model}, ${connectionType})`;
-                    userAgentWarnMenu(newUserAgent, false); 
+                    userAgentWarnMenu(newUserAgent, false);
 
                 }
                 break;
@@ -160,6 +189,14 @@
 <script>
     "use strict";
 
+    if (translationLoaded) {
+        window.i18n.updateTranslations();
+    } else {
+        window.addEventListener('translationLoaded', () => {
+            window.i18n.updateTranslations();
+        });
+    }
+
     function loadModules(isForService) {
         const modules = JSON.parse(localStorage.getItem("modules"));
         if (modules.length != 0) {
@@ -175,13 +212,13 @@
             }
             document.getElementById("appList").innerHTML += `
                     <div class="card" tabindex="0" id="disableAutoLaunch${isForService ? 'Service' : ''}">
-                            <h1>Disable Autolaunch</h1>
+                            <h1>${window.i18n.t('settings.disableAutolaunch')}</h1>
                     </div>
                     `;
             window.selectedItem = document.querySelector(".selected");
             window.currentRow = selectedItem.parentElement.parentElement;
         } else {
-            alert('No modules found.');
+            alert(window.i18n.t('settings.noModules'));
             location.reload();
         }
     }
@@ -190,22 +227,22 @@
         document.getElementById("appList").innerHTML = "";
         document.getElementById("appList").innerHTML = `
             <div class="card selected" tabindex="0" id="removeUserAgent">
-                    <h1>Default</h1>
+                    <h1>${window.i18n.t('settings.default')}</h1>
             </div>
             <div class="card" tabindex="0" id="UE50MU7000">
-                    <h1>UE50MU7000 (Works on Tizen 3+)</h1>
+                    <h1>UE50MU7000 ${window.i18n.t('settings.worksOnTizen', { version: 3 })}</h1>
             </div>
             <div class="card" tabindex="0" id="QN55Q80AAFXZA">
-                    <h1>QN55Q80AAFXZA (Works on Tizen 6+)</h1>
+                    <h1>QN55Q80AAFXZA ${window.i18n.t('settings.worksOnTizen', { version: 6 })}</h1>
             </div>
             <div class="card" tabindex="0" id="UADEVICE">
-                    <h1>User-Agent based on Device (should bring some features)</h1>
+                    <h1>${window.i18n.t('settings.uaBasedOnDevice')}</h1>
             </div>
             <div class="card" tabindex="0" id="cobalt9">
-                    <h1>Cobalt 9 (Stable, works on Tizen 3+</h1>
+                    <h1>Cobalt 9 ${window.i18n.t('settings.worksOnTizen', { version: 3 })}</h1>
             </div>
             <div class="card" tabindex="0" id="cobalt23">
-                    <h1>Cobalt 23 (Works on Tizen 5+)</h1>
+                    <h1>Cobalt 23 ${window.i18n.t('settings.worksOnTizen', { version: 5 })}</h1>
             </div>
             `;
         window.selectedItem = document.querySelector(".selected");
@@ -219,10 +256,47 @@
     }
 
     function userAgentWarnMenu(userAgent, warn) {
-        var hasConfirmined = confirm(`Do you want to set the User-Agent to ${userAgent}?${warn ? '\nNote that while this could have positive effects, there could also be negative effects.' : ''}`);
+        var hasConfirmined = confirm(`${window.i18n.t('settings.setUaTo', { userAgent })}${warn ? `\n${window.i18n.t('settings.uaNegativeEffects')}` : ''}`);
         if (hasConfirmined) {
             setUserAgent(userAgent);
             location.reload();
+        }
+    }
+
+    function languageMenu() {
+        document.getElementById("appList").innerHTML = "";
+
+        let selectedCard = false;
+        tizen.systeminfo.getPropertyValue("LOCALE", function (locale) {
+            const currentLanguage = locale.language.replace('.utf8', '') || navigator.language.replace('-', '_') || 'en';
+            if (languages[currentLanguage]) {
+                selectedCard = true;
+                document.getElementById("appList").innerHTML = `
+                <div class="card selected" tabindex="0" id="languageSelection" data-lang="${currentLanguage}">
+                        <h1>Native Language (${languages[currentLanguage]})</h1>
+                </div>
+                `;
+            }
+            loadLanguages();
+        }, function (e) {
+            loadLanguages();
+        });
+
+        function loadLanguages() {
+            for (const lang of Object.keys(languages)) {
+                document.getElementById("appList").innerHTML += `
+                <div class="card${!selectedCard ? ' selected' : ''}" tabindex="0" id="languageSelection" data-lang="${lang}">
+                        <h1>${languages[lang]}</h1>
+                </div>
+                `;
+
+                if (!selectedCard) {
+                    selectedCard = true;
+                }
+            }
+
+            window.selectedItem = document.querySelector(".selected");
+            window.currentRow = selectedItem.parentElement.parentElement;
         }
     }
 </script>

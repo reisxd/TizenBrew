@@ -1,164 +1,169 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>TizenBrew</title>
 
-        <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
+<head>
+    <title>TizenBrew</title>
 
-        <script src="./js/wsClient.js"></script>
+    <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
 
-        <script src="./js/index.js"></script>
+    <script src="./js/wsClient.js"></script>
 
-        <link rel="stylesheet" href="./css/style.css" />
-    </head>
+    <script src="./js/index.js"></script>
 
-    <body>
-        <div class="container">
-            <div class="header">
-                <div>
-                    <div class="title">Tizen<span style="color: #0dc1e9;">Brew</span> Modules</div>
+    <script src="./js/translation.js"></script>
 
-                    <div class="subtitle">
-                        <p>Launch your favorite apps with mods and tweaks on your Tizen device.</p>
+    <script>
+        try {
+            tizen.systeminfo.getPropertyValue("LOCALE", function (locale) {
+                window.i18n.loadTranslation(localStorage.getItem('language') || locale.language.replace('.utf8', '') || navigator.language.replace('-', '_') || 'en');
+            }, function (e) {
+                window.i18n.loadTranslation(localStorage.getItem('language') || navigator.language.replace('-', '_') || 'en');
+                window.i18n.loadTranslation(localStorage.getItem('language') || navigator.language.replace('-', '_') || 'en');
+            });
+        } catch (e) {
+            window.i18n.loadTranslation(localStorage.getItem('language') || navigator.language.replace('-', '_') || 'en');
+        }
+    </script>
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
 
-                        <p>Use the <span style="color: lightgreen;">GREEN</span> button to access the module manager.</p>
-                        <p>Use the <span style="color: #0dc1e9">BLUE</span> button to access the settings.</p>
-                    </div>
-                </div>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <div class="title">Tizen<span style="color: #0dc1e9;">Brew</span> <span
+                        data-i18n="mainMenu.modules"></span></div>
 
-                <div>
-                    <p class="status" id="wsText">Status</p>
-                    <p class="status" id="version">Version</p>
-                </div>
-            </div>
+                <div class="subtitle">
+                    <p data-i18n="mainMenu.description"></p>
 
-            <div class="error-card">
-                <span class="exclamation-mark">!</span>
-
-                <span id="errorDiv" class="error-text">Error Message Here</span>
-            </div>
-
-            <div class="content">
-                <div data-selecteditem="0">
-                    <div id="appList">
-                        <div class="card selected" tabindex="0">
-                        </div>
-                        <!-- cards will be added here -->
-                    </div>
+                    <p data-i18n="mainMenu.moduleManagerAccess"></p>
+                    <p data-i18n="mainMenu.settingsAccess"></p>
                 </div>
             </div>
 
-            <div class="footer">
-                <p id="navigateText">Use the LEFT and RIGHT arrow keys to navigate through the list.</p>
+            <div>
+                <p class="status" id="wsText">Status</p>
+                <p class="status" id="version">Version</p>
             </div>
         </div>
 
-        <script>
-            function hideError() {
-                document.querySelector(".error-card").style.display = "none";
+        <div class="error-card">
+            <span class="exclamation-mark">!</span>
+
+            <span id="errorDiv" class="error-text">Error Message Here</span>
+        </div>
+
+        <div class="content">
+            <div data-selecteditem="0">
+                <div id="appList">
+                    <div class="card selected" tabindex="0">
+                    </div>
+                    <!-- cards will be added here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p id="navigateText" data-i18n="mainMenu.navigationHelp"></p>
+        </div>
+    </div>
+
+    <script>
+        function hideError() {
+            document.querySelector(".error-card").style.display = "none";
+        }
+
+        function showError(errortext) {
+            document.getElementById("errorDiv").innerText = errortext;
+
+            document.querySelector(".error-card").style.display = "flex";
+        }
+    </script>
+
+    <script>
+        window.selectedItem = document.querySelector(".selected");
+
+        window.currentRow = selectedItem.parentElement.parentElement;
+
+        function indexOf(array, item) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] === item) {
+                    return i;
+                }
             }
 
-            function showError(errortext) {
-                document.getElementById("errorDiv").innerText = errortext;
+            return -1;
+        }
 
-                document.querySelector(".error-card").style.display = "flex";
-            }
-        </script>
-
-        <script>
-            window.selectedItem = document.querySelector(".selected");
-
-            window.currentRow = selectedItem.parentElement.parentElement;
-
-            function indexOf(array, item) {
-                for (var i = 0; i < array.length; i++) {
-                    if (array[i] === item) {
-                        return i;
+        document.onkeydown = (e) => {
+            switch (e.keyCode) {
+                case 37:
+                    if (selectedItem.previousElementSibling != null) {
+                        selectedItem.classList.remove("selected");
+                        selectedItem.previousElementSibling.classList.add("selected");
+                        selectedItem = selectedItem.previousElementSibling;
+                        selectedItem.focus();
+                        currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
                     }
-                }
 
-                return -1;
-            }
+                    break;
 
-            document.onkeydown = (e) => {
-                switch (e.keyCode) {
-                    case 37:
-                        if (selectedItem.previousElementSibling != null) {
-                            selectedItem.classList.remove("selected");
+                case 39:
+                    if (selectedItem.nextElementSibling != null) {
+                        selectedItem.classList.remove("selected");
+                        selectedItem.nextElementSibling.classList.add("selected");
+                        selectedItem = selectedItem.nextElementSibling;
+                        selectedItem.focus();
+                        currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
+                    }
 
-                            selectedItem.previousElementSibling.classList.add("selected");
+                    break;
 
-                            selectedItem = selectedItem.previousElementSibling;
-
-                            currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
-                        }
-
+                case 13:
+                    var packageName = selectedItem.getAttribute("data-packagename");
+                    var appPath = selectedItem.getAttribute("data-appPath");
+                    var packageType = selectedItem.getAttribute("data-packageType");
+                    var moduleType = selectedItem.getAttribute("data-moduleType");
+                    if (!canLaunchModules) {
+                        alert(window.i18n.t('errors.serviceDidntConnectYet'));
                         break;
+                    }
 
-                    case 39:
-                        if (selectedItem.nextElementSibling != null) {
-                            selectedItem.classList.remove("selected");
-
-                            selectedItem.nextElementSibling.classList.add("selected");
-
-                            selectedItem = selectedItem.nextElementSibling;
-
-                            currentRow.setAttribute("data-selecteditem", indexOf(currentRow.lastElementChild.children, selectedItem).toString());
-                        }
-
-                        break;
-
-                    case 13:
-                        var packageName = selectedItem.getAttribute("data-packagename");
-
-                        var appPath = selectedItem.getAttribute("data-appPath");
-                        
-                        var packageType = selectedItem.getAttribute("data-packageType");
-
-                        var moduleType = selectedItem.getAttribute("data-moduleType");
-
-                        if (!canLaunchModules) {
-                            alert("You can't launch modules while the service hasn't connected yet.");
-
-                            break;
-                        }
-
-                        window.send({ type: "launch", package: `${moduleType}/${packageName}`, tvIp: webapis.network.getIp(), isTizen3 });
-                        var keys = selectedItem.getAttribute("data-keys");
-                        if (appPath.startsWith("http")) {
-                            if (keys.length > 0) {
-                                keys = selectedItem.getAttribute("data-keys").split(',');
-                                for (var i = 0; i < keys.length; i++) {
-                                    tizen.tvinputdevice.registerKey(keys[i]);
-                                }
+                    window.send({ type: "launch", package: `${moduleType}/${packageName}`, tvIp: webapis.network.getIp(), isTizen3 });
+                    var keys = selectedItem.getAttribute("data-keys");
+                    if (appPath.startsWith("http")) {
+                        if (keys.length > 0) {
+                            keys = selectedItem.getAttribute("data-keys").split(',');
+                            for (var i = 0; i < keys.length; i++) {
+                                tizen.tvinputdevice.registerKey(keys[i]);
                             }
-                            setTimeout(() => {
-                                if (selectedItem.getAttribute('data-moddedTizenApp') === 'false') {
-                                    location.href = appPath;
-                                }
-                            }, 250);
                         }
+                        setTimeout(() => {
+                            if (selectedItem.getAttribute('data-moddedTizenApp') === 'false') {
+                                location.href = appPath;
+                            }
+                        }, 250);
+                    }
 
-                        break;
+                    break;
 
-                    case 404:
-                        location.href = "/moduleManager.html";
+                case 404:
+                    location.href = "/moduleManager.html";
+                    break;
+                case 406:
+                    location.href = "/settings.html";
+                    break;
+                case 38:
+                    canAutoLaunch = false;
+                    break;
+            }
+        };
+    </script>
 
-                        break;
-                    case 406:
-                        location.href = "/settings.html";
-
-                        break;
-                    case 38:
-                        canAutoLaunch = false;
-
-                        break;
-                }
-            };
-        </script>
-
-        <script>
+    <script>
+        window.addEventListener('translationLoaded', () => {
             var testWS = new WebSocket(`ws://127.0.0.1:8081`);
 
             testWS.onerror = () => {
@@ -170,7 +175,7 @@
                     new tizen.ApplicationControl("http://tizen.org/appcontrol/operation/service"),
                     service_id,
                     function () {
-                        document.getElementById("wsText").innerText = "Service started.";
+                        document.getElementById("wsText").innerText = window.i18n.t('service.started');
 
                         window.begin();
                     },
@@ -181,33 +186,43 @@
             };
 
             testWS.onopen = () => {
-                document.getElementById("wsText").innerText = "Service is already running.";
+                document.getElementById("wsText").innerText = window.i18n.t('service.alreadyRunning');
 
                 window.begin();
 
                 testWS.close();
             };
-        </script>
+        });
+    </script>
 
-        <script>
-            if (localStorage.getItem('userAgent') != null) {
-                tizen.websetting.setUserAgentString(localStorage.getItem('userAgent'));
-            }
+    <script>
+        if (translationLoaded) {
+            window.i18n.updateTranslations();
+        } else {
+            window.addEventListener('translationLoaded', () => {
+                window.i18n.updateTranslations();
+            });
+        }
 
-            if (localStorage.getItem('autoLaunch') != null) {
-                document.getElementsByClassName('subtitle')[0].innerHTML += `<p>AutoLaunch is enabled. Press the [Arrow Up] button to disable AutoLaunch.</p>`;
-            }
-            tizen.tvinputdevice.registerKey("ColorF1Green");
+        if (localStorage.getItem('userAgent') != null) {
+            tizen.websetting.setUserAgentString(localStorage.getItem('userAgent'));
+        }
 
-            tizen.tvinputdevice.registerKey("ColorF3Blue");
+        if (localStorage.getItem('autoLaunch') != null) {
+            document.getElementsByClassName('subtitle')[0].innerHTML += window.i18n.t('mainMenu.autoLaunch');
+        }
+        tizen.tvinputdevice.registerKey("ColorF1Green");
 
-            tizen.tvinputdevice.registerKey("ColorF0Red");
+        tizen.tvinputdevice.registerKey("ColorF3Blue");
 
-            tizen.tvinputdevice.registerKey("ColorF2Yellow");
+        tizen.tvinputdevice.registerKey("ColorF0Red");
 
-            tizen.tvinputdevice.registerKey("Back");
+        tizen.tvinputdevice.registerKey("ColorF2Yellow");
 
-            tizen.tvinputdevice.registerKey("Exit");
-        </script>
-    </body>
+        tizen.tvinputdevice.registerKey("Back");
+
+        tizen.tvinputdevice.registerKey("Exit");
+    </script>
+</body>
+
 </html>

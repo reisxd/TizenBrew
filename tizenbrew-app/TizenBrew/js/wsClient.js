@@ -99,7 +99,7 @@ function onMessage(msg) {
 
         case 'canLaunchModules': {
             canLaunchModules = true;
-            document.getElementById('wsText').innerText = 'Connected to server.';
+            document.getElementById('wsText').innerText = t('service.connected');
 
             const autoLaunchService = JSON.parse(localStorage.getItem('autoLaunchService'));
 
