@@ -19,7 +19,10 @@
         "blue": "BLÅ"
     },
     "errors": {
-        "serviceDidntConnectYet": "Du kan ikke starte moduler, før tjenesten er forbundet til appen."
+        "serviceDidntConnectYet": "Du kan ikke starte moduler, før tjenesten er forbundet til appen.",
+        "moduleNotFound": "Error: Could not find the module {moduleName}.",
+        "crashedServices": "Error: The following services have crashed: {services}.",
+        "debuggingNotEnabled": "`Error: Could not connect to the SDB Daemon. Are you sure you changed the Host PC IP to 127.0.0.1? If you have, hold the power button till you see the Samsung logo.`"
     },
     "moduleManager": {
         "confirmDelete": "Vil du fjerne {packageName}?",

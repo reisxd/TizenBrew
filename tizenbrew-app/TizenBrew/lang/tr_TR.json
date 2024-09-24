@@ -19,7 +19,10 @@
         "blue": "MAVİ"
     },
     "errors": {
-        "serviceDidntConnectYet": "Servis henüz uygulamaya bağlanmadığı sürece modülleri başlatamazsınız."
+        "serviceDidntConnectYet": "Servis henüz uygulamaya bağlanmadığı sürece modülleri başlatamazsınız.",
+        "moduleNotFound": "Hata: {moduleName} modülü bulunamadı.",
+        "crashedServices": "Hata: Bu servisler çöktü: {services}.",
+        "debuggingNotEnabled": "Hata: SDB Daemon'a bağlanılamadı. Host PC IP'sini 127.0.0.1 olarak değiştirdiğinizden emin misiniz? Eğer değiştirdiyseniz, Samsung logosunu görene kadar güç düğmesini basılı tutun."
     },
     "moduleManager": {
         "confirmDelete": "{packageName} modülünü kaldırmak istiyor musun?",
