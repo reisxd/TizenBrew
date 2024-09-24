@@ -5,7 +5,7 @@
         "moduleManagerAccess": "Utiliser le bouton <span style=\"color: lightgreen\">{buttons.green}</span> pour accéder au gestionnaire de modules.",
         "settingsAccess": "Utiliser le bouton <span style=\"color: #0dc1e9\">{buttons.blue}</span> pour accéder aux paramètres.",
         "navigationHelp": "Utiliser FLECHE GAUCHE ou FLECHE DROITE pour naviguer dans la liste.",
-        "autoLaunch": "<p>AutoLaunch est activé. Appuyez sur le bouton [Arrow Up] pour le désactiver.</p>"
+        "autoLaunch": "<p>AutoLaunch est activé. Appuyez sur le bouton [FLECHE HAUT] pour le désactiver.</p>"
     },
     "service": {
         "alreadyRunning": "Le service est déja démarré.",
