@@ -1,7 +1,7 @@
 {
     "mainMenu": {
         "modules": "Môđun",
-        "description": "Mở các ứng dụng bạn yêu thích với các mods và tweaks trên thiết bị Tizen của bạn.",
+        "description": "Mở các ứng dụng bạn yêu thích với các bản chỉnh sửa và tinh chỉnh (mods và tweaks) trên thiết bị Tizen của bạn.",
         "moduleManagerAccess": "Bấm nút <span style=\"color: lightgreen\">{buttons.green}</span> để mở trình quản lý môđun.",
         "settingsAccess": "Bấm nút <span style=\"color: #0dc1e9\">{buttons.blue}</span> để mở cài đặt.",
         "navigationHelp": "Bấm các nút mũi tên TRÁI và PHẢI để di chuyển giữa các mục.",
@@ -21,16 +21,16 @@
     "errors": {
         "serviceDidntConnectYet": "Bạn chưa thể khởi chạy môđun khi dịch vụ chưa kết nối với ứng dụng.",
         "moduleNotFound": "Lỗi: Không thể tìm thấy môđun {moduleName}.",
-        "crashedServices": "Lỗi: Các dịch vụ: {services} đã dừng đột ngột.",
+        "crashedServices": "Lỗi: Dịch vụ: {services} đã dừng đột ngột.",
         "debuggingNotEnabled": "Lỗi: Không thể kết nối với SDB Daemon. Bạn có chắc chắn đã đổi Host PC IP thành 127.0.0.1 chưa? Vui lòng giữ nút nguồn đến khi bạn nhìn thấy logo Samsung nếu bạn đã đổi.",
         "noModules": "Bạn chưa cài đặt môđun nào cả. Bấm nút [MÀU XANH LÁ] để mở trình quản lý môđun."
     },
     "moduleManager": {
         "confirmDelete": "Bạn có muốn xóa {packageName} không?",
         "addNPM": "Thêm Môđun NPM",
-        "addNPMDesc": "This is primarily for production and for users.",
-        "addGH": "Add GitHub Module",
-        "addGHDesc": "This is primarily for development and for developers.",
+        "addNPMDesc": "Chủ yếu dành cho người dùng.",
+        "addGH": "Thêm Môđun GitHub",
+        "addGHDesc": "Chủ yếu dành cho nhà phát triển.",
         "addModule": "Thêm Môđun",
         "moduleName": "Tên Môđun (For {type}):"
     },
@@ -40,20 +40,20 @@
         "autolaunchService": "Cài đặt Tự Khởi chạy cho các dịch vụ",
         "autolaunchServiceDesc": "Tự động chạy dịch vụ yêu thích khi bạn mở TizenBrew.",
         "useragent": "Cài đặt User-Agent",
-        "useragentDesc": "Change the User-Agent of TizenBrew modules for some effects like fixing the UI in TizenTube.",
-        "enableAutolaunchPrompt": "Do you want to set {packageName} to launch on start?",
-        "disableAutolaunchPrompt": "Bạn có muốn tắt Tự khởi chạy không?",
+        "useragentDesc": "Thay đổi User-Agent của các môđun TizenBrew để thay đổi một số tính năng, như sửa giao diện trong TizenTube.",
+        "enableAutolaunchPrompt": "Bạn có muốn đặt {packageName} tự động chạy khi khởi động không?",
+        "disableAutolaunchPrompt": "Bạn có muốn tắt Tự Khởi chạy không?",
         "disableAutolaunch": "Tắt Tự khởi chạy",
         "noModules": "Không tìm thấy môđun.",
         "default": "Chế độ mặc định",
         "worksOnTizen": "(Hoạt động trên Tizen {version}+)",
         "uaBasedOnDevice": "User-Agent của Thiết bị (có thể thêm một số tính năng)",
         "setUaTo": "Bạn có muốn đổi User-Agent thành {userAgent} không?",
-        "uaNegativeEffects": "Lưu ý rằng while this could have positive effects, there could also be negative effects.",
+        "uaNegativeEffects": "Lưu ý rằng bên cạnh việc có thể sửa một số tính năng, đổi User-Agent cũng có thể gây ra một số lỗi.",
         "language": "Cài đặt Ngôn ngữ",
         "languageDesc": "Thay đổi ngôn ngữ ứng dụng."
     },
     "__contributors": [
-        "reisxd"
+        "axtrplayer (IntelCorei5-8350u)"
     ]
 }
