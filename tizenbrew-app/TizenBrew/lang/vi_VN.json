@@ -2,10 +2,10 @@
     "mainMenu": {
         "modules": "Môđun",
         "description": "Launch your favorite apps with mods and tweaks on your Tizen device.",
-        "moduleManagerAccess": "Use the <span style=\"color: lightgreen\">{buttons.green}</span> button to access the module manager.",
+        "moduleManagerAccess": "Bấm nút <span style=\"color: lightgreen\">{buttons.green}</span> để mở trình quản lý môđun.",
         "settingsAccess": "Use the <span style=\"color: #0dc1e9\">{buttons.blue}</span> button to access the settings.",
         "navigationHelp": "Use the LEFT and RIGHT arrow keys to navigate through the list.",
-        "autoLaunch": "<p>AutoLaunch is enabled. Press the [Arrow Up] button to disable AutoLaunch.</p>"
+        "autoLaunch": "<p>Tự Khởi chạy đã được bật. Press the [Arrow Up] button to disable AutoLaunch.</p>"
     },
     "service": {
         "alreadyRunning": "Service is already running.",
@@ -13,10 +13,10 @@
         "connected": "Service connected to the app."
     },
     "buttons": {
-        "red": "RED",
-        "green": "GREEN",
-        "yellow": "YELLOW",
-        "blue": "BLUE"
+        "red": "MÀU ĐỎ",
+        "green": "MÀU XANH LÁ",
+        "yellow": "MÀU VÀNG",
+        "blue": "MÀU XANH DƯƠNG"
     },
     "errors": {
         "serviceDidntConnectYet": "You can't launch modules while the service hasn't connected to the app yet.",
