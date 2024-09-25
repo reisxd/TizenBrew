@@ -10,6 +10,7 @@ const languages = {
     "fr_FR": "French (Français)",
     "es_BO": "Spanish (Español)",
     "de_DE": "German (Deutsch)",
+    "nl_NL": "Dutch (Nederlands)",
     "vi_VN": "Tiếng Việt (Việt Nam)"
 };
 

@@ -73,11 +73,6 @@ jobs:
         run: |
           ${GITHUB_WORKSPACE}/tizen-studio/tools/ide/bin/tizen build-web -e ".*" -e "node_modules/*" -e "package*.json" -e "yarn.lock"
 
-      - name: Build TizenBrew Updater
-        working-directory: tizenbrew-updater/TizenBrewUpdater
-        run: |
-          ${GITHUB_WORKSPACE}/tizen-studio/tools/ide/bin/tizen build-web -e ".*" -e "node_modules/*" -e "package*.json" -e "yarn.lock"
-
       - name: Package TizenBrew for Old Tizen
         env:
           PASSWORD: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
@@ -96,34 +91,11 @@ jobs:
         run: |
           expect ./package.exp
           mv tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
-      
-      - name: Package TizenBrew Updater for Old Tizen
-        env:
-          PASSWORD: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
-          APP_PATH: tizenbrew-updater/TizenBrewUpdater
-          CERT: TizenBrew-Old
-        run: |
-          expect ./package.exp
-          mv "tizenbrew-updater/TizenBrewUpdater/release/TizenBrew Updater.wgt" tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
-
-      - name: Package TizenBrew Updater for New Tizen
-        env:
-          PASSWORD: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
-          APP_PATH: tizenbrew-updater/TizenBrewUpdater
-          CERT: TizenBrew-New
-        run: |
-          expect ./package.exp
-          mv "tizenbrew-updater/TizenBrewUpdater/release/TizenBrew Updater.wgt" tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
 
       - name: Package TizenBrew as USB Demo Package
         working-directory: tizenbrew-app/TizenBrew
         run: |
           wgt-to-usb release/TizenBrewStandalone-Old.wgt 
-        
-      - name: Package Updater as USB Demo Package
-        working-directory: tizenbrew-updater/TizenBrewUpdater
-        run: |
-          wgt-to-usb release/TizenBrewUpdater-Old.wgt
 
       - name: Package Updater for Desktop
         working-directory: tizenbrew-updater/TizenBrewUpdater
@@ -141,28 +113,11 @@ jobs:
         with:
             name: app-${{ github.sha }}-new.wgt
             path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
-
-      - name: Upload TizenBrew Updater package artifact for Old Tizen
-        uses: actions/upload-artifact@v4
-        with:
-            name: updater-${{ github.sha }}-old.wgt
-            path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-Old.wgt
-
-      - name: Upload TizenBrew Updater package artifact for New Tizen
-        uses: actions/upload-artifact@v4
-        with:
-            name: updater-${{ github.sha }}-new.wgt
-            path: tizenbrew-updater/TizenBrewUpdater/release/TizenBrewUpdater-New.wgt
       
       - name: Zip USB Demo Package
         working-directory: tizenbrew-app/TizenBrew
         run: |
           zip -r release/TizenBrewStandaloneUSBDemo.zip userwidget/
-      
-      - name: Zip Updater USB Demo Package
-        working-directory: tizenbrew-updater/TizenBrewUpdater
-        run: |
-          zip -r release/TizenBrewUpdaterUSBDemo.zip userwidget/
       
       - name: Release TizenBrew Build Results
         uses: softprops/action-gh-release@v1
@@ -170,5 +125,4 @@ jobs:
           tag_name: ${{ env.RELEASE_VERSION }}
           files: |
             tizenbrew-app/TizenBrew/release/*
-            tizenbrew-updater/TizenBrewUpdater/release/*
             tizenbrew-updater/TizenBrewUpdater/dist/*
