@@ -1,6 +1,6 @@
 {
     "mainMenu": {
-        "modules": "Modules",
+        "modules": "Môđun",
         "description": "Launch your favorite apps with mods and tweaks on your Tizen device.",
         "moduleManagerAccess": "Use the <span style=\"color: lightgreen\">{buttons.green}</span> button to access the module manager.",
         "settingsAccess": "Use the <span style=\"color: #0dc1e9\">{buttons.blue}</span> button to access the settings.",
