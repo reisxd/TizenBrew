@@ -19,7 +19,11 @@
         "blue": "BLAU"
     },
     "errors": {
-        "serviceDidntConnectYet": "Du kannst Module nicht starten, solange der Service noch nicht mit der App verbunden ist."
+        "serviceDidntConnectYet": "Du kannst Module nicht starten, solange der Service noch nicht mit der App verbunden ist.",
+        "moduleNotFound": "Fehler: Das Modul {moduleName} konnte nicht gefunden werden.",
+        "crashedServices": "Fehler: Die folgenden Services sind abgestürzt: {services}.",
+        "debuggingNotEnabled": "Fehler: Verbindung zum SDB Daemon fehlgeschlagen. Bist du dir sicher, die IP des Host PCs auf 127.0.0.1 geändert zu haben? Wenn ja, halte den Power-Button gedrückt, bis du das Samsung-Logo siehst.",
+        "noModules": "Anscheinend hast du noch keine Module installiert. Drücke den [GRÜNEN] Button, um den Modul-Manager zu öffnen."
     },
     "moduleManager": {
         "confirmDelete": "Willst du {packageName} entfernen?",
@@ -50,6 +54,7 @@
         "languageDesc": "Ändere die Sprache der App."
     },
     "__contributors": [
-        "zexalgames"
+        "zexalgames",
+        "leanyn"
     ]
 }
