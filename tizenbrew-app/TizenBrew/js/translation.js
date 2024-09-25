@@ -8,7 +8,8 @@ const languages = {
     "tr_TR": "Turkish (Türkçe)",
     "da_DK": "Danish (Dansk)",
     "fr_FR": "French (Français)",
-    "de_DE": "German (Deutsch)"
+    "de_DE": "German (Deutsch)",
+    "vi_VN": "Tiếng Việt (Việt Nam)"
 };
 
 function loadTranslation(lang) {
