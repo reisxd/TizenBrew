@@ -5,7 +5,7 @@
         "moduleManagerAccess": "Użyj przycisku <span style=\"color: lightgreen\">{buttons.green}</span>, aby uzyskać dostęp do menedżera modułów.",
         "settingsAccess": "Użyj przycisku <span style=\"color: #0dc1e9\">{buttons.blue}</span>, aby uzyskać dostęp do ustawień.",
         "navigationHelp": "Użyj klawiszy STRZAŁKA W LEWO i STRZAŁKA W PRAWO, aby poruszać się po liście.",
-        "autoLaunch": "<p>AutoLaunch jest włączony. Naciśnij przycisk [Strzałka w górę], aby wyłączyć AutoLaunch.</p>"
+        "autoLaunch": "<p>Autostart jest włączony. Naciśnij przycisk [Strzałka w górę], aby wyłączyć Autostart.</p>"
     },
     "service": {
         "alreadyRunning": "Usługa już działa.",
