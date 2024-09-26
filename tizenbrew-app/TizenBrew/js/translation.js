@@ -11,7 +11,7 @@ const languages = {
     "es_BO": "Spanish (Español)",
     "de_DE": "German (Deutsch)",
     "nl_NL": "Dutch (Nederlands)",
-    "vi_VN": "Tiếng Việt (Việt Nam)",
+    "vi_VN": "Vietnamese (Tiếng Việt)",
     "pl_PL": "Polish (Polski)"
 };
 
