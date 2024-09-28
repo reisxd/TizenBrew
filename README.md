@@ -17,3 +17,7 @@ You can read the [guide](./docs/README.md) to get started with TizenBrew.
 # Making a module
 
 You can read the [guide](./docs/MODULES.md) to make a module for TizenBrew.
+
+# Translations
+
+You can read the [guide](./docs/TRANSLATION.md) to translate TizenBrew UI language into your native language.
