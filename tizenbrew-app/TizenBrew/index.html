@@ -196,11 +196,19 @@
     </script>
 
     <script>
+        function translateAutolaunch() {
+            if (localStorage.getItem('autoLaunch') != null) {
+                document.getElementsByClassName('subtitle')[0].innerHTML += window.i18n.t('mainMenu.autoLaunch');
+            }
+        }
+
         if (translationLoaded) {
             window.i18n.updateTranslations();
+            translateAutolaunch();
         } else {
             window.addEventListener('translationLoaded', () => {
                 window.i18n.updateTranslations();
+                translateAutolaunch();
             });
         }
 
@@ -208,9 +216,6 @@
             tizen.websetting.setUserAgentString(localStorage.getItem('userAgent'));
         }
 
-        if (localStorage.getItem('autoLaunch') != null) {
-            document.getElementsByClassName('subtitle')[0].innerHTML += window.i18n.t('mainMenu.autoLaunch');
-        }
         tizen.tvinputdevice.registerKey("ColorF1Green");
 
         tizen.tvinputdevice.registerKey("ColorF3Blue");
