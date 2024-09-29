@@ -13,8 +13,9 @@ const languages = {
     "nl_NL": "Dutch (Nederlands)",
     "vi_VN": "Vietnamese (Tiếng Việt)",
     "pl_PL": "Polish (Polski)",
-    "zh_TW": "Chinese Traditional (Taiwan)"
-    "el-GR": "Greek (Ελληνικά)"
+    "zh_TW": "Chinese Traditional (Taiwan)",
+    "el-GR": "Greek (Ελληνικά)",
+    "pt_BR": "Brazilian Portuguese (Português Brasileiro)"
 };
 
 function loadTranslation(lang) {
