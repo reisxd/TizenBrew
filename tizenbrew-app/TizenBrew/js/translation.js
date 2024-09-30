@@ -15,7 +15,8 @@ const languages = {
     "pl_PL": "Polish (Polski)",
     "zh_TW": "Chinese Traditional (Taiwan)",
     "el-GR": "Greek (Ελληνικά)",
-    "pt_BR": "Brazilian Portuguese (Português Brasileiro)"
+    "pt_BR": "Brazilian Portuguese (Português Brasileiro)",
+    "hu-HUN": "Hungarian (Magyar)"
 };
 
 function loadTranslation(lang) {
