@@ -14,9 +14,10 @@ const languages = {
     "vi_VN": "Vietnamese (Tiếng Việt)",
     "pl_PL": "Polish (Polski)",
     "zh_TW": "Chinese Traditional (Taiwan)",
-    "el-GR": "Greek (Ελληνικά)",
+    "el_GR": "Greek (Ελληνικά)",
     "pt_BR": "Brazilian Portuguese (Português Brasileiro)",
-    "hu-HUN": "Hungarian (Magyar)"
+    "hu_HU": "Hungarian (Magyar)",
+    "th_TH": "Thai (ไทย)"
 };
 
 function loadTranslation(lang) {

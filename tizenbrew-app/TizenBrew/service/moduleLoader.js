@@ -22,6 +22,7 @@ function loadModules(moduleList) {
                         appName: moduleJson.appName,
                         description: moduleJson.description,
                         packageType: moduleJson.packageType,
+                        serviceFile: moduleJson.serviceFile,
                         appPath: `http://127.0.0.1:8081/module/${encodeURIComponent(module)}/${moduleJson.appPath}`,
                         keys: moduleJson.keys || [],
                         moduleType: moduleMetadata.type
@@ -55,6 +56,17 @@ function loadModules(moduleList) {
             })
             .catch(e => {
                 console.error(e);
+
+                const splitData = [
+                    module.substring(0, module.indexOf('/')),
+                    module.substring(module.indexOf('/') + 1)
+                ];
+
+                const moduleMetadata = {
+                    name: splitData[1],
+                    type: splitData[0]
+                }
+
                 return {
                     appName: 'Unknown Module',
                     name: module,
