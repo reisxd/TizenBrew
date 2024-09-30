@@ -14,7 +14,7 @@ const languages = {
     "vi_VN": "Vietnamese (Tiếng Việt)",
     "pl_PL": "Polish (Polski)",
     "zh_TW": "Chinese Traditional (Taiwan)"
-    "el-GR": "Greek (Ελληνικά)"
+    "el-GR": "Greek (Ελληνικά)",
     "hu-HUN": "Hungarian (Magyar)"
 };
 
