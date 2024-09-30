@@ -20,4 +20,4 @@ You can read the [guide](./docs/MODULES.md) to make a module for TizenBrew.
 
 # Translations
 
-You can read the [guide](./docs/TRANSLATION.md) to translate TizenBrew UI language into your native language.
+You can read the [guide](./docs/TRANSLATION.md) to translate TizenBrew into your native language.
