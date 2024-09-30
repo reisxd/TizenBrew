@@ -42,7 +42,7 @@
     "useragent": "Ρυθμίσεις User-Agent",
     "useragentDesc": "Αλλάξτε το User-Agent των TizenBrew modules για κάποιες δράσεις όπως η επιδιόρθωση του UI στο TizenTube.",
     "enableAutolaunchPrompt": "Θέλετε να θέσετε το {packageName} να ξεκινάει με την έναρξη;",
-    "disableAutolaunchPrompt": "Θέλετε να απενεργοποιήσετε την αυτόματη εκκίνηση;",
+    "disableAutolaunchPrompt": "Θέλετε να απενεργοποιήσετε την αυτόματη εκκίνηση",
     "disableAutolaunch": "Απενεργοποίηση αυτόματης εκκίνησης",
     "noModules": "Δε βρέθηκαν modules.",
     "default": "Προεπιλογή",
