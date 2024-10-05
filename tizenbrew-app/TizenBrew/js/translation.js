@@ -17,7 +17,7 @@ const languages = {
     "el_GR": "Greek (Ελληνικά)",
     "pt_BR": "Brazilian Portuguese (Português Brasileiro)",
     "hu_HU": "Hungarian (Magyar)",
-    "th_TH": "Thai (ไทย)"
+    "th_TH": "Thai (ไทย)",
     "ru_RU": "Russian (Русский)"
 };
 
