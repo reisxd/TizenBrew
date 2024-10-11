@@ -18,7 +18,8 @@ const languages = {
     "pt_BR": "Brazilian Portuguese (Português Brasileiro)",
     "hu_HU": "Hungarian (Magyar)",
     "th_TH": "Thai (ไทย)",
-    "ru_RU": "Russian (Русский)"
+    "ru_RU": "Russian (Русский)",
+    "it_IT": "Italian (Italiano)"
 };
 
 function loadTranslation(lang) {
