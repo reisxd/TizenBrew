@@ -83,15 +83,6 @@ jobs:
           cat "${GITHUB_WORKSPACE}/tizen-studio-data/cli/logs/cli.log"
           mv tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt
 
-      - name: Package TizenBrew for New Tizen
-        env:
-          PASSWORD: ${{ secrets.TIZEN_AUTHOR_KEY_PW }}
-          APP_PATH: tizenbrew-app/TizenBrew
-          CERT: TizenBrew-New
-        run: |
-          expect ./package.exp
-          mv tizenbrew-app/TizenBrew/release/TizenBrewStandalone.wgt tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
-
       - name: Package TizenBrew as USB Demo Package
         working-directory: tizenbrew-app/TizenBrew
         run: |
@@ -107,12 +98,6 @@ jobs:
         with:
             name: app-${{ github.sha }}-old.wgt
             path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-Old.wgt
-      
-      - name: Upload TizenBrew package artifact for New Tizen
-        uses: actions/upload-artifact@v4
-        with:
-            name: app-${{ github.sha }}-new.wgt
-            path: tizenbrew-app/TizenBrew/release/TizenBrewStandalone-New.wgt
       
       - name: Zip USB Demo Package
         working-directory: tizenbrew-app/TizenBrew

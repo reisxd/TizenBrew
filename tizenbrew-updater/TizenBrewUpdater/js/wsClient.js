@@ -4,7 +4,7 @@ const isTV = navigator.userAgent.includes('Tizen');
 let isTizen8 = false;
 let client;
 
-window.connect = function() {
+window.connect = function () {
     try {
         client = new WebSocket(`ws://127.0.0.1:8083`);
         client.onmessage = onMessage;
@@ -42,6 +42,13 @@ function onMessage(msg) {
         case 'connectedToDaemon': {
             if (!isTV) {
                 isTizen8 = document.getElementById('tizen8').checked;
+                if (isTizen8) {
+                    const shouldOpenGuide = confirm('Tizen 8 or higher requires TizenBrew to be rebuilt. Please follow the guide to rebuild TizenBrew.\n\nDo you want to open the guide?');
+                    if (shouldOpenGuide) {
+                        window.open('https://tizentube.vercel.app/documentation#/./docs/README?id=rebuilding-tizenbrew');
+                    }
+                    return;
+                }
             }
             document.getElementById('wsText').innerText = 'Connected to Daemon';
             try {
@@ -51,7 +58,7 @@ function onMessage(msg) {
                 } else {
                     send({ type: 'isAppInstalled' })
                 }
-            } catch(_) {
+            } catch (_) {
                 addButtons(false);
             }
             break;
@@ -70,7 +77,7 @@ function onMessage(msg) {
             showError(message.message);
             break;
         }
-        case 'message': { 
+        case 'message': {
             document.getElementById('wsText').innerText = message.msg;
             if (message.msg === 'App installed') {
                 const sponsor = confirm('TizenBrew has been installed. You can find TizenBrew by going into the app store and clicking the settings icon..\n\nYou can support the development of TizenBrew by sponsoring reisxd.\nWould you like to do it?');
@@ -87,7 +94,7 @@ function addButtons(installed) {
     document.getElementById('appList').innerHTML = `
     <div class="card selected" tabindex="0" onclick="window.manageTizenBrew(${installed})">
         <h1>${installed ? 'Update TizenBrew' : 'Install TizenBrew'}</h1>
-        <h3>${installed ? 'Get access to a newer version of TizenBrew.' : 'Get access to your favorite TizenBrew modules.' }</h3>
+        <h3>${installed ? 'Get access to a newer version of TizenBrew.' : 'Get access to your favorite TizenBrew modules.'}</h3>
     </div>
     `
 
@@ -115,15 +122,6 @@ function onOpen() {
     }
 }
 
-window.manageTizenBrew = function(isUpdate) {
- /*  if (isUpdate) {
-        const uninstallDialog = confirm('TizenBrew cannot be updated normally, so TizenBrew has to get uninstalled first. This means that your data will be erased!\nAre you sure?');
-        if (uninstallDialog) {
-            send({ type: 'uninstallApp' });
-            setTimeout(() => send({ type: 'installApp' }), 2500);
-        } else alert('Canceled.')
-    } else {
-        send({ type: 'installApp' });
-    }*/
+window.manageTizenBrew = function (isUpdate) {
     send({ type: 'installApp', installType: isTizen8 ? 'New' : 'Old' });
 }
