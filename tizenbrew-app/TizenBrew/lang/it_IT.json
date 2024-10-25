@@ -4,13 +4,13 @@
         "description": "Avvia le tue app preferite con modifiche e ritocchi sul tuo dispositivo Tizen.",
         "moduleManagerAccess": "Usa il bottone <span style=\"color: lightgreen\">{buttons.green}</span> per accedere al gestore dei moduli.",
         "settingsAccess": "Usa il bottone <span style=\"color: #0dc1e9\">{buttons.blue}</span> per accedere alle impostazioni.",
-        "navigationHelp": "Usa ea frecce SINISTRA e DESTRA per navigare attraverso la lista.",
+        "navigationHelp": "Usa le frecce SINISTRA e DESTRA per navigare attraverso la lista.",
         "autoLaunch": "<p>Autoavvio attivato. Premi il bottone [Freccia Su] per disabilitare l'Autoavvio.</p>"
     },
     "service": {
         "alreadyRunning": "Il servizio è già attivo.",
-        "started": "Servizio partito.",
-        "connected": "Servizio connesso all' app."
+        "started": "Servizio avviato.",
+        "connected": "Servizio connesso all'app."
     },
     "buttons": {
         "red": "ROSSO",
@@ -22,17 +22,17 @@
         "serviceDidntConnectYet": "Non puoi lanciare moduli se il servizio non si è ancora connesso all'app.",
         "moduleNotFound": "Errore: Non è possibile trovare il modulo {moduleName}.",
         "crashedServices": "Errore: Questo servizio è crashato: {services}.",
-        "debuggingNotEnabled": "Errore: Non riesco a collegarmi a SDB Daemon. Sei sicuro di aver modificato l'Host PC IP a 127.0.0.1? Se l'hai fatto, tieni premuto il tasto di spegnimento della tv fino a quando non vedi il logo Samsung.",
-        "noModules": "Sembra che tu non abbia installato alcun modulo ancora. Usa il bottone [VERDE] per accedere al gestore dei moduli."
+        "debuggingNotEnabled": "Errore: Non riesco a collegarmi a SDB Daemon. Sei sicuro di aver modificato l'Host PC IP in 127.0.0.1? Se l'hai fatto, tieni premuto il tasto di spegnimento della tv fino a quando non vedi il logo Samsung.",
+        "noModules": "Sembra che tu non abbia installato ancora installato nessun modulo. Usa il bottone [VERDE] per accedere al gestore dei moduli."
     },
     "moduleManager": {
-        "confirmDelete": "Se sicuro di voler rimuovere {packageName}?",
+        "confirmDelete": "Sei sicuro di voler rimuovere {packageName}?",
         "addNPM": "Aggiungi Modulo NPM",
         "addNPMDesc": "Usato principalmente per la produzione e gli utenti.",
         "addGH": "Aggiungi modulo GitHub",
         "addGHDesc": "Usato principalmente per lo sviluppo e per gli sviluppatori.",
         "addModule": "Aggiungi Modulo",
-        "moduleName": "Module Name (For {type}):"
+        "moduleName": "Nome Modulo (For {type}):"
     },
     "settings": {
         "autolaunch": "Impostazioni Autoavvio",
@@ -48,12 +48,13 @@
         "default": "Predefinito",
         "worksOnTizen": "(Funziona su Tizen {version}+)",
         "uaBasedOnDevice": "User-Agent basato sul dispositivo (dovrebbe portare alcune features)",
-        "setUaTo": "Vuoi impostare lo User-Agent a {userAgent}?",
+        "setUaTo": "Vuoi impostare lo User-Agent in {userAgent}?",
         "uaNegativeEffects": "Nota che sebbene questo possa avere effetti positivi, è possibile possa averne anche di negativi.",
         "language": "Impostazioni lingua",
         "languageDesc": "Cambia la lingua dell'app"
     },
     "__contributors": [
         "desko21"
+        "DaRk_ViVi"
     ]
 }
