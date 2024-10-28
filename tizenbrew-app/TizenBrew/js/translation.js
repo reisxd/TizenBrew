@@ -19,7 +19,8 @@ const languages = {
     "hu_HU": "Hungarian (Magyar)",
     "th_TH": "Thai (ไทย)",
     "ru_RU": "Russian (Русский)",
-    "it_IT": "Italian (Italiano)"
+    "it_IT": "Italian (Italiano)",
+    "fi_FI": "Finnish (Suomi)"
 };
 
 function loadTranslation(lang) {
