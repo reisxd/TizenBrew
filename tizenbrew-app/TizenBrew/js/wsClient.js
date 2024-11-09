@@ -84,7 +84,7 @@ function onMessage(msg) {
                 window.selectedItem = document.querySelector(".selected");
                 window.currentRow = selectedItem.parentElement.parentElement;
             } else {
-                document.getElementById('navigateText').innerHTML = window.i18n.t('error.noModules');
+                document.getElementById('navigateText').innerHTML = window.i18n.t('errors.noModules');
                 window.selectedItem.style.display = 'none';
             }
             break;
@@ -146,14 +146,14 @@ function onMessage(msg) {
                 send({ type: 'relaunchInDebug', isTizen3, tvIp: webapis.network.getIp() });
                 tizen.application.getCurrentApplication().exit();
             } else {
-                showError(window.i18n.t('error.debuggingNotEnabled'));
+                showError(window.i18n.t('errors.debuggingNotEnabled'));
             }
             break;
         }
         case 'serviceStatuses': {
             const crashedServices = message.services.filter(service => service.hasCrashed);
             if (crashedServices.length > 0) {
-                showError(window.i18n.t('error.crashedServices', { services: crashedServices.map(service => service.name).join(', ') }));
+                showError(window.i18n.t('errors.crashedServices', { services: crashedServices.map(service => service.name).join(', ') }));
             }
             break;
         }
@@ -186,7 +186,7 @@ function autoLaunchModule() {
     const autoLaunch = JSON.parse(localStorage.getItem('autoLaunch'));
     const app = document.querySelector(`[data-packagename="${autoLaunch.name}"]`);
     if (!app) {
-        showError(window.i18n.t('error.moduleNotFound', { moduleName: autoLaunch.name }));
+        showError(window.i18n.t('errors.moduleNotFound', { moduleName: autoLaunch.name }));
         return;
     } else {
         const appPath = app.getAttribute('data-appPath');
