@@ -56,27 +56,39 @@ Note that if you want to install TizenBrew using this method, the app will be in
 
 1. Install Tizen Studio by following the instructions [here](https://developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk/installing-tv-sdk.html).
 
-2. Connect to your TV using this [guide](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html).
+2. Create certificate by following the instructions [here](https://developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk/creating-certificates.html).
 
-3. Download the latest TizenBrew Widget from the [releases page](https://github.com/reisxd/TizenBrew/releases).
+3. Connect to your TV using this [guide](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html).
 
-4. Check if the TV is connected by running:
+4. Download the latest TizenBrew Widget from the [releases page](https://github.com/reisxd/TizenBrew/releases).
+
+5. Check if the TV is connected by running:
 ```bash
 sdb devices
 ```
 
 Note that sdb is in `C:\tizen-studio\tools` on Windows and in `~/tizen-studio/tools` on Linux.
 
-5. Install the TizenBrew Widget by running:
+6. Sign the downloaded package from the step 4. with the certificate you created in step 2 by running:
 ```bash
-tizen install -n path/to/TizenBrewStandalone.wgt 
+tizen package -t wgt -s {your certificate name} -- {path to downloaded widget file}
+```
+
+For example:
+```bash
+tizen package -t wgt -s tv -- ~/Downloads/TizenBrewStandalone.wgt                          
 ```
 
 Note that tizen is in `C:\tizen-studio\tools\ide\bin` on Windows and in `~/tizen-studio/tools/ide/bin` on Linux.
 
-6. Set the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
+7. Install the TizenBrew Widget by running:
+```bash
+tizen install -n path/to/TizenBrewStandalone.wgt 
+```
 
-7. You can now launch the TizenBrew app on your TV.
+8. Set the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
+
+9. You can now launch the TizenBrew app on your TV.
 
 
 ## Rebuilding TizenBrew
