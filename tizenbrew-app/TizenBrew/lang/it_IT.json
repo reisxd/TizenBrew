@@ -23,7 +23,7 @@
         "moduleNotFound": "Errore: Non è possibile trovare il modulo {moduleName}.",
         "crashedServices": "Errore: Questo servizio è crashato: {services}.",
         "debuggingNotEnabled": "Errore: Non riesco a collegarmi a SDB Daemon. Sei sicuro di aver modificato l'Host PC IP in 127.0.0.1? Se l'hai fatto, tieni premuto il tasto di spegnimento della tv fino a quando non vedi il logo Samsung.",
-        "noModules": "Sembra che tu non abbia installato ancora installato nessun modulo. Usa il bottone [VERDE] per accedere al gestore dei moduli."
+        "noModules": "Sembra che tu non abbia ancora installato alcun modulo. Usa il bottone [VERDE] per accedere al gestore dei moduli."
     },
     "moduleManager": {
         "confirmDelete": "Sei sicuro di voler rimuovere {packageName}?",
