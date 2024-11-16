@@ -49,6 +49,7 @@
         "worksOnTizen": "(Hoạt động trên Tizen {version}+)",
         "uaBasedOnDevice": "User-Agent của Thiết bị (có thể thêm một số tính năng)",
         "setUaTo": "Bạn có muốn đổi User-Agent thành {userAgent} không?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
         "uaNegativeEffects": "Lưu ý rằng bên cạnh việc có thể sửa một số tính năng, đổi User-Agent cũng có thể gây ra một số lỗi.",
         "language": "Cài đặt Ngôn ngữ",
         "languageDesc": "Thay đổi ngôn ngữ ứng dụng."

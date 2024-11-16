@@ -49,6 +49,7 @@
         "worksOnTizen": "(Virker på Tizen {version}+)",
         "uaBasedOnDevice": "User-Agent er baseret på din Enhed (kan aktivere visse funktioner)",
         "setUaTo": "Vil du gerne sætte User-Agent til {userAgent}?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
         "uaNegativeEffects": "Bemærk, at selvom dette kan have positive effekter, kan der også være negative effekter.",
         "language": "Sprog Indstillinger",
         "languageDesc": "Skift sproget i appen."

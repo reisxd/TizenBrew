@@ -256,10 +256,11 @@
     }
 
     function userAgentWarnMenu(userAgent, warn) {
-        var hasConfirmined = confirm(`${window.i18n.t('settings.setUaTo', { userAgent })}${warn ? `\n${window.i18n.t('settings.uaNegativeEffects')}` : ''}`);
+        var hasConfirmined = confirm(`${window.i18n.t('settings.setUaTo', { userAgent })}${warn ? ` \n${window.i18n.t('settings.uaNegativeEffects')}` : ''}`);
         if (hasConfirmined) {
             setUserAgent(userAgent);
-            location.reload();
+            alert(window.i18n.t('settings.uaSetRelaunch'));
+            tizen.application.getCurrentApplication().exit();
         }
     }
 

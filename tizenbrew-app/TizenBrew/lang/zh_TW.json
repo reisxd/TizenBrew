@@ -49,6 +49,7 @@
         "worksOnTizen": "(能用於Tizen 版本{version}以上 )",
         "uaBasedOnDevice": "基於裝置的使用者代理(會帶來一些影響...)",
         "setUaTo": "您想設定使用者代理(UA)到 {userAgent}嗎?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
         "uaNegativeEffects": "請注意,這有可能會造成好效果,但也有造成負面影響",
         "language": "語言設定",
         "languageDesc": "改變程式語言"

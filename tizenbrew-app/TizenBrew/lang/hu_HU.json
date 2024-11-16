@@ -49,6 +49,7 @@
         "worksOnTizen": "({version}+ Tizen-en működik )",
         "uaBasedOnDevice": "User-Agent (böngészőazonosító) az eszköz alapján (különböző funkciókat adhat)",
         "setUaTo": "Be akarod állítani a {userAgent} User-Agentet?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
         "uaNegativeEffects": "Vedd figyelembe hogy ennek lehetnek pozitív hatásai de ugyan így negatívak is.",
         "language": "Nyelvi beállítások",
         "languageDesc": "Változtad meg az app nyelvét."

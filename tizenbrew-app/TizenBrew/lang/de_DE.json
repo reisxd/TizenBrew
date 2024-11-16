@@ -49,6 +49,7 @@
         "worksOnTizen": "(Funktioniert auf Tizen {version}+)",
         "uaBasedOnDevice": "User-Agent basierend auf Gerätemodell (sollte einige Features hinzufügen)",
         "setUaTo": "Willst du den User-Agent auf {userAgent} setzen?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
         "uaNegativeEffects": "Beachte: Dies könnte sowohl positive als auch negative Effekte haben.",
         "language": "Spracheinstellungen",
         "languageDesc": "Ändere die Sprache der App."

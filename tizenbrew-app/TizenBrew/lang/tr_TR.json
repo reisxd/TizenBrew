@@ -49,6 +49,7 @@
         "worksOnTizen": "(Tizen {version} ve üzerinde çalışır)",
         "uaBasedOnDevice": "Cihaza Dayalı User-Agent (bazı özellikler getirebilir)",
         "setUaTo": "User-Agent'ı {userAgent} olarak ayarlamak istiyor musun?",
+        "uaSetRelaunch": "User-Agent değiştirildi. Değişiklikleri uygulamak için uygulamayı yeniden başlatın.",
         "uaNegativeEffects": "Bunun olumlu etkileri olabileceği gibi, olumsuz etkileri de olabileceğini unutmayın.",
         "language": "Dil Ayarları",
         "languageDesc": "Uygulamanın dilini değiştirin."
