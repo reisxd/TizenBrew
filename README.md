@@ -1,4 +1,4 @@
-# ☕ TizenBrew — Take your favorite apps to the next level.
+# 🍺 TizenBrew
 
 <p align="center">
     <img
@@ -31,7 +31,14 @@
            
 # 🙌 Getting started
 
-You can read the [guide](./docs/README.md) to get started with TizenBrew.
+### You can read the [guide](./docs/README.md) down below to get started with TizenBrew ⬇️
+<p align="left">
+    <a href="./docs/README.md">
+       <picture>
+           <source height="50px" srcset="./.github/assets/TizenBrew_Guide_Button.png" />
+           <img height="50px" src="./.github/assets/TizenBrew_Guide_Button.png" />
+       </picture>
+</a>
 
 # 💻 Making a module
 
