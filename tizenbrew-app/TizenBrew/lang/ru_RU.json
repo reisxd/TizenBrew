@@ -49,12 +49,13 @@
         "worksOnTizen": "(Работает на Tizen {version}+)",
         "uaBasedOnDevice": "User-Agent на основе устройства (должен добавить некоторые функции)",
         "setUaTo": "Вы хотите установить User-Agent на {userAgent}?",
-        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaSetRelaunch": "User-Agent установлен. Перезапустите приложение, чтобы изменения вступили в силу.",
         "uaNegativeEffects": "Обратите внимание, что, несмотря на возможные положительные эффекты, могут быть и отрицательные.",
         "language": "Настройки языка",
         "languageDesc": "Измените язык приложения."
     },
     "__contributors": [
-        "BobZakharov"
+        "BobZakharov",
+        "cheack"
     ]
 }
