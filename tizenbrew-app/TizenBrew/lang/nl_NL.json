@@ -16,7 +16,7 @@
         "red": "ROOD",
         "green": "GROEN",
         "yellow": "GEEL",
-        "blue": "Blauw"
+        "blue": "BLAUW"
     },
     "errors": {
         "serviceDidntConnectYet": "je kan geen modules starten als de service nog niet verbonden is.",
@@ -47,7 +47,7 @@
         "noModules": "Geen modules Gevonden.",
         "default": "Standaard",
         "worksOnTizen": "(Werkt op Tizen {version}+)",
-        "uaBasedOnDevice": "User-Agent gebaseerd op Systeem (Zou functies toevoegen)",
+        "uaBasedOnDevice": "User-Agent gebaseerd op Systeem (Zal functies toevoegen)",
         "setUaTo": "Wil je de User-Agent Veranderen naar {userAgent}?",
         "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
         "uaNegativeEffects": "Let op er zijn positieve effecten, maar ook negatieve effecten.",
