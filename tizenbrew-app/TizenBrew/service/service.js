@@ -18,6 +18,7 @@ module.exports.onStart = function () {
     const startService = require('./serviceLauncher.js');
     const path = require('path');
     const app = express();
+    let deviceIP = '';
 
     // HTTP Proxy for modules
     app.all('*', (req, res) => {
@@ -34,7 +35,7 @@ module.exports.onStart = function () {
                     res.type(path.basename(req.url.replace(`/module/${encodedModuleName}/`, '')).split('.').slice(-1)[0].split('?')[0]);
                 });
         } else {
-            res.send('Hello from TizenBrew Standalone Service!');
+            res.send(deviceIP);
         }
     });
 
@@ -56,6 +57,7 @@ module.exports.onStart = function () {
     global.appControlData = null;
 
     function createAdbConnection(isTizen3, ip, appId) {
+        deviceIP = ip;
         if (adb) {
             if (adb._stream !== null || adb._stream !== undefined) {
                 adb._stream.removeAllListeners('connect');
@@ -161,15 +163,6 @@ module.exports.onStart = function () {
                                 path: `https://cdn.jsdelivr.net/${message.package}/${module.mainFile}`
                             }
 
-                            if (module.serviceFile) {
-                                if (global.services.has(message.package)) {
-                                    if (global.services.get(message.package).hasCrashed) {
-                                        global.services.delete(message.package);
-                                        startService(module, message.package);
-                                    } else ws.send(JSON.stringify({ type: 'error', message: 'Service already running.' }));
-                                } else startService(module, message.package);
-                            }
-
                             if (module.tizenAppId) {
                                 createAdbConnection(message.isTizen3, message.tvIp, module.tizenAppId);
                             }
@@ -181,6 +174,15 @@ module.exports.onStart = function () {
 
                             global.inDebug.tizenDebug = false;
                             global.inDebug.webDebug = false;
+                        }
+
+                        if (module.serviceFile) {
+                            if (global.services.has(message.package)) {
+                                if (global.services.get(message.package).hasCrashed) {
+                                    global.services.delete(message.package);
+                                    startService(module, message.package);
+                                } else ws.send(JSON.stringify({ type: 'error', message: 'Service already running.' }));
+                            } else startService(module, message.package);
                         }
                     });
                     break;
