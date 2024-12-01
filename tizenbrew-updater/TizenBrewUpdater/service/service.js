@@ -5,13 +5,15 @@ const isTV = process.platform === 'linux' && process.title.startsWith('/opt/usr/
 module.exports.onStart = function () {
     console.log('Service started.');
     const adbhost = require('adbhost');
+    const fs = require('fs');
     const WebSocket = require('ws');
     const pushFile = require('./filePush.js');
     const ghApi = require('./ghApi.js');
     const fetch = require('node-fetch');
     const express = require('express');
     const app = express();
-    app.use(express.static(`${process.platform === 'win32' ? 'C:' : '' }/snapshot/TizenBrewUpdater`));
+    const isUsingUpdater = fs.existsSync(`${process.platform === 'win32' ? 'C:' : '' }/snapshot/TizenBrewUpdater`);
+    app.use(express.static(isUsingUpdater ? `${process.platform === 'win32' ? 'C:' : '' }/snapshot/TizenBrewUpdater` : '../'));
     const server = new WebSocket.Server({ server: app.listen(8083) });
 
     global.currentClient = null;
