@@ -111,7 +111,7 @@ function onMessage(msg) {
                 const moduleName = message.appControlData.module.name;
                 const moduleType = message.appControlData.module.moduleType;
                 const keys = message.appControlData.module.keys;
-                const appPath = message.appControlData.module.appPath;
+                let appPath = message.appControlData.module.appPath;
                 const tizenAppId = message.appControlData.module.tizenAppId;
                 const args = message.appControlData.args;
 
@@ -124,7 +124,11 @@ function onMessage(msg) {
                 setTimeout(() => {
                     send({ type: 'launch', package: `${moduleType}/${moduleName}`, tvIp: webapis.network.getIp(), isTizen3 });
                     if (!tizenAppId) {
-                        location.href = `${appPath}${args ? `?${args}` : ''}`;
+                        if (appPath.includes('?') && args) {
+                            appPath += `&${args}`;
+                        }
+
+                        location.href = appPath;
                     }
                 }, 250);
                 return;

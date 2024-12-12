@@ -37,18 +37,31 @@ module.exports.onStart = function () {
         }
 
         adb = adbhost.createConnection({ host: ip, port: 26101 });
+        
+        let connected = false;
+        const waitTimeout = setTimeout(() => {
+            if (connected) global.currentClient.send(JSON.stringify({ type: 'connectedToDaemon' }));
+        }, 1000);
 
         adb._stream.on('connect', () => {
             console.log('ADB connection established');
-            global.currentClient.send(JSON.stringify({ type: 'connectedToDaemon' }));
+            connected = true;
         });
 
         adb._stream.on('error', (e) => {
             console.log('ADB connection error. ' + e);
+            clearTimeout(waitTimeout);
+
+            if (e.code === 'ECONNREFUSED') {
+                global.currentClient.send(JSON.stringify({ type: 'error', message: 'Could not connect to daemon. Make sure the TV is on and the IP is correct.' }));
+            } else if (e.code === 'ECONNRESET') {
+                global.currentClient.send(JSON.stringify({ type: 'error', message: 'Connection reset. Either your TVs Host PC IP wasn\'t set to this devices IP or it was not rebooted properly. Reboot by holding the power button till you see the Samsung logo or the bouncing house.' }));
+            }
         });
 
         adb._stream.on('close', () => {
             console.log('ADB connection closed.');
+            clearTimeout(waitTimeout);
         });
 
     }
