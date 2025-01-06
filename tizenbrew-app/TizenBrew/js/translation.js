@@ -9,6 +9,7 @@ const languages = {
     "da_DK": "Danish (Dansk)",
     "fr_FR": "French (Français)",
     "es_BO": "Spanish (Español)",
+    "es_ES": "Spanish (Español - España)",
     "de_DE": "German (Deutsch)",
     "nl_NL": "Dutch (Nederlands)",
     "vi_VN": "Vietnamese (Tiếng Việt)",
