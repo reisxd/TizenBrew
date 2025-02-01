@@ -1,0 +1,47 @@
+{
+    "service": {
+        "alreadyRunning": "Service läuft bereits.",
+        "started": "Service wurde gestartet.",
+        "connected": "Service ist mit der App verbunden."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Du kannst Module nicht starten, solange der Service noch nicht mit der App verbunden ist.",
+        "moduleNotFound": "Fehler: Das Modul {{moduleName}} konnte nicht gefunden werden.",
+        "crashedServices": "Fehler: Die folgenden Services sind abgestürzt: {{services}}.",
+        "debuggingNotEnabled": "Fehler: Verbindung zum SDB Daemon fehlgeschlagen. Bist du dir sicher, die IP des Host PCs auf 127.0.0.1 geändert zu haben? Wenn ja, halte den Power-Button gedrückt, bis du das Samsung-Logo siehst.",
+        "noModules": "Anscheinend hast du noch keine Module installiert. Drücke den [GRÜNEN] Button, um den Modul-Manager zu öffnen."
+    },
+    "moduleManager": {
+        "confirmDelete": "Willst du {{packageName}} entfernen?",
+        "addNPM": "NPM-Modul hinzufügen",
+        "addNPMDesc": "Das ist primär für Produktion und Benutzer",
+        "addGH": "GitHub-Modul hinzufügen",
+        "addGHDesc": "Das ist primär für Entwicklung und Entwickler.",
+        "addModule": "Modul hinzufügen",
+        "moduleName": "Modul-Name (For {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Autolaunch Einstellungen",
+        "autolaunchDesc": "Starte deine Lieblingsmodule automatisch sobald du TizenBrew startest.",
+        "autolaunchService": "Autolaunch Einstellungen für Services.",
+        "autolaunchServiceDesc": "Starte deine Lieblingsservices automatisch sobald du TizenBrew startest.",
+        "useragent": "User-Agent Einstellungen",
+        "useragentDesc": "Ändere den User-Agent von TizenBrew-Modulen zu verschiedenen Zwecken, z.B. für Verbesserungen des UI in TizenTube.",
+        "enableAutolaunchPrompt": "Willst du {{packageName}} zum Autolaunch hinzufügen?",
+        "disableAutolaunchPrompt": "Willst du Autolaunch ausschalten?",
+        "disableAutolaunch": "Autolaunch ausschalten",
+        "noModules": "Keine Module gefunden.",
+        "default": "Standard",
+        "worksOnTizen": "(Funktioniert auf Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent basierend auf Gerätemodell (sollte einige Features hinzufügen)",
+        "setUaTo": "Willst du den User-Agent auf {{userAgent}} setzen?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Beachte: Dies könnte sowohl positive als auch negative Effekte haben.",
+        "language": "Spracheinstellungen",
+        "languageDesc": "Ändere die Sprache der App."
+    },
+    "__contributors": [
+        "zexalgames",
+        "leanyn"
+    ]
+}

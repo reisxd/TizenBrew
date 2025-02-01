@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "เซอร์วิสกำลังดำเนินการ.",
+        "started": "เซอร์ได้เริ่มต้นแล้ว.",
+        "connected": "เซอร์วิสำด้เชื่อมต่อดับแอปพลิเคชั่นแล้ว."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "คุณไม่สามารถเปิดโมดูลระหว่างที่เซอร์วิสยังไม่ได้เชื่อมต่อกับแอป.",
+        "moduleNotFound": "ผิดพลาด: ไม่สามารถหาโมดูล {{moduleName}}.",
+        "crashedServices": "ผิดพลาด: เซอร์วิสนี้เกิดการแครช: {{services}}.",
+        "debuggingNotEnabled": "ผิดพลาด: ไม่สามารถเชื่อมต่อกับ SDB Daemon. คุณแน่ใจหรือเปล่าว่าคุณเปลี่ยน Host PC IP เป็น 127.0.0.1? ถ้าใช่, กดปุ่ม พาวเวอร์ ค้างจนกว่าคุณจะเห็นไอคอน Samsung.",
+        "noModules": "ดูเหมือนว่าคุณจะยังไม่ได้ติดตั้งโมดูลอะไรเลย. ใช้ปุ่ม [{{buttons.green}}] เพื่อเข้าถึงการจัดการโมดูล."
+    },
+    "moduleManager": {
+        "confirmDelete": "คุณต้องการลบ {{packageName}}ออกมั้ย?",
+        "addNPM": "เพิ่ม โมดูล NPM ",
+        "addNPMDesc": "นี่เอาำว้สำหรับผลิตภัณฑ์และผู้ใช้หลักๆ.",
+        "addGH": "เพิ่ม โมดูล GitHub",
+        "addGHDesc": "นี่เอาไว้สำหรับการพัฒนาของผู้พัฒนา.",
+        "addModule": "เพิ่มโมดูล",
+        "moduleName": "ชื่อโมดูล (สำหรับ {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "การตั้งค่าการเปิดตัวอัตโนมัติ",
+        "autolaunchDesc": "เปิดตัวโมดูลที่คุณชอบเมื่อคุณเปิดTizenBrew.",
+        "autolaunchService": "เปิดการตั้งค่าอัตโนมัติเพื่อเซอร์วิส",
+        "autolaunchServiceDesc": "เปิดการบริการที่คุณชอบเมื่อคุณเปิดTizenBrew.",
+        "useragent": "การตั้งค่า User-Agent ",
+        "useragentDesc": "เปลี่ยนโมดูล TizenBrew ของ User-Agent เพื่อการแก้เอฟเฟดส์อย่างเช่น UI ในTizenTube.",
+        "enableAutolaunchPrompt": "คุณต้องการที่จะเซ็ท {{packageName}} เริ่มต้นไหม?",
+        "disableAutolaunchPrompt": "คุณต้องการปิดการเปิดอัตโนมัติมั้ย?",
+        "disableAutolaunch": "ปิดการเปิดอัตโนมัติ",
+        "noModules": "ไม่พบโมดูล.",
+        "default": "เริ่มต้น",
+        "worksOnTizen": "(ทำงานบน Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent ที่อิงตามอุปกรณ์ (ควรนำฟีเจอร์มาด้วย)",
+        "setUaTo": "คุณต้องการที่จะเซ็ท User-Agent ให้เป็น {{userAgent}}ไหม?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "โปรดจำด้วยนี่อาจจะมีผลกระทบที่ดี, แต่มันก็อาจจะมีผบกระทบที่ไม่ได้ด้วย.",
+        "language": "การตั้งค่าภาษา",
+        "languageDesc": "เปลี่ยนภาษาของแอปพลิเคชั่น."
+    },
+    "__contributors": [
+        "bookarisakorso21"
+    ]
+}

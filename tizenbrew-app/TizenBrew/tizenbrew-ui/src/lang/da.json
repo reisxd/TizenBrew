@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Service kører allerede.",
+        "started": "Service er startet.",
+        "connected": "Service forbundet til appen."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Du kan ikke starte moduler, før tjenesten er forbundet til appen.",
+        "moduleNotFound": "Fejl: Kunne ikke finde modulet {{moduleName}}.",
+        "crashedServices": "Fejl: De følgende tjenester er gået ned: {{services}}.",
+        "debuggingNotEnabled": "Fejl: Kunne ikke oprette forbindelse til SDB Daemonen. Er du sikker på, at du har ændret PC IP til 127.0.0.1? Hvis du har, hold tænd/sluk-knappen nede, indtil du ser Samsung-logoet.",
+        "noModules": "Det ser ud som om du ikke har installeret nogle moduler endnu. Brug knappen [GREEN] for at få adgang til moduladministratoren."
+    },
+    "moduleManager": {
+        "confirmDelete": "Vil du fjerne {{packageName}}?",
+        "addNPM": "Tilføj NPM Modul",
+        "addNPMDesc": "Dette er hovedsageligt for produktion og for brugere.", 
+        "addGH": "Tilføj GitHub Modul",
+        "addGHDesc": "Dette er hovedsageligt for udvikling og for udviklere.",
+        "addModule": "Tilføj Modul",
+        "moduleName": "Modul Navn (For {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Automatisk Start Indstillinger",
+        "autolaunchDesc": "Start dit yndlingsmodul automatisk, når du starter TizenBrew.",
+        "autolaunchService": "Automatisk Start Indstillinger for tjenester",
+        "autolaunchServiceDesc": "Start din yndlingstjeneste automatisk, når du starter TizenBrew.",
+        "useragent": "User-Agent Indstillinger",
+        "useragentDesc": "Ændr User-Agent for TizenBrew-moduler for at opnå nogle funktioner, som f.eks. at fikse UI'en i TizenTube.",
+        "enableAutolaunchPrompt": "Vil du indstille {{packageName}} til at starte automatisk ved opstart?",
+        "disableAutolaunchPrompt": "Ønsker du at deaktivere Automatisk Start?",
+        "disableAutolaunch": "Deaktiver Automatisk Start",
+        "noModules": "Ingen moduler fundet.",
+        "default": "Standardindstilling",
+        "worksOnTizen": "(Virker på Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent er baseret på din Enhed (kan aktivere visse funktioner)",
+        "setUaTo": "Vil du gerne sætte User-Agent til {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Bemærk, at selvom dette kan have positive effekter, kan der også være negative effekter.",
+        "language": "Sprog Indstillinger",
+        "languageDesc": "Skift sproget i appen."
+    },
+    "__contributors": [
+        "loui771w"
+    ]
+}

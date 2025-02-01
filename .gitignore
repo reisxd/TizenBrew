@@ -4,3 +4,7 @@ node_modules
 .metadata
 dist
 .buildResult
+.vs
+bin
+obj
+TizenBrewService

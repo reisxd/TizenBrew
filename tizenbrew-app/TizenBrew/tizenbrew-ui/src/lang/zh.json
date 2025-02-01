@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "服務執行中",
+        "started": "服務已開始",
+        "connected": "服務已連上您的程式"
+    },
+    "errors": {
+        "serviceDidntConnectYet": "在服務為連上您的程式前,您無法啟動模組",
+        "moduleNotFound": "錯誤: 無法找到模組 {{moduleName}}.",
+        "crashedServices": "錯誤: 下列服務已當機: {{services}}.",
+        "debuggingNotEnabled": "錯誤: 無法連接上SDB Daemon,您是否已將三星電視開發者模式之Host PC IP改為127.0.0.1? 如果確定更改,請按住關機按鈕直到您看到三星標誌",
+        "noModules": "看來您還沒安裝任何模組,使用[綠色]按鈕來管理您的模組"
+    },
+    "moduleManager": {
+        "confirmDelete": "您是否要移除{{packageName}}?",
+        "addNPM": "加入 NPM 模組",
+        "addNPMDesc": "主要針對生產和使用者",
+        "addGH": "加入 GitHub 模組",
+        "addGHDesc": "主要針對開發和開發者",
+        "addModule": "加入模組",
+        "moduleName": "模組名字 (於{{type}}):"
+    },
+    "settings": {
+        "autolaunch": "自動啟動設定",
+        "autolaunchDesc": "在您開啟TizenBrew後自動啟動您最愛的模組",
+        "autolaunchService": "服務的自動啟動設定",
+        "autolaunchServiceDesc": "在您開啟TizenBrew後自動啟動您最愛的服務",
+        "useragent": "使用者代理(UA)設定",
+        "useragentDesc": "更改 TizenBrew 模組的使用者代理以獲得某些效果,例如修復 TizenTube 的 使用者介面",
+        "enableAutolaunchPrompt": "您想將 {{packageName}} 設定為自動啟動嗎?",
+        "disableAutolaunchPrompt": "您想停止自動啟動嗎?",
+        "disableAutolaunch": "停止自動啟動",
+        "noModules": "找不到模組",
+        "default": "恢復預設",
+        "worksOnTizen": "(能用於Tizen 版本{{version}}以上 )",
+        "uaBasedOnDevice": "基於裝置的使用者代理(會帶來一些影響...)",
+        "setUaTo": "您想設定使用者代理(UA)到 {{userAgent}}嗎?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "請注意,這有可能會造成好效果,但也有造成負面影響",
+        "language": "語言設定",
+        "languageDesc": "改變程式語言"
+    },
+    "__contributors": [
+        "kai"
+    ]
+}

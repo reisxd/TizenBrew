@@ -1,6 +1,7 @@
 # Translating TizenBrew
 
 If you'd like to help translate TizenBrew into your language, you can do so by following these steps:
+# Outdated, TODO
 
 ## Fork the Repository
 

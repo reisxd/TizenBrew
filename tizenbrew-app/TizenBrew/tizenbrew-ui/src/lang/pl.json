@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Usługa już działa.",
+        "started": "Usługa uruchomiona.",
+        "connected": "Usługa połączona z aplikacją."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Nie możesz uruchomić modułów, dopóki usługa nie połączy się jeszcze z aplikacją.",
+        "moduleNotFound": "Błąd: Nie znaleziono modułu {{moduleName}}.",
+        "crashedServices": "Błąd: Następujące usługi uległy awarii: {{services}}.",
+        "debuggingNotEnabled": "Błąd: Nie można połączyć się z SDB Daemonem. Czy na pewno zmieniłeś adres IP komputera Host na 127.0.0.1? Jeśli tak, przytrzymaj przycisk zasilania, aż pojawi się logo Samsunga.",
+        "noModules": "Wygląda na to, że nie zainstalowałeś jeszcze żadnych modułów. Użyj przycisku [ZIELONY], aby uzyskać dostęp do menedżera modułów."
+    },
+    "moduleManager": {
+        "confirmDelete": "Czy chcesz usunąć {{packageName}}?",
+        "addNPM": "Dodaj moduł NPM",
+        "addNPMDesc": "Głównie dla produkcji i dla użytkowników.",
+        "addGH": "Dodaj moduł GitHub",
+        "addGHDesc": "Głównie do rozwoju i dla programistów.",
+        "addModule": "Dodaj moduł",
+        "moduleName": "Nazwa modułu (dla {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Ustawienia Autolaunch",
+        "autolaunchDesc": "Uruchom automatycznie swój ulubiony moduł podczas uruchamiania TizenBrew.",
+        "autolaunchService": "Ustawienia Autolaunch dla usług",
+        "autolaunchServiceDesc": "Uruchom automatycznie swoją ulubioną usługę podczas uruchamiania TizenBrew.",
+        "useragent": "Ustawienia User-Agent",
+        "useragentDesc": "Zmień User-Agent modułów TizenBrew, aby uzyskać niektóre efekty, jak naprawa interfejsu w TizenTube.",
+        "enableAutolaunchPrompt": "Czy chcesz ustawić {{packageName}} do uruchomienia przy starcie?",
+        "disableAutolaunchPrompt": "Czy chcesz wyłączyć autolaunch?",
+        "disableAutolaunch": "Wyłącz Autolaunch",
+        "noModules": "Nie znaleziono modułów.",
+        "default": "Domyślne",
+        "worksOnTizen": "(Działa na Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent bazujący na urządzeniu (może wprowadzić pewne funkcje)",
+        "setUaTo": "Czy chcesz ustawić User-Agent na {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Zwróć uwagę, że choć to może przynieść pozytywne efekty, mogą również wystąpić efekty negatywne.",
+        "language": "Ustawienia języka",
+        "languageDesc": "Zmień język aplikacji."
+    },
+    "__contributors": [
+        "Kamil Sienicki (sienikam)"
+    ]
+}

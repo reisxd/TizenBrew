@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.focus {
+    outline: #1ca7ca solid 2px;
+    box-shadow: #2396b3 0px 0px 10px 3px;
+}
