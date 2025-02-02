@@ -13,6 +13,7 @@ const languages = {
     "nl_NL": "Dutch (Nederlands)",
     "vi_VN": "Vietnamese (Tiếng Việt)",
     "pl_PL": "Polish (Polski)",
+    "sk_SK": "Slovak (Slovenčina)",
     "zh_TW": "Chinese Traditional (Taiwan)",
     "el_GR": "Greek (Ελληνικά)",
     "pt_BR": "Brazilian Portuguese (Português Brasileiro)",
