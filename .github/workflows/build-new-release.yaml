@@ -32,7 +32,7 @@ jobs:
       - name: Build service
         working-directory: tizenbrew-app/TizenBrew/service-nextgen/service/transpiled
         run: |
-          ncc build service.js -o ../dist
+          ncc build index.js -o ../dist
           rm -r node_modules
 
       - name: Build UI
