@@ -1,0 +1,61 @@
+{
+    "mainMenu": {
+        "modules": "Moduli",
+        "description": "Avvia le tue app preferite con modifiche e ritocchi sul tuo dispositivo Tizen.",
+        "moduleManagerAccess": "Usa il bottone <span style=\"color: lightgreen\">{{buttons.green}}</span> per accedere al gestore dei moduli.",
+        "settingsAccess": "Usa il bottone <span style=\"color: #0dc1e9\">{{buttons.blue}}</span> per accedere alle impostazioni.",
+        "navigationHelp": "Usa le frecce SINISTRA e DESTRA per navigare attraverso la lista.",
+        "autoLaunch": "<p>Autoavvio attivato. Premi il bottone [Freccia Su] per disabilitare l'Autoavvio.</p>"
+    },
+    "service": {
+        "alreadyRunning": "Il servizio è già attivo.",
+        "started": "Servizio avviato.",
+        "connected": "Servizio connesso all'app."
+    },
+    "buttons": {
+        "red": "ROSSO",
+        "green": "VERDE",
+        "yellow": "GIALLO",
+        "blue": "BLU"
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Non puoi lanciare moduli se il servizio non si è ancora connesso all'app.",
+        "moduleNotFound": "Errore: Non è possibile trovare il modulo {{moduleName}}.",
+        "crashedServices": "Errore: Questo servizio è crashato: {{services}}.",
+        "debuggingNotEnabled": "Errore: Non riesco a collegarmi a SDB Daemon. Sei sicuro di aver modificato l'Host PC IP in 127.0.0.1? Se l'hai fatto, tieni premuto il tasto di spegnimento della tv fino a quando non vedi il logo Samsung.",
+        "noModules": "Sembra che tu non abbia ancora installato alcun modulo. Usa il bottone [VERDE] per accedere al gestore dei moduli."
+    },
+    "moduleManager": {
+        "confirmDelete": "Sei sicuro di voler rimuovere {{packageName}}?",
+        "addNPM": "Aggiungi Modulo NPM",
+        "addNPMDesc": "Usato principalmente per la produzione e gli utenti.",
+        "addGH": "Aggiungi modulo GitHub",
+        "addGHDesc": "Usato principalmente per lo sviluppo e per gli sviluppatori.",
+        "addModule": "Aggiungi Modulo",
+        "moduleName": "Nome Modulo (For {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Impostazioni Autoavvio",
+        "autolaunchDesc": "Lancia il tuo modulo preferito automaticamente all'avvio di TizenBrew.",
+        "autolaunchService": "Impostazioni di Autoavvio per i servizi",
+        "autolaunchServiceDesc": "Lancia il tuo servizio preferito automaticamente all'avvio di TizenBrew.",
+        "useragent": "Impostazioni User-Agent",
+        "useragentDesc": "Cambiare l'User-Agent del modulo TizenBrew per avere vantaggi come sistemare la UI in TizenTube.",
+        "enableAutolaunchPrompt": "Vuoi lanciare il pacchetto {{packageName}} all'avvio?",
+        "disableAutolaunchPrompt": "Vuoi disabilitare l'Autoavvio?",
+        "disableAutolaunch": "Disabilita l'Autoavvio",
+        "noModules": "Nessun modulo trovato.",
+        "default": "Predefinito",
+        "worksOnTizen": "(Funziona su Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent basato sul dispositivo (dovrebbe portare alcune features)",
+        "setUaTo": "Vuoi impostare lo User-Agent in {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Nota che sebbene questo possa avere effetti positivi, è possibile possa averne anche di negativi.",
+        "language": "Impostazioni lingua",
+        "languageDesc": "Cambia la lingua dell'app"
+    },
+    "__contributors": [
+        "desko21",
+        "DaRk_ViVi"
+    ]
+}

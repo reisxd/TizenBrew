@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Service is already running.",
+        "started": "Service started.",
+        "connected": "Service connected to the app."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "You can't launch modules while the service hasn't connected to the app yet.",
+        "moduleNotFound": "Error: Could not find the module {{moduleName}}.",
+        "crashedServices": "Error: The following services have crashed: {{services}}.",
+        "debuggingNotEnabled": "Error: Could not connect to the SDB Daemon. Are you sure you changed the Host PC IP to 127.0.0.1? If you have, hold the power button till you see the Samsung logo.",
+        "noModules": "Seems like you haven't installed any modules yet. Use the [GREEN] button to access the module manager."
+    },
+    "moduleManager": {
+        "confirmDelete": "Do you want to remove {{packageName}}?",
+        "addNPM": "Add NPM Module",
+        "addNPMDesc": "This is primarily for production and for users.",
+        "addGH": "Add GitHub Module",
+        "addGHDesc": "This is primarily for development and for developers.",
+        "addModule": "Add Module",
+        "moduleName": "Module Name (For {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Autolaunch Settings",
+        "autolaunchDesc": "Launch your favorite module automatically when you launch TizenBrew.",
+        "autolaunchService": "Autolaunch Settings for services",
+        "autolaunchServiceDesc": "Launch your favorite service automatically when you launch TizenBrew.",
+        "useragent": "User-Agent Settings",
+        "useragentDesc": "Change the User-Agent of TizenBrew modules for some effects like fixing the UI in TizenTube.",
+        "enableAutolaunchPrompt": "Do you want to set {{packageName}} to launch on start?",
+        "disableAutolaunchPrompt": "Do you want to disable autolaunch?",
+        "disableAutolaunch": "Disable Autolaunch",
+        "noModules": "No modules found.",
+        "default": "Default",
+        "worksOnTizen": "(Works on Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent based on Device (should bring some features)",
+        "setUaTo": "Do you want to set the User-Agent to {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Note that while this could have positive effects, there could also be negative effects.",
+        "language": "Language Settings",
+        "languageDesc": "Change the language of the app."
+    },
+    "__contributors": [
+        "reisxd"
+    ]
+}

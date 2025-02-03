@@ -10,6 +10,7 @@ Application modules are simply web pages without any modifications. They are not
 - `appName`: The name of the module (user friendly, like "TizenTube").
 - `appPath`: The path to the index.html file. (like `app/index.html`)
 - `keys`: The keys that should be registered using the [TVInputDevice](https://developer.samsung.com/smarttv/develop/api-references/tizen-web-device-api-references/tvinputdevice-api.html) API.
+- `serviceFile`: The main JavaScript file of the service (NodeJS).
 
 ## Site Modification Modules
 
@@ -21,22 +22,7 @@ Site modification modules are basically the same as application modules, but the
 - `serviceFile`: The main JavaScript file of the service. Used if exists.
 - `main`: The JavaScript file to be injected to the website.
 - `keys`: The keys that should be registered using the [TVInputDevice](https://developer.samsung.com/smarttv/develop/api-references/tizen-web-device-api-references/tvinputdevice-api.html) API.
-- `tizenAppId`: The Tizen application ID of the application that should be modified. Will be used if it exists.
-
-## Service Modules
-
-Service modules are ran in the background using Node.js. They can be used to interact with the TV in the background.
-
-Service modules is also an application module, but with a special property called `serviceFile`. This property should contain the path to the main JavaScript file of the service.
-
-The module should contain a `package.json` file with the following properties:
-
-- `packageType`: The type of the module. Should be `service`.
-- `appName`: The name of the module (user friendly, like "TizenTube").
-- `serviceFile`: The main JavaScript file of the service.
-- `appPath`: The path to the index.html file. (like `app/index.html`)
-- `keys`: The keys that should be registered using the [TVInputDevice](https://developer.samsung.com/smarttv/develop/api-references/tizen-web-device-api-references/tvinputdevice-api.html) API.
-
+- `serviceFile`: The main JavaScript file of the service (NodeJS).
 
 ## Examples
 

@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "A szolgáltatás már fut.",
+        "started": "A szolgáltatás elindult.",
+        "connected": "A szolgáltás kapcsolódott az apphoz"
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Nem indíthatsz modulokat ameddig a szolgáltatás nem csatlakozott az apphoz.",
+        "moduleNotFound": "Hiba: A modul nem található {{moduleName}}.",
+        "crashedServices": "Hiba: A következő szolgáltatások összeomlottak: {{services}}.",
+        "debuggingNotEnabled": "Hiba: Nem sikrült csatlakozni az SDB Daemon-hoz. Biztos vagy benne hogy átállítottad a gazda gép (TV) IP címét 127.0.0.1-re? Ha igen, tartsd a bekapcsoló gombot addig ameddig látod a Samsung logót",
+        "noModules": "Úgy tűnik még nem telepítettél modulokat Használd a [ZÖLD] gombot hogy elérd a modul menedzsert."
+    },
+    "moduleManager": {
+        "confirmDelete": "El szeretnéd távolítani a {{packageName}} modult?",
+        "addNPM": "Adj hozzá NPM modult",
+        "addNPMDesc": "Ez elsődlegesen gyártáshoz való és felhasználóknak ",
+        "addGH": "Adj hozzá GitHub modult",
+        "addGHDesc": "Ez elsődlegesen fejlesztéshez való és fejlesztőknek",
+        "addModule": "Modul hozzáadása",
+        "moduleName": "Modul neve ({{type}}-hoz(hez)):"
+    },
+    "settings": {
+        "autolaunch": "AutoFuttatás beállítások",
+        "autolaunchDesc": "Indítsd a kedvenc modulodat automatikusan amikor elindítod a TizenBrew-t.",
+        "autolaunchService": "Autofuttatás beállítások a szolgáltatásokhoz",
+        "autolaunchServiceDesc": "Indítsd a kedvenc szolgáltatásodat automatikusan amikor elindítod a TizenBrew-t.",
+        "useragent": "User-Agent (böngészőazonosító) beállítások",
+        "useragentDesc": "Változtasd meg a TizenBrew modul User-Agent-ét(böngészőazonosító) hogy különböző hatásokat érj el, pl javítja a TizenBrew kezelőfelületét",
+        "enableAutolaunchPrompt": "Be szeretnéd állítani {{packageName}} modult hogy automatikusan induljon?",
+        "disableAutolaunchPrompt": "Ki szeretnéd kapcsolni az automatikus indulást?",
+        "disableAutolaunch": "Automatikus indulás kikapcsolása",
+        "noModules": "Nem található modul.",
+        "default": "Alapértelmezett",
+        "worksOnTizen": "({{version}}+ Tizen-en működik )",
+        "uaBasedOnDevice": "User-Agent (böngészőazonosító) az eszköz alapján (különböző funkciókat adhat)",
+        "setUaTo": "Be akarod állítani a {{userAgent}} User-Agentet?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Vedd figyelembe hogy ennek lehetnek pozitív hatásai de ugyan így negatívak is.",
+        "language": "Nyelvi beállítások",
+        "languageDesc": "Változtad meg az app nyelvét."
+    },
+    "__contributors": [
+        "TheFr0zenOne"
+    ]
+}

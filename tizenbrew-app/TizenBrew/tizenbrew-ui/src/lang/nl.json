@@ -1,0 +1,60 @@
+{
+    "mainMenu": {
+        "modules": "Modules",
+        "description": "Start je Favorite apps met mods en tweaks op je Tizen systeem",
+        "moduleManagerAccess": "Druk op <span style=\"color: lightgreen\">{{buttons.green}}</span> knop om naar de module manager te gaan.",
+        "settingsAccess": "Druk op <span style=\"color: #0dc1e9\">{{buttons.blue}}</span> om naar de instellingen te gaan.",
+        "navigationHelp": "Gebruik LINKS en RECHTS toetsen om te navigeren.",
+        "autoLaunch": "<p>AutoLaunch staat aan. Druk op [Omhoog] knop om AutoLaunch uit te schakelen.</p>"
+    },
+    "service": {
+        "alreadyRunning": "Service is al bezig.",
+        "started": "Service gestart.",
+        "connected": "Service is verbonden met app."
+    },
+    "buttons": {
+        "red": "ROOD",
+        "green": "GROEN",
+        "yellow": "GEEL",
+        "blue": "BLAUW"
+    },
+    "errors": {
+        "serviceDidntConnectYet": "je kan geen modules starten als de service nog niet verbonden is.",
+        "moduleNotFound": "Error: Module kon niet gevonden worden: {{moduleName}}.",
+        "crashedServices": "Error: De volgende service is gecrashed: {{services}}.",
+        "debuggingNotEnabled": "Error: kon niet verbinden met SDB Daemon. Weet je zeker dat je de Host PC IP naar 127.0.0.1 hebt verandert? Zo wel, houd de Power-Knop in en herstart de tv tot dat je het Samsung logo ziet.",
+        "noModules": "Er zijn geen modules gevonden. Druk op [GREEN] om naar de module manager te gaan."
+    },
+    "moduleManager": {
+        "confirmDelete": "Weet je zeker dat je de volgende module wilt verwijderen: {{packageName}}?",
+        "addNPM": "Voeg NPM Module toe",
+        "addNPMDesc": "Dit is voornamelijk voor gebruikers.",
+        "addGH": "Voeg GitHub Module toe",
+        "addGHDesc": "Dit is voor Ontwikkelaars.",
+        "addModule": "Voeg Module toe",
+        "moduleName": "Module naam (voor {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Autolaunch Instellingen",
+        "autolaunchDesc": "Start je favoriete module automatisch wanneer je TizenBrew start.",
+        "autolaunchService": "Autolaunch Instellingen voor services",
+        "autolaunchServiceDesc": "Start je favoriete service automatisch wanneer je TizenBrew start..",
+        "useragent": "User-Agent Instellingen",
+        "useragentDesc": "Verander de User-Agent van TizenBrew modules voor effecten zoals UI verbeteringen in TizenTube.",
+        "enableAutolaunchPrompt": "Wil je {{packageName}} laten starten op het openen van TizenBrew?",
+        "disableAutolaunchPrompt": "Wil je autolaunch uitschakelen?",
+        "disableAutolaunch": "Autolaunch Uitschakelen.",
+        "noModules": "Geen modules Gevonden.",
+        "default": "Standaard",
+        "worksOnTizen": "(Werkt op Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent gebaseerd op Systeem (Zal functies toevoegen)",
+        "setUaTo": "Wil je de User-Agent Veranderen naar {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Let op er zijn positieve effecten, maar ook negatieve effecten.",
+        "language": "Taal Instellingen",
+        "languageDesc": "Verander de taal van TizenBrew."
+    },
+    "__contributors": [
+        "Owen Ramaekers"
+    ]
+}

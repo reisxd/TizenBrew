@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Η υπηρεσία εκτελείται ήδη.",
+        "started": "Η υπηρεσία ξεκίνησε.",
+        "connected": "Η υπηρεσία συνδέθηκε στην εφαρμογή."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Δεν μπορείτε να εκκινήσετε modules όσο η υπηρεσία δεν έχει ακόμη συνδεθεί στην εφαρμογή.",
+        "moduleNotFound": "Σφάλμα: Δεν ήταν δυνατή η εύρεση του module {{moduleName}}.",
+        "crashedServices": "Σφάλμα: Οι ακόλουθες υπηρεσίες κατέρρευσαν: {{services}}.",
+        "debuggingNotEnabled": "Σφάλμα: Δεν ήταν δυνατή η σύνδεση στο SDB Daemon. Είστε σίγουροι ότι αλλάξατε την HOST IP σας σε 127.0.0.1; Αν το κάνατε, κρατήστε πατημένο το κουμπί λειτουργίας μέχρι να εμφανιστεί το λογότυπο της Samsung.",
+        "noModules": "Φαίνεται πως δεν έχετε ακόμα εγκαταστήσει κάποιο module. Χρησιμοποιήστε το κουμπί [ΠΡΑΣΙΝΟ] για πρόσβαση στον διαχειριστή modules."
+    },
+    "moduleManager": {
+        "confirmDelete": "Θέλετε να αφαιρέσετε το {{packageName}};",
+        "addNPM": "Πρόσθεση NPM Module",
+        "addNPMDesc": "Αυτό είναι κυρίως για την παραγωγή και για χρήστες.",
+        "addGH": "Πρόσθεση GitHub Module",
+        "addGHDesc": "Αυτό είναι κυρίως για την ανάπτυξη και για προγραμματιστές.",
+        "addModule": "Πρόσθεση Module",
+        "moduleName": "Όνομα Module (Για {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Ρυθμίσεις αυτόματης εκκίνησης",
+        "autolaunchDesc": "Έναρξη του αγαπημένου σας module αυτόματα όταν εκτελείτε το TizenBrew.",
+        "autolaunchService": "Ρυθμίσεις αυτόματης εκκίνησης για υπηρεσίες",
+        "autolaunchServiceDesc": "Έναρξη της αγαπημένης σας υπηρεσίας αυτόματα όταν εκτελείτε το TizenBrew",
+        "useragent": "Ρυθμίσεις User-Agent",
+        "useragentDesc": "Αλλάξτε το User-Agent των TizenBrew modules για κάποιες δράσεις όπως η επιδιόρθωση του UI στο TizenTube.",
+        "enableAutolaunchPrompt": "Θέλετε να θέσετε το {{packageName}} να ξεκινάει με την έναρξη;",
+        "disableAutolaunchPrompt": "Θέλετε να απενεργοποιήσετε την αυτόματη εκκίνηση",
+        "disableAutolaunch": "Απενεργοποίηση αυτόματης εκκίνησης",
+        "noModules": "Δε βρέθηκαν modules.",
+        "default": "Προεπιλογή",
+        "worksOnTizen": "(Λειτουργεί στο Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent με βάση τη συσκευή (Λογικά θα επιφέρει κάποιες δυνατότητες)",
+        "setUaTo": "Θέλετε να ρυθμίσετε το User-Agent σε {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Σημειώστε ότι ενώ αυτό θα μπορούσε να έχει θετικά αποτελέσματα, θα μπορούσε επίσης να επιφέρει και αρνητικά αποτελέμσατα.",
+        "language": "Ρυθμίσεις Γλώσσας",
+        "languageDesc": "Αλλαγή της γλώσσας της εφαρμογής."
+    },
+    "__contributors": [
+        "Sotirisdim4"
+    ]
+}

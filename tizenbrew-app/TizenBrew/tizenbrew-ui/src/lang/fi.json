@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Palvelu on jo käynnissä.",
+        "started": "Palvelu käynnistetty.",
+        "connected": "Palvelu yhdistetty sovellukseen."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Et voi käynnistää moduuleita, kunnes palvelu on yhdistetty sovellukseen.",
+        "moduleNotFound": "Virhe: Moduulia {{moduleName}} ei löydy.",
+        "crashedServices": "Virhe: Seuraavat palvelut ovat kaatuneet: {{services}}.",
+        "debuggingNotEnabled": "Virhe: Ei voitu yhdistää SDB Daemoniin. Oletko varma, että vaihdoit isäntätietokoneen IP-osoitteen 127.0.0.1? Jos olet, pidä virtapainiketta painettuna, kunnes näet Samsung-logon.",
+        "noModules": "Näyttää siltä, ettet ole asentanut yhtään moduulia. Käytä [VIHREÄ]-painiketta päästäksesi moduulien hallintaan."
+    },
+    "moduleManager": {
+        "confirmDelete": "Haluatko poistaa {{packageName}}?",
+        "addNPM": "Lisää NPM-moduuli",
+        "addNPMDesc": "Tämä on pääasiassa tuotantoon ja käyttäjille.",
+        "addGH": "Lisää GitHub-moduuli",
+        "addGHDesc": "Tämä on pääasiassa kehitystä ja kehittäjiä varten.",
+        "addModule": "Lisää Moduuli",
+        "moduleName": "Moduulin nimi ({{type}} varten):"
+    },
+    "settings": {
+        "autolaunch": "Automaattikäynnistyksen asetukset",
+        "autolaunchDesc": "Käynnistä suosikkimoduulisi automaattisesti, kun käynnistät TizenBrewin.",
+        "autolaunchService": "Automaattikäynnistyksen asetukset palveluille",
+        "autolaunchServiceDesc": "Käynnistä suosikkipalvelusi automaattisesti, kun käynnistät TizenBrewin.",
+        "useragent": "User-Agentin asetukset",
+        "useragentDesc": "Muuta TizenBrew-moduulien User-Agent tiettyjä tehosteita varten, kuten TizenTuben käyttöliittymän korjaaminen.",
+        "enableAutolaunchPrompt": "Haluatko asettaa {{packageName}} käynnistymään automaattisesti?",
+        "disableAutolaunchPrompt": "Haluatko poistaa automaattikäynnistyksen käytöstä?",
+        "disableAutolaunch": "Poista automaattikäynnistys käytöstä",
+        "noModules": "Moduuleita ei löytynyt.",
+        "default": "Oletus",
+        "worksOnTizen": "(Toimii Tizen-versiossa {{version}}+)",
+        "uaBasedOnDevice": "User-Agent laitteen mukaan (saattaa tuoda joitain ominaisuuksia)",
+        "setUaTo": "Haluatko asettaa User-Agentin arvoon {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Huomaa, että vaikka tällä voi olla positiivisia vaikutuksia, sillä voi olla myös negatiivisia vaikutuksia.",
+        "language": "Kieliasetukset",
+        "languageDesc": "Vaihda sovelluksen kieli."
+    },
+    "__contributors": [
+        "Manki9000"
+    ]
+}

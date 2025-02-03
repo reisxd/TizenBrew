@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Servis zaten çalışıyor.",
+        "started": "Servis başlatıldı.",
+        "connected": "Servis uygulamaya bağlandı."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Servis henüz uygulamaya bağlanmadığı sürece modülleri başlatamazsınız.",
+        "moduleNotFound": "Hata: {{moduleName}} modülü bulunamadı.",
+        "crashedServices": "Hata: Bu servisler çöktü: {{services}}.",
+        "debuggingNotEnabled": "Hata: SDB Daemon'a bağlanılamadı. Host PC IP'sini 127.0.0.1 olarak değiştirdiğinizden emin misiniz? Eğer değiştirdiyseniz, Samsung logosunu görene kadar güç düğmesini basılı tutun.",
+        "noModules": "Görünüşe göre henüz herhangi bir modül yüklememişsin. Modül yöneticisine erişmek için [YEŞİL] butonunu kullanın."
+    },
+    "moduleManager": {
+        "confirmDelete": "{{packageName}} modülünü kaldırmak istiyor musun?",
+        "addNPM": "NPM Modülü Ekle",
+        "addNPMDesc": "Bu öncelikle üretim ve kullanıcılar içindir.",
+        "addGH": "GitHub Modülü Ekle",
+        "addGHDesc": "Bu öncelikle geliştirme ve geliştiriciler içindir.",
+        "addModule": "Modül Ekle",
+        "moduleName": "Modül Adı ({{type}} için):"
+    },
+    "settings": {
+        "autolaunch": "Otomatik Başlatma Ayarları",
+        "autolaunchDesc": "TizenBrew'u başlattığınızda favori modülünüzü otomatik olarak başlatın.",
+        "autolaunchService": "Servisler için Otomatik Başlatma Ayarları",
+        "autolaunchServiceDesc": "TizenBrew'u başlattığınızda favori Servisler otomatik olarak başlatın.",
+        "useragent": "User-Agent Ayarları",
+        "useragentDesc": "TizenBrew modüllerinin User-Agent'ını değiştirin, örneğin TizenTube'da UI'yi düzeltmek gibi bazı etkiler için.",
+        "enableAutolaunchPrompt": "{{packageName}} paketini başlangıçta başlatmak istiyor musun?",
+        "disableAutolaunchPrompt": "Otomatik başlatmayı devre dışı bırakmak istiyor musun?",
+        "disableAutolaunch": "Otomatik Başlatmayı Devre Dışı Bırak",
+        "noModules": "Modül bulunamadı.",
+        "default": "Varsayılan",
+        "worksOnTizen": "(Tizen {{version}} ve üzerinde çalışır)",
+        "uaBasedOnDevice": "Cihaza Dayalı User-Agent (bazı özellikler getirebilir)",
+        "setUaTo": "User-Agent'ı {{userAgent}} olarak ayarlamak istiyor musun?",
+        "uaSetRelaunch": "User-Agent değiştirildi. Değişiklikleri uygulamak için uygulamayı yeniden başlatın.",
+        "uaNegativeEffects": "Bunun olumlu etkileri olabileceği gibi, olumsuz etkileri de olabileceğini unutmayın.",
+        "language": "Dil Ayarları",
+        "languageDesc": "Uygulamanın dilini değiştirin."
+    },
+    "__contributors": [
+        "reisxd"
+    ]
+}

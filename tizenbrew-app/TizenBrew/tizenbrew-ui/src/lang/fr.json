@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Le service est déja démarré.",
+        "started": "Service démarré.",
+        "connected": "Service connecté à l'application."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Vous ne pouvez pas lancer de modules tant que le service n'est pas connecté à l'application.",
+        "moduleNotFound": "Erreur : module {{moduleName}} introuvable.",
+        "crashedServices": "Erreur : Le service a crashé : {{services}}.",
+        "debuggingNotEnabled": "Erreur : Connexion impossible au daemon SDB. Etes-vous sûr d'avoir changer l'ip du pc hôte en 127.0.0.1? Si c'est le cas, maintenez le bouton d'alimentation jusqu'à ce que le logo Samsung apparaisse.",
+        "noModules": "Il semblerait que vous n'avez installé aucun module pour l'instant. Utilisez le bouton [VERT] pour accéder au gestionnaire de modules."
+    },
+    "moduleManager": {
+        "confirmDelete": "Voulez-vous supprimer {{packageName}}?",
+        "addNPM": "Ajouter un Module NPM",
+        "addNPMDesc": "Ceci est principalement pour la production et les utilisateurs.",
+        "addGH": "Ajouter un Module GitHub",
+        "addGHDesc": "Ceci est principalement pour le développement et les développeurs.",
+        "addModule": "Ajouter un Module",
+        "moduleName": "Nom du Module (Pour {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Paramètres AutoLaunch",
+        "autolaunchDesc": "Démarrer votre Module préféré automatiquement quand vous lancez TizenBrew.",
+        "autolaunchService": "Paramètres AutoLaunch pour les services",
+        "autolaunchServiceDesc": "Démarrer votre Service préféré automatiquement quand vous lancez TizenBrew.",
+        "useragent": "Paramètres User-Agent",
+        "useragentDesc": "Changer le User-Agent des modules Tizenbrew notamment pour réparer l'interface utilisateur de TizenTube",
+        "enableAutolaunchPrompt": "Voulez-vous paramétrer {{packageName}} pour qu'il se lance au démarrage ?",
+        "disableAutolaunchPrompt": "Voulez-vous désactiver AutoLaunch ?",
+        "disableAutolaunch": "Désactiver l'Autolaunch",
+        "noModules": "Aucun module trouvé.",
+        "default": "Défaut",
+        "worksOnTizen": "(Fonctionne avec Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent basé sur le périphérique (amènes certaines fonctionnalitée)",
+        "setUaTo": "Voulez-vous paramétrer le User-Agent en tant que {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+        "uaNegativeEffects": "Notice : ceci peut avoir des effets aussi bien positifs que négatifs.",
+        "language": "Paramètres de langue",
+        "languageDesc": "Changer le langage de votre application."
+    },
+    "__contributors": [
+        "Red2Je"
+    ]
+}

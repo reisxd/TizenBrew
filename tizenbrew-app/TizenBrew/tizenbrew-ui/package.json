@@ -1,0 +1,31 @@
+{
+  "name": "tizenbrew-ui",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@noriginmedia/norigin-spatial-navigation": "^2.2.2",
+    "@vitejs/plugin-legacy": "^6.0.0",
+    "i18next": "^24.2.2",
+    "postcss-css-variables": "^0.19.0",
+    "postcss-preset-env": "^10.1.2",
+    "preact": "^10.25.3",
+    "preact-iso": "^2.8.1",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat",
+    "react-i18next": "^15.4.0"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.9.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.0.5",
+    "vite-plugin-external": "^4.3.1"
+  }
+}

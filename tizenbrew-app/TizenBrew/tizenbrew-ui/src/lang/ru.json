@@ -1,0 +1,47 @@
+{
+    "service": {
+        "alreadyRunning": "Служба уже запущена.",
+        "started": "Служба запущена.",
+        "connected": "Служба подключена к приложению."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Нельзя запускать модули, пока служба не подключилась к приложению.",
+        "moduleNotFound": "Ошибка: Не удалось найти модуль {{moduleName}}.",
+        "crashedServices": "Ошибка: Следующие службы завершили работу с ошибкой: {{services}}.",
+        "debuggingNotEnabled": "Ошибка: Не удалось подключиться к SDB Daemon. Вы уверены, что изменили IP-адрес Host PC на 127.0.0.1? Если да, удерживайте кнопку питания до появления логотипа Samsung.",
+        "noModules": "Похоже, вы еще не установили модули. Используйте [ЗЕЛЕНУЮ] кнопку, чтобы получить доступ к менеджеру модулей."
+    },
+    "moduleManager": {
+        "confirmDelete": "Вы хотите удалить {{packageName}}?",
+        "addNPM": "Добавить NPM модуль",
+        "addNPMDesc": "Это в основном для производства и пользователей.",
+        "addGH": "Добавить модуль с GitHub",
+        "addGHDesc": "Это в основном для разработки и разработчиков.",
+        "addModule": "Добавить модуль",
+        "moduleName": "Название модуля (для {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Настройки автозапуска",
+        "autolaunchDesc": "Автоматически запускайте свой любимый модуль при запуске TizenBrew.",
+        "autolaunchService": "Настройки автозапуска для служб",
+        "autolaunchServiceDesc": "Автоматически запускайте свою любимую службу при запуске TizenBrew.",
+        "useragent": "Настройки User-Agent",
+        "useragentDesc": "Измените User-Agent модулей TizenBrew для некоторых эффектов, таких как исправление интерфейса в TizenTube.",
+        "enableAutolaunchPrompt": "Вы хотите настроить {{packageName}} для автозапуска при старте?",
+        "disableAutolaunchPrompt": "Вы хотите отключить автозапуск?",
+        "disableAutolaunch": "Отключить автозапуск",
+        "noModules": "Модули не найдены.",
+        "default": "По умолчанию",
+        "worksOnTizen": "(Работает на Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent на основе устройства (должен добавить некоторые функции)",
+        "setUaTo": "Вы хотите установить User-Agent на {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent установлен. Перезапустите приложение, чтобы изменения вступили в силу.",
+        "uaNegativeEffects": "Обратите внимание, что, несмотря на возможные положительные эффекты, могут быть и отрицательные.",
+        "language": "Настройки языка",
+        "languageDesc": "Измените язык приложения."
+    },
+    "__contributors": [
+        "BobZakharov",
+        "cheack"
+    ]
+}
