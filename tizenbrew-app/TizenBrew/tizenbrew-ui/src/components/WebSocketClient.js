@@ -33,6 +33,13 @@ class Client {
                 const moduleName = parsedData.moduleName;
                 const moduleType = parsedData.moduleType;
                 const args = parsedData.args;
+
+                if (!moduleName || !moduleType) {
+                    return this.send({
+                        type: Events.GetDebugStatus
+                    });
+                }
+
                 this.send({
                     type: Events.AppControlData,
                     payload: {
