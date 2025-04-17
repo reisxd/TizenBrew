@@ -16,12 +16,23 @@ const UserAgents = [
     {
         name: 'settings.uaBasedOnDevice',
         userAgent: () => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://127.0.0.1:8001/api/v2/", false);
+            xhr.send();
+
+            let apiData = {};
+            try {
+                apiData = JSON.parse(xhr.responseText);
+            } catch (e) {
+                alert("Failed to parse API response:", e);
+            }
+
             const firmware = tizen.systeminfo.getCapability("http://tizen.org/custom/sw_version"),
                 model = tizen.systeminfo.getCapability("http://tizen.org/system/model_name"),
-                buildString = tizen.systeminfo.getCapability("http://tizen.org/system/build.string"),
-                chipsetModel = buildString.split("-")[3],
+                chipsetModel = apiData.device.model,
                 deviceName = `_TV_${chipsetModel}`,
                 newUserAgent = `${window.navigator.userAgent}, ${deviceName}/${firmware} (Samsung, ${model}, Wired)`;
+
             return newUserAgent;
         }
     }
@@ -33,7 +44,7 @@ function classNames(...classes) {
 
 function ItemBasic({ children, onClick, shouldFocus }) {
     const { ref, focused, focusSelf } = useFocusable();
-      useEffect(() => {
+    useEffect(() => {
         if (focused) {
             ref.current.scrollIntoView({
                 behavior: 'smooth',

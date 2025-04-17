@@ -121,18 +121,25 @@ To rebuild TizenBrew, you need to have Node.js installed on your system. You can
 git clone https://github.com/reisxd/TizenBrew.git
 ```
 
-2. Open up the `tizenbrew-app/TizenBrew/service` folder in a terminal and run:
+2. Open up the `tizenbrew-app/TizenBrew/service-nextgen/service` folder in a terminal and run:
 
 ```bash
 npm install
-npx @vercel/ncc build service.js
+npx @vercel/ncc build index.js
 ```
 
-3. Open up Certificate Manager by going to `Tools > Certificate Manager` and create a new Samsung certificate. See [this](https://developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk/creating-certificates.html) for more information.
+3. Open up the `tizenbrew-app/TizenBrew/tizenbrew-ui` folder in a terminal and run:
 
-4. Change the Host PC IP address to your PCs IP by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
+```bash
+npm install --force
+npm run build
+```
 
-5. Open up the `tizenbrew-app/TizenBrew` folder in a terminal and run:
+4. Open up Certificate Manager by going to `Tools > Certificate Manager` and create a new Samsung certificate. See [this](https://developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk/creating-certificates.html) for more information.
+
+5. Change the Host PC IP address to your PCs IP by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
+
+6. Open up the `tizenbrew-app/TizenBrew` folder in a terminal and run:
 
 ```bash
 sdb connect <TV IP>
@@ -143,6 +150,6 @@ tizen install -n ./release/TizenBrewStandalone.wgt
 
 Note that tizen is in `C:\tizen-studio\tools\ide\bin` on Windows and in `~/tizen-studio/tools/ide/bin` on Linux. Add it to your PATH or run it using `C:\tizen-studio\tools\ide\bin\tizen` on Windows and `~/tizen-studio/tools/ide/bin/tizen` on Linux. sdb is in `C:\tizen-studio\tools` on Windows and in `~/tizen-studio/tools` on Linux. Do the same for sdb as you did for tizen.
 
-6. Change the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
+7. Change the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
 
-7. You can now launch the TizenBrew app on your TV.
+8. You can now launch the TizenBrew app on your TV.
