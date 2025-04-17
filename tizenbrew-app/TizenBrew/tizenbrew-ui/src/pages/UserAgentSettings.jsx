@@ -29,7 +29,7 @@ const UserAgents = [
 
             const firmware = tizen.systeminfo.getCapability("http://tizen.org/custom/sw_version"),
                 model = tizen.systeminfo.getCapability("http://tizen.org/system/model_name"),
-                chipsetModel = apiData.device.model,
+                chipsetModel = apiData.device.model.split('_')[1],
                 deviceName = `_TV_${chipsetModel}`,
                 newUserAgent = `${window.navigator.userAgent}, ${deviceName}/${firmware} (Samsung, ${model}, Wired)`;
 
