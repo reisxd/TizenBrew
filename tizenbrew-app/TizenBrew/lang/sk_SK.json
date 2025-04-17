@@ -1,0 +1,60 @@
+{
+    "mainMenu": {
+        "modules": "Moduly",
+        "description": "Spustite svoje obľúbené aplikácie s modmi a úpravami na svojom zariadení Tizen.",
+        "moduleManagerAccess": "Použite tlačidlo <span style=\"color: lightgreen\">{buttons.green}</span> na prístup k správcovi modulov.",
+        "settingsAccess": "Použite tlačidlo <span style=\"color: #0dc1e9\">{buttons.blue}</span> na prístup k nastaveniam.",
+        "navigationHelp": "Použite šípky VĽAVO a VPRAVO na prechádzanie zoznamom.",
+        "autoLaunch": "<p>AutoLaunch je povolený. Stlačte tlačidlo [Šípka hore] na zakázanie AutoLaunch.</p>"
+    },
+    "service": {
+        "alreadyRunning": "Služba už beží.",
+        "started": "Služba spustená.",
+        "connected": "Služba pripojená k aplikácii."
+    },
+    "buttons": {
+        "red": "ČERVENÉ",
+        "green": "ZELENÉ",
+        "yellow": "ŽLTÉ",
+        "blue": "MODRÉ"
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Nemôžete spustiť moduly, kým sa služba nepripojí k aplikácii.",
+        "moduleNotFound": "Chyba: Modul {moduleName} sa nepodarilo nájsť.",
+        "crashedServices": "Chyba: Nasledujúce služby zlyhali: {services}.",
+        "debuggingNotEnabled": "Chyba: Nepodarilo sa pripojiť k SDB Daemon. Ste si istý, že ste zmenili IP adresu Host PC na 127.0.0.1? Ak áno, podržte tlačidlo napájania, kým neuvidíte logo Samsung.",
+        "noModules": "Zdá sa, že ste zatiaľ nenainštalovali žiadne moduly. Použite [ZELENÉ] tlačidlo na prístup k správcovi modulov."
+    },
+    "moduleManager": {
+        "confirmDelete": "Chcete odstrániť {packageName}?",
+        "addNPM": "Pridať NPM modul",
+        "addNPMDesc": "Toto je hlavne pre produkciu a pre užívateľov.",
+        "addGH": "Pridať GitHub modul",
+        "addGHDesc": "Toto je hlavne pre vývoj a pre vývojárov.",
+        "addModule": "Pridať modul",
+        "moduleName": "Názov modulu (pre {type}):"
+    },
+    "settings": {
+        "autolaunch": "Nastavenia AutoLaunch",
+        "autolaunchDesc": "Spustite svoj obľúbený modul automaticky pri spustení TizenBrew.",
+        "autolaunchService": "Nastavenia AutoLaunch pre služby",
+        "autolaunchServiceDesc": "Spustite svoju obľúbenú službu automaticky pri spustení TizenBrew.",
+        "useragent": "Nastavenia User-Agent",
+        "useragentDesc": "Zmeňte User-Agent modulov TizenBrew pre niektoré efekty, ako je oprava UI v TizenTube.",
+        "enableAutolaunchPrompt": "Chcete nastaviť {packageName} na spustenie pri štarte?",
+        "disableAutolaunchPrompt": "Chcete zakázať AutoLaunch?",
+        "disableAutolaunch": "Zakázať AutoLaunch",
+        "noModules": "Nenašli sa žiadne moduly.",
+        "default": "Predvolené",
+        "worksOnTizen": "(Funguje na Tizen {version}+)",
+        "uaBasedOnDevice": "User-Agent založený na zariadení (malo by priniesť niektoré funkcie)",
+        "setUaTo": "Chcete nastaviť User-Agent na {userAgent}?",
+        "uaSetRelaunch": "User-Agent nastavený. Reštartujte aplikáciu, aby sa zmeny prejavili.",
+        "uaNegativeEffects": "Poznámka: Hoci to môže mať pozitívne efekty, môžu sa vyskytnúť aj negatívne efekty.",
+        "language": "Nastavenia jazyka",
+        "languageDesc": "Zmeňte jazyk aplikácie."
+    },
+    "__contributors": [
+        "reisxd"
+    ]
+}
