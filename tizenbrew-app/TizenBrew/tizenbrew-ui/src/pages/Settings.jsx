@@ -1,5 +1,5 @@
 import { setFocus, useFocusable } from '@noriginmedia/norigin-spatial-navigation'
-import { useEffect, useContext, useState, useRef } from 'react';
+import { useEffect, useContext } from 'react';
 import { GlobalStateContext } from '../components/ClientContext.jsx';
 import { Events } from '../components/WebSocketClient.js';
 import { useLocation } from 'preact-iso';
@@ -9,9 +9,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function ItemBasic({ children, onClick }) {
-    const { ref, focused } = useFocusable();
-      useEffect(() => {
+function ItemBasic({ children, onClick, shouldFocus }) {
+    const { ref, focused, focusSelf } = useFocusable();
+    useEffect(() => {
         if (focused) {
             ref.current.scrollIntoView({
                 behavior: 'smooth',
@@ -19,7 +19,14 @@ function ItemBasic({ children, onClick }) {
                 inline: 'center',
             });
         }
+
     }, [focused, ref]);
+
+    if (shouldFocus) {
+        useEffect(() => {
+            focusSelf();
+        }, [ref]);
+    }
 
     return (
         <div
@@ -45,7 +52,6 @@ export default function Settings() {
                 <ItemBasic onClick={() => {
                     if (state.sharedData.modules?.length === 0) return alert(t('settings.noModules'));
                     loc.route('/tizenbrew-ui/dist/index.html/settings/change?type=autolaunch');
-                    setFocus('sn:focusable-item-1');
                 }}>
                     <h3 className='text-indigo-400 text-base/7 font-semibold'>
                         {t('settings.autolaunch')}
@@ -57,7 +63,6 @@ export default function Settings() {
                 <ItemBasic onClick={() => {
                     if (state.sharedData.modules?.length === 0) return alert(t('settings.noModules'));
                     loc.route('/tizenbrew-ui/dist/index.html/settings/change?type=autolaunchService');
-                    setFocus('sn:focusable-item-1');
                 }}>
                     <h3 className='text-indigo-400 text-base/7 font-semibold'>
                         {t('settings.autolaunchService')}
@@ -68,7 +73,6 @@ export default function Settings() {
                 </ItemBasic>
                 <ItemBasic onClick={() => {
                     loc.route('/tizenbrew-ui/dist/index.html/settings/change-ua');
-                    setFocus('sn:focusable-item-1');
                 }}>
                     <h3 className='text-indigo-400 text-base/7 font-semibold'>
                         {t('settings.useragent')}
@@ -90,22 +94,25 @@ function Change() {
     return (
         <div className="relative isolate lg:px-8">
             <div className="mx-auto flex flex-wrap justify-center gap-4 top-4 relative">
-                {state?.sharedData?.modules?.map((module) => {
+                {state?.sharedData?.modules?.map((module, idx) => {
                     if (loc.query.type === 'autolaunchService' && !module.serviceFile) return null;
                     return (
-                        <ItemBasic state={state} onClick={() => {
-                            if (confirm(t('settings.enableAutolaunchPrompt', { packageName: module.appName }))) {
-                                state.client.send({
-                                    type: Events.ModuleAction,
-                                    payload: {
-                                        action: loc.query.type,
-                                        module: module.fullName
-                                    }
-                                });
-                                loc.route('/tizenbrew-ui/dist/index.html/settings');
-                                setFocus('sn:focusable-item-1');
-                            }
-                        }}>
+                        <ItemBasic state={state}
+                            shouldFocus={idx === 0}
+                            key={idx}
+                            onClick={() => {
+                                if (confirm(t('settings.enableAutolaunchPrompt', { packageName: module.appName }))) {
+                                    state.client.send({
+                                        type: Events.ModuleAction,
+                                        payload: {
+                                            action: loc.query.type,
+                                            module: module.fullName
+                                        }
+                                    });
+                                    loc.route('/tizenbrew-ui/dist/index.html/settings');
+                                    setFocus('sn:focusable-item-1');
+                                }
+                            }}>
                             <h3
                                 className='text-indigo-400 text-base/7 font-semibold'
                             >
@@ -117,19 +124,21 @@ function Change() {
                         </ItemBasic>
                     )
                 })}
-                <ItemBasic onClick={() => {
-                    if (confirm(t('settings.disableAutolaunchPrompt'))) {
-                        state.client.send({
-                            type: Events.ModuleAction,
-                            payload: {
-                                action: loc.query.type,
-                                module: ''
-                            }
-                        });
-                        loc.route('/tizenbrew-ui/dist/index.html/settings');
-                        setFocus('sn:focusable-item-1');
-                    }
-                }}>
+                <ItemBasic
+                    shouldFocus={state?.sharedData?.modules?.length === 0}
+                    onClick={() => {
+                        if (confirm(t('settings.disableAutolaunchPrompt'))) {
+                            state.client.send({
+                                type: Events.ModuleAction,
+                                payload: {
+                                    action: loc.query.type,
+                                    module: ''
+                                }
+                            });
+                            loc.route('/tizenbrew-ui/dist/index.html/settings');
+                            setFocus('sn:focusable-item-1');
+                        }
+                    }}>
                     <h3 className='text-indigo-400 text-base/7 font-semibold'>
                         {t('settings.disableAutolaunch')}
                     </h3>
