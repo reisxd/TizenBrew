@@ -8,19 +8,36 @@ TizenBrew is a modular system, meaning you can install new modded websites and a
 
 To install TizenBrew, you need to have a Samsung TV (Tizen) device that has at least Tizen 3.0 (2017 or newer). There are four ways to install TizenBrew.
 
-### Using TizenBrew Installer
+### PREFERRED: Using TizenBrew Installer
 
-This method is the easiest method and works on every TV released since 2017.
+This is the easiest method and works on every Samsung TV released since 2017.
 
-1. Change the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
+#### 1. Set the Host PC IP Address to `127.0.0.1`
+1. Open **Apps** or **App Settings** on your Samsung TV.
+2. In the **Apps** panel, enter `12345` using your remote control or the on-screen keypad.
+3. A *Developer Mode* configuration popup will appear:
+   - Switch **Developer mode** to **On**.
+   - Under **Host PC IP**, enter `127.0.0.1`.
+4. Click **OK**.
+5. Reboot your TV.
 
-2. Follow the instructions [here](https://github.com/reisxd/TizenBrewInstaller#installation)
+For more details, see [Step 1 here under “Connecting the TV and SDK”](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK).
 
-3. After following the instructions, launch TizenBrew Installer and click on "Install TizenBrew". 
+#### 2. Install TizenBrew Installer from a USB Drive
+1. Download the [latest `userwidget.zip` file](https://github.com/reisxd/TizenBrewInstaller/releases/latest) from the TizenBrewInstaller repository.
+2. Extract `userwidget.zip` to the **root** of your USB drive.  
+   Example: If your USB is drive **D:**, the path should look like:  
+`D:/userwidget/app.tmg`
+3. Insert the USB drive into your Samsung TV.  
+The TV will automatically install the demo version of TizenBrew Installer and display a notification when the app is installing.
 
-If you're on Tizen 7 or above, you'll get the prompt to sign into your Samsung account. Follow the on-screen instructions to complete creating a Samsung Certificate.
+#### 3. Install the Full Version
+1. Launch **TizenBrew Installer** on your TV.
+2. Click **Install TizenBrew** to upgrade to the full version.
 
-4. After the installation is complete, you can launch the TizenBrew app on your TV.
+> **Note:** If you're on **Tizen 7 or above**, you’ll be prompted to sign in to your Samsung account. Follow the on-screen instructions to create a Samsung certificate.
+
+## Other Installation Methods
 
 ### Using TizenBrew Device Manager
 
