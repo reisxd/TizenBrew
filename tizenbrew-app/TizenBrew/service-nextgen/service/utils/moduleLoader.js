@@ -45,7 +45,8 @@ function loadModules() {
                         description: moduleJson.description,
                         serviceFile: moduleJson.serviceFile,
                         tizenAppId: moduleJson.tizenAppId,
-                        mainFile: moduleJson.main
+                        mainFile: moduleJson.main,
+                        evaluateScriptOnDocumentStart: moduleJson.evaluateScriptOnDocumentStart
                     }
                 } else return {
                     appName: 'Unknown Module',

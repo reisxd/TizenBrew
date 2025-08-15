@@ -17,7 +17,7 @@ function startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appCon
             client.Debugger.enable();
 
             client.on('Runtime.executionContextCreated', (msg) => {
-                if (mdl.name !== '') {
+                if (!mdl.evaluateScriptOnDocumentStart && mdl.name !== '') {
                     const cache = modulesCache.get(mdl.fullName);
                     if (cache) {
                         client.Runtime.evaluate({ expression: cache, contextId: msg.context.id });
@@ -27,6 +27,22 @@ function startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appCon
                             client.Runtime.evaluate({ expression: modFile, contextId: msg.context.id });
                         }).catch(e => {
                             client.Runtime.evaluate({ expression: `alert("Failed to load module: '${mdl.fullName}'. Please relaunch TizenBrew to try again.")`, contextId: msg.context.id });
+                        });
+                    }
+                } else if (mdl.name !== '' && mdl.evaluateScriptOnDocumentStart) {
+                    const cache = modulesCache.get(mdl.fullName);
+                    const clientConnection = clientConn.get('wsConn');
+                    if (cache) {
+                        client.Page.addScriptToEvaluateOnNewDocument({ expression: cache });
+                        sendClientInformation(clientConn, clientConnection.Event(Events.LaunchModule, mdl.name));
+                    } else {
+                        fetch(`https://cdn.jsdelivr.net/${mdl.fullName}/${mdl.mainFile}`).then(res => res.text()).then(modFile => {
+                            modulesCache.set(mdl.fullName, modFile);
+                            sendClientInformation(clientConn, clientConnection.Event(Events.LaunchModule, mdl.name));
+                            client.Page.addScriptToEvaluateOnNewDocument({ expression: modFile });
+                        }).catch(e => {
+                            sendClientInformation(clientConn, clientConnection.Event(Events.LaunchModule, mdl.name));
+                            client.Page.addScriptToEvaluateOnNewDocument({ expression: `alert("Failed to load module: '${mdl.fullName}'. Please relaunch TizenBrew to try again.")` });
                         });
                     }
                 }
@@ -49,7 +65,29 @@ function startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appCon
             });
 
             if (!isAnotherApp) {
-                sendClientInformation(appControlData, queuedEvents, clientConn);
+                const clientConnection = clientConn.get('wsConn');
+                if (appControlData.module) {
+                    const data = clientConnection.Event(Events.CanLaunchModules, {
+                        type: 'appControl',
+                        module: appControlData.module,
+                        args: appControlData.args
+                    });
+                    sendClientInformation(clientConn, data);
+                } else {
+                    const config = readConfig();
+                    if (config.autoLaunchModule) {
+                        const data = clientConnection.Event(Events.CanLaunchModules, {
+                            type: 'autolaunch',
+                            module: config.autoLaunchModule
+                        });
+
+                        sendClientInformation(clientConn, data);
+
+                    } else {
+                        const data = clientConnection.Event(Events.CanLaunchModules, null);
+                        sendClientInformation(clientConn, data);
+                    }
+                }
             }
             if (!isAnotherApp) inDebug.webDebug = true;
             appControlData = null;
@@ -78,37 +116,14 @@ function startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appCon
     }
 }
 
-function sendClientInformation(appControlData, queuedEvents, clientConn) {
+function sendClientInformation(clientConn, data) {
     const clientConnection = clientConn.get('wsConn');
     if ((clientConnection && clientConnection.connection && (clientConnection.connection.readyState !== WebSocket.OPEN && !clientConnection.isReady)) || !clientConnection) {
-        return setTimeout(() => sendClientInformation(appControlData, queuedEvents, clientConn), 50);
+        return setTimeout(() => sendClientInformation(clientConn, data), 50);
     }
-    if (appControlData.module) {
-        const data = clientConnection.Event(Events.CanLaunchModules, {
-            type: 'appControl',
-            module: appControlData.module,
-            args: appControlData.args
-        });
+    setTimeout(() => {
         clientConnection.send(data);
-    } else {
-        const config = readConfig();
-        if (config.autoLaunchModule) {
-            const data = clientConnection.Event(Events.CanLaunchModules, {
-                type: 'autolaunch',
-                module: config.autoLaunchModule
-            });
-
-            setTimeout(() => {
-               clientConnection.send(data);
-            }, 500);
-
-        } else {
-            const data = clientConnection.Event(Events.CanLaunchModules, null);
-            setTimeout(() => {
-                clientConnection.send(data);
-            }, 500);
-        }
-    }
+    }, 500);
 }
 
 module.exports = startDebugging;

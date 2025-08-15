@@ -29,7 +29,9 @@ function Item({ children, module, id, state }) {
       payload: module
     });
 
-    location.href = module.appPath;
+    if (!module.evaluateScriptOnDocumentStart) {
+      location.href = module.appPath;
+    }
   }
 
   return (

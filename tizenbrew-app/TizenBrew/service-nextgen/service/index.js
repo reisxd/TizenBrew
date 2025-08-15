@@ -198,6 +198,7 @@ module.exports.onStart = function () {
                     } else {
                         currentModule.mainFile = mdl.mainFile;
                         currentModule.tizenAppId = mdl.tizenAppId;
+                        currentModule.evaluateScriptOnDocumentStart = mdl.evaluateScriptOnDocumentStart;
                     }
 
                     if (mdl.serviceFile) {

@@ -158,6 +158,20 @@ class Client {
 
                 break;
             }
+
+            case Events.LaunchModule: {
+                const module = this.modules.find(mdl => mdl.fullName === payload);
+
+                if (module) {
+                    for (const key of module.keys) {
+                        tizen.tvinputdevice.registerKey(key);
+                    }
+
+                    location.href = module.appPath;
+                }
+
+                break;
+            }
         }
     }
 

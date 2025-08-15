@@ -11,6 +11,7 @@ Application modules are simply web pages without any modifications. They are not
 - `appPath`: The path to the index.html file. (like `app/index.html`)
 - `keys`: The keys that should be registered using the [TVInputDevice](https://developer.samsung.com/smarttv/develop/api-references/tizen-web-device-api-references/tvinputdevice-api.html) API.
 - `serviceFile`: The main JavaScript file of the service (NodeJS).
+- `evaluateScriptOnDocumentStart`: Whether to evaluate the script on document start. (Before the page is fully loaded)
 
 ## Site Modification Modules
 
