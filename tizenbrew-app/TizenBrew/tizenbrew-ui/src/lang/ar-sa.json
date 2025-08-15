@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "الخدمة تعمل بالفعل.",
+        "started": "تم بدء الخدمة.",
+        "connected": "تم توصيل الخدمة بالتطبيق."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "لا يمكنك تشغيل الوحدات بينما لم تتصل الخدمة بالتطبيق بعد.",
+        "moduleNotFound": "خطأ: لم يتم العثور على الوحدة {{moduleName}}.",
+        "crashedServices": "خطأ: تعطلت الخدمات التالية: {{services}}.",
+        "debuggingNotEnabled": "خطأ: تعذر الاتصال بـ SDB Daemon. هل تأكدت من تغيير عنوان IP لجهاز الكمبيوتر المضيف إلى 127.0.0.1؟ إذا كنت قد فعلت، اضغط باستمرار على زر التشغيل حتى ترى شعار سامسونج.",
+        "noModules": "يبدو أنك لم تقم بتثبيت أي وحدات بعد. استخدم زر [الأخضر] للوصول إلى مدير الوحدات."
+    },
+    "moduleManager": {
+        "confirmDelete": "هل ترغب في إزالة {{packageName}}؟",
+        "addNPM": "إضافة وحدة NPM",
+        "addNPMDesc": "هذا مخصص بشكل أساسي للإنتاج وللمستخدمين.",
+        "addGH": "إضافة وحدة GitHub",
+        "addGHDesc": "هذا مخصص بشكل أساسي للتطوير وللمطورين.",
+        "addModule": "إضافة وحدة",
+        "moduleName": "اسم الوحدة (لـ {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "إعدادات التشغيل التلقائي",
+        "autolaunchDesc": "قم بتشغيل وحدتك المفضلة تلقائيًا عند تشغيل TizenBrew.",
+        "autolaunchService": "إعدادات التشغيل التلقائي للخدمات",
+        "autolaunchServiceDesc": "قم بتشغيل خدمتك المفضلة تلقائيًا عند تشغيل TizenBrew.",
+        "useragent": "إعدادات وكيل المستخدم",
+        "useragentDesc": "غيّر وكيل المستخدم لوحدات TizenBrew لبعض التأثيرات مثل إصلاح واجهة المستخدم في TizenTube.",
+        "enableAutolaunchPrompt": "هل ترغب في تعيين {{packageName}} للتشغيل عند البدء؟",
+        "disableAutolaunchPrompt": "هل ترغب في تعطيل التشغيل التلقائي؟",
+        "disableAutolaunch": "تعطيل التشغيل التلقائي",
+        "noModules": "لم يتم العثور على وحدات.",
+        "default": "افتراضي",
+        "worksOnTizen": "(يعمل على Tizen {{version}}+)",
+        "uaBasedOnDevice": "وكيل المستخدم بناءً على الجهاز (قد يوفر بعض الميزات)",
+        "setUaTo": "هل ترغب في تعيين وكيل المستخدم إلى {{userAgent}}؟",
+        "uaSetRelaunch": "تم تعيين وكيل المستخدم. أعد تشغيل التطبيق لتطبيق التغييرات.",
+        "uaNegativeEffects": "لاحظ أنه رغم إمكانية وجود تأثيرات إيجابية، قد تكون هناك أيضًا تأثيرات سلبية.",
+        "language": "إعدادات اللغة",
+        "languageDesc": "غيّر لغة التطبيق."
+    },
+    "__contributors": [
+        "b0rdga"
+    ]
+}
