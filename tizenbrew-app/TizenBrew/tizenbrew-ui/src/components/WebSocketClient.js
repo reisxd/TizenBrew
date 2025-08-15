@@ -208,7 +208,9 @@ class Client {
                     payload: module
                 });
 
-                location.href = module.appPath;
+                if (!module.evaluateScriptOnDocumentStart) {
+                    location.href = module.appPath;
+                }
             }
             else if (payload.type === 'appControl') {
                 const module = payload.module;
