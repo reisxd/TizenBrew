@@ -1,7 +1,7 @@
 class Connection {
     constructor(connection) {
         this.connection = connection;
-
+        this.isReady = false;
     }
 
     send(data) {
@@ -17,6 +17,7 @@ class Connection {
 }
 
 const Events = {
+    Ready: -1,
     AppControlData: 0,
     GetDebugStatus: 1,
     CanLaunchInDebug: 2,

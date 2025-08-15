@@ -49,27 +49,7 @@ function startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appCon
             });
 
             if (!isAnotherApp) {
-                const clientConnenction = clientConn.get('wsConn');
-                if (appControlData.module) {
-                    const data = clientConnenction.Event(Events.CanLaunchModules, {
-                        type: 'appControl',
-                        module: appControlData.module,
-                        args: appControlData.args
-                    });
-                    clientConnenction.connection.readyState === WebSocket.OPEN ? clientConnenction.send(data) : queuedEvents.push(data);
-                } else {
-                    const config = readConfig();
-                    if (config.autoLaunchModule) {
-                        const data = clientConnenction.Event(Events.CanLaunchModules, {
-                            type: 'autolaunch',
-                            module: config.autoLaunchModule
-                        })
-                        clientConnenction.connection.readyState === WebSocket.OPEN ? clientConnenction.send(data) : queuedEvents.push(data);
-                    } else {
-                        const data = clientConnenction.Event(Events.CanLaunchModules, null);
-                        clientConnenction.connection.readyState === WebSocket.OPEN ? clientConnenction.send(data) : queuedEvents.push(data);
-                    }
-                }
+                sendClientInformation(appControlData, queuedEvents, clientConn);
             }
             if (!isAnotherApp) inDebug.webDebug = true;
             appControlData = null;
@@ -95,6 +75,39 @@ function startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appCon
         attempts++;
         setTimeout(() => startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appControlData, isAnotherApp, attempts), 750)
         return;
+    }
+}
+
+function sendClientInformation(appControlData, queuedEvents, clientConn) {
+    const clientConnection = clientConn.get('wsConn');
+    if ((clientConnection && clientConnection.connection && (clientConnection.connection.readyState !== WebSocket.OPEN && !clientConnection.isReady)) || !clientConnection) {
+        return setTimeout(() => sendClientInformation(appControlData, queuedEvents, clientConn), 50);
+    }
+    if (appControlData.module) {
+        const data = clientConnection.Event(Events.CanLaunchModules, {
+            type: 'appControl',
+            module: appControlData.module,
+            args: appControlData.args
+        });
+        clientConnection.send(data);
+    } else {
+        const config = readConfig();
+        if (config.autoLaunchModule) {
+            const data = clientConnection.Event(Events.CanLaunchModules, {
+                type: 'autolaunch',
+                module: config.autoLaunchModule
+            });
+
+            setTimeout(() => {
+               clientConnection.send(data);
+            }, 500);
+
+        } else {
+            const data = clientConnection.Event(Events.CanLaunchModules, null);
+            setTimeout(() => {
+                clientConnection.send(data);
+            }, 500);
+        }
     }
 }
 

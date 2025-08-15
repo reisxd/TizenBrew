@@ -1,4 +1,5 @@
 const Events = {
+    Ready: -1,
     AppControlData: 0,
     GetDebugStatus: 1,
     CanLaunchInDebug: 2,
@@ -125,7 +126,7 @@ class Client {
                 if (payload === null) {
                     return setTimeout(() => this.send({ type: Events.GetModules }), 500);
                 }
-                
+
                 this.context.dispatch({
                     type: 'SET_MODULES',
                     payload
@@ -133,6 +134,10 @@ class Client {
 
                 this.modules = payload;
                 this.modulesLoaded = true;
+
+                this.send({
+                    type: Events.Ready
+                });
 
                 this.processPendingEvents();
 

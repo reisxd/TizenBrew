@@ -266,6 +266,11 @@ module.exports.onStart = function () {
                     }
                     break;
                 }
+                case Events.Ready: {
+                    wsConn.isReady = true;
+                    services.set('wsConn', wsConn);
+                    break;
+                }
                 default: {
                     wsConn.send(wsConn.Event(Events.Error, 'Invalid event type.'));
                     break;
