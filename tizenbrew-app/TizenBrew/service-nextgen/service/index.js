@@ -42,7 +42,7 @@ module.exports.onStart = function () {
         }
     });
 
-    const wsServer = new WebSocket.Server({ server: app.listen(8081) });
+    const wsServer = new WebSocket.Server({ server: app.listen(8081, "127.0.0.1") });
 
     let adbClient;
     let canLaunchInDebug = null;
