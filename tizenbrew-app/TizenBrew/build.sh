@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "Starting TizenBrew build process..."
 
 # Clean previous build
