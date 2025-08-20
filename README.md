@@ -50,10 +50,6 @@ and you're done 🎊
     </a>
 </p>
 
-# � Building TizenBrew
-
-For developers and contributors, you can use our automated build script that solves the common "80% hang" issue with `tizen build-web`. See the [build script guide](./docs/BUILD_SCRIPT.md) for details.
-
 # �💻 Making a module
 
 You can read the [guide](./docs/MODULES.md) to make a module for TizenBrew.
