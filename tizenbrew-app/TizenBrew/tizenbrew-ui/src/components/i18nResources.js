@@ -11,6 +11,7 @@ import DutchLanguage from '../lang/nl.json';
 import PolishLanguage from '../lang/pl.json';
 import PortugueseLanguage from '../lang/pt.json';
 import RussianLanguage from '../lang/ru.json';
+import SerbianLanguage from '../lang/sr.json';
 import ThaiLanguage from '../lang/th.json';
 import TurkishLanguage from '../lang/tr.json';
 import VietnameseLanguage from '../lang/vi.json';
@@ -56,6 +57,9 @@ const resources = {
   },
   ru: {
     translation: RussianLanguage
+  },
+  sr: {
+    translation: SerbianLanguage
   },
   th: {
     translation: ThaiLanguage
