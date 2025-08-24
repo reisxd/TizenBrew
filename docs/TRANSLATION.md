@@ -17,7 +17,7 @@ Translate the contents of the file into your language. Do not translate the text
 
 ## Add Your Language to the Languages List
 
-Add your language to the `languages` object in [here](https://github.com/reisxd/TizenBrew/blob/main/tizenbrew-app/TizenBrew/js/translation.js#L6) following the same format as the other languages (`English Name (Native Name)`).
+Add your language to the `resources` object in [here](https://github.com/reisxd/TizenBrew/blob/main/tizenbrew-app/TizenBrew/tizenbrew-ui/src/components/i18nResources.js#L20) following the same format as the other languages (`English Name (Native Name)`).
 
 ## Submit a Pull Request
 
