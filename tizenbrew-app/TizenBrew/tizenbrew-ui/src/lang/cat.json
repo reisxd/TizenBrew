@@ -1,0 +1,39 @@
+{
+  "service": {
+    "alreadyRunning": "El servei ja està en marxa.",
+    "started": "Servei iniciat.",
+    "connected": "Servei connectat a l'aplicació."
+  },
+  "errors": {
+    "serviceDidntConnectYet": "No es poden llançar mòduls mentre el servei encara no s'ha connectat a l'aplicació."
+  },
+  "moduleManager": {
+    "confirmDelete": "Voleu eliminar {{packageName}}?",
+    "addNPM": "Afegir mòdul NPM",
+    "addNPMDesc": "Això és principalment per als usuaris finals.",
+    "addGH": "Afegir mòdul GitHub",
+    "addGHDesc": "Això és principalment per als usuaris avançats.",
+    "addModule": "Afegir mòdul",
+    "moduleName": "Nom del mòdul (For {{type}}):"
+  },
+  "settings": {
+    "autolaunch": "Configuració d'AutoLaunch",
+    "autolaunchDesc": "Inicia el teu mòdul preferit automàticament quan obris TizenBrew.",
+    "autolaunchService": "Configuració d'AutoLaunch per a serveis",
+    "autolaunchServiceDesc": "Inicia el teu servei preferit automàticament quan obris TizenBrew.",
+    "useragent": "Ajustaments de l'agent d'usuari",
+    "useragentDesc": "Canviar l'agent d'usuari dels mòduls de TizenBrew per a alguns efectes com arreglar la interfície a TizenTube.",
+    "enableAutolaunchPrompt": "Voleu configurar {{packageName}} perquè s'iniciï en arrencar?",
+    "disableAutolaunchPrompt": "Desitges desactivar AutoLaunch?",
+    "disableAutolaunch": "Desactivar AutoLaunch",
+    "noModules": "No s'han trobat mòduls.",
+    "default": "Per defecte",
+    "worksOnTizen": "(Funciona en la(es) version(és) {{version}}+ de Tizen)",
+    "uaBasedOnDevice": "Agent d'usuari basat en el dispositiu (hauria d'aportar algunes funcions)",
+    "setUaTo": "Voleu establir l'agent d'usuari com a {{userAgent}}?",
+    "uaSetRelaunch": "Agent d'usuari definit. Reinicia l'aplicació per aplicar els canvis..",
+    "uaNegativeEffects": "Tingues en compte que, encara que això podria tenir efectes positius, també podria tenir efectes negatius.",
+    "language": "Configuració d'idiomes",
+    "languageDesc": "Canviar l'idioma de l'aplicació."
+  }
+}
