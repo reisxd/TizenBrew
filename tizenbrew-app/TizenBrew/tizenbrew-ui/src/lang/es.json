@@ -8,7 +8,7 @@
     "serviceDidntConnectYet": "No se puede lanzar módulos mientras el servicio aún no se haya conectado a la aplicación."
   },
   "moduleManager": {
-    "confirmDelete": "Desea eliminar {{packageName}}?",
+    "confirmDelete": "¿Desea eliminar {{packageName}}?",
     "addNPM": "Añadir módulo NPM",
     "addNPMDesc": "Esto es principalmente para los usuarios finales.",
     "addGH": "Añadir módulo GitHub",
@@ -29,11 +29,11 @@
     "noModules": "No se han encontrado módulos.",
     "default": "Por Defecto",
     "worksOnTizen": "(Funciona en la(s) version(es) {{version}}+ de Tizen)",
-    "uaBasedOnDevice": "Agente de Usuario basado en el dispositivo (debería aportar algunas funciones)",
-    "setUaTo": "¿Deseas establecer el Agente de Usuario como {{userAgent}}?",
-    "uaSetRelaunch": "User-Agent set. Relaunch the app to apply changes.",
+    "uaBasedOnDevice": "Agente de usuario basado en el dispositivo (debería aportar algunas funciones)",
+    "setUaTo": "¿Deseas establecer el agente de usuario como {{userAgent}}?",
+    "uaSetRelaunch": "Se ha configurado el agente de usuario. Reinicie la aplicación para aplicar los cambios.",
     "uaNegativeEffects": "Ten en cuenta que, aunque esto podría tener efectos positivos, también podría tener efectos negativos.",
-    "language": "Ajustes de Idioma",
+    "language": "Ajustes de idioma",
     "languageDesc": "Cambia el idioma de la aplicación."
   }
 }
