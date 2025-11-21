@@ -33,7 +33,7 @@
         "noModules": "ไม่พบโมดูล.",
         "default": "ค่าเริ่มต้น",
         "worksOnTizen": "(ทำงานบน Tizen {{version}}+)",
-        "uaBasedOnDevice": "User-Agent ที่อิงตามอุปกรณ์ (ควรนำฟีเจอร์มาด้วย)",
+        "uaBasedOnDevice": "User-Agent ตามอุปกรณ์ (อาจทำให้มีฟีเจอร์เพิ่มเติม)",
         "setUaTo": "คุณต้องการตั้งค่า User-Agent เป็น {{userAgent}} หรือไม่?",
         "uaSetRelaunch": "ตั้งค่า User-Agent แล้ว กรุณาเปิดแอปใหม่เพื่อให้การเปลี่ยนแปลงมีผล.",
         "uaNegativeEffects": "โปรดทราบว่าแม้อาจมีผลในทางบวก แต่อาจมีผลในทางลบได้เช่นกัน.",
