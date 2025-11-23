@@ -17,6 +17,7 @@ import TurkishLanguage from '../lang/tr.json';
 import VietnameseLanguage from '../lang/vi.json';
 import ChineseLanguage from '../lang/zh.json';
 import ArabicLanguage from '../lang/ar-sa.json';
+import CatalanLanguage from '../lang/cat.json';
 
 const resources = {
   da: {
@@ -75,6 +76,9 @@ const resources = {
   },
   ar: {
     translation: ArabicLanguage
+  },
+  cat: {
+    translation: CatalanLanguage
   }
 };
 

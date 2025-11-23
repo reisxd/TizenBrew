@@ -18,17 +18,12 @@ function startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appCon
 
             client.on('Runtime.executionContextCreated', (msg) => {
                 if (!mdl.evaluateScriptOnDocumentStart && mdl.name !== '') {
-                    const cache = modulesCache.get(mdl.fullName);
-                    if (cache) {
-                        client.Runtime.evaluate({ expression: cache, contextId: msg.context.id });
-                    } else {
-                        fetch(`https://cdn.jsdelivr.net/${mdl.fullName}/${mdl.mainFile}`).then(res => res.text()).then(modFile => {
-                            modulesCache.set(mdl.fullName, modFile);
-                            client.Runtime.evaluate({ expression: modFile, contextId: msg.context.id });
-                        }).catch(e => {
-                            client.Runtime.evaluate({ expression: `alert("Failed to load module: '${mdl.fullName}'. Please relaunch TizenBrew to try again.")`, contextId: msg.context.id });
-                        });
-                    }
+                    const expression = `
+                    const script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/${mdl.fullName}/${mdl.mainFile}?v=${Date.now()}';
+                    document.head.appendChild(script);
+                    `;
+                    client.Runtime.evaluate({ expression, contextId: msg.context.id });
                 } else if (mdl.name !== '' && mdl.evaluateScriptOnDocumentStart) {
                     const cache = modulesCache.get(mdl.fullName);
                     const clientConnection = clientConn.get('wsConn');
