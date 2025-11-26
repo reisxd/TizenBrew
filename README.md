@@ -19,6 +19,14 @@ and you're done 🎊
                 src="https://user-images.githubusercontent.com/13122796/178032563-d4e084b7-244e-4358-af50-26bde6dd4996.png" />
         </picture>
     </a>&nbsp;&nbsp;&nbsp;
+    <a href="https://t.me/tizenbrew">
+        <picture>
+            <source height="24px" media="(prefers-color-scheme: dark)"
+                srcset="https://user-images.githubusercontent.com/13122796/178032213-faf25ab8-0bc3-4a94-a730-b524c96df124.png" />
+            <img height="24px"
+                src="https://user-images.githubusercontent.com/13122796/178032213-faf25ab8-0bc3-4a94-a730-b524c96df124.png" />
+        </picture>
+    </a>&nbsp;&nbsp;&nbsp;
     <a href="https://reddit.com/r/TizenTube">
         <picture>
             <source height="24px" media="(prefers-color-scheme: dark)"
