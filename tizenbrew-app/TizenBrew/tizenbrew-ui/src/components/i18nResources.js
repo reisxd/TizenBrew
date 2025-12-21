@@ -9,7 +9,8 @@ import HungarianLanguage from '../lang/hu.json';
 import ItalianLanguage from '../lang/it.json';
 import DutchLanguage from '../lang/nl.json';
 import PolishLanguage from '../lang/pl.json';
-import PortugueseLanguage from '../lang/pt.json';
+import PortugueseLanguage from '../lang/pt-pt.json';
+import PortugueseBrazilLanguage from '../lang/pt-br.json';
 import RussianLanguage from '../lang/ru.json';
 import SerbianLanguage from '../lang/sr.json';
 import ThaiLanguage from '../lang/th.json';
@@ -53,7 +54,10 @@ const resources = {
   pl: {
     translation: PolishLanguage
   },
-  pt: {
+  pt-br: {
+    translation: PortugueseBrazilLanguage
+  },
+  pt-pt: {
     translation: PortugueseLanguage
   },
   ru: {

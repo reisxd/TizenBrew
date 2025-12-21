@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "O serviço já está em execução.",
+        "started": "Serviço iniciado.",
+        "connected": "Serviço ligado à aplicação."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Não pode iniciar módulos enquanto o serviço ainda não estiver ligado à aplicação.",
+        "moduleNotFound": "Erro: Não foi possivel encontrar o módulo {{moduleName}}.",
+        "crashedServices": "Erro: Os seguintes serviços falharam: {{services}}.",
+        "debuggingNotEnabled": "Erro: Não foi possivel ligar a Daemon SDB. Tem a certeza que trocou o Host PC IP para 127.0.0.1? Se sim, clique no botão de desligar até ver o logótipo da Samsung.",
+        "noModules": "Parece que ainda não instalou nenhum módulo. Use o botão [VERDE] para aceder ao gestor de módulos."
+    },
+    "moduleManager": {
+        "confirmDelete": "Pretende remover {{packageName}}?",
+        "addNPM": "Adicionar módulo NPM",
+        "addNPMDesc": "Isto é principalmente para produção e para utilizadores.",
+        "addGH": "Adicionar módulo GitHub",
+        "addGHDesc": "Isto é principalmente para desenvolvimento e para programadores.",
+        "addModule": "Adicionar Módulo",
+        "moduleName": "Nome do Módulo (Para {{type}}):"
+    },
+    "settings": {
+        "Arranque Automático": "Definições de Arranque Automático",
+        "Arranque AutomáticoDesc": "Inicie o seu módulo favorito automaticamente quando iniciar o TizenBrew.",
+        "Arranque AutomáticoService": "Definições do Arranque Automático para serviços",
+        "Arranque AutomáticoServiceDesc": "Inicie o seu serviço favorito automaticamente quando iniciar o TizenBrew.",
+        "useragent": "Definições do User-Agent",
+        "useragentDesc": "Mudar o User-Agent dos módulos do TizenBrew para alguns efeitos (como corrigir a UI no TizenTube).",
+        "enableArranque AutomáticoPrompt": "Pretende que {{packageName}} inicie automaticamente?",
+        "disableArranque AutomáticoPrompt": "Pretende desativar o Arranque Automático?",
+        "disableArranque Automático": "Desativar Arranque Automático",
+        "noModules": "Nenhum módulo encontrado.",
+        "default": "Padrão",
+        "worksOnTizen": "(Funciona no Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent baseado no Dispositivo (deve trazer algumas funcionalidades)",
+        "setUaTo": "Pretende mudar o User-Agent para {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent definido. Reinicie a aplicação para aplicar as alterações.",
+        "uaNegativeEffects": "Note que, mesmo que isso possa ter efeitos positivos, também poderá ter efeitos negativos.",
+        "language": "Definições de idioma",
+        "languageDesc": "Mudar o idioma do aplicação."
+    },
+    "__contributors": [
+        "patricncosta"
+    ]
+}
