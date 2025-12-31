@@ -172,3 +172,29 @@ Note that tizen is in `C:\tizen-studio\tools\ide\bin` on Windows and in `~/tizen
 7. Change the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
 
 8. You can now launch the TizenBrew app on your TV.
+
+---
+
+## ⚠️ Real-World Installation Notes (Samsung TVs 2023–2025)
+
+This section documents **real-world issues and fixes** encountered when installing
+TizenBrew / TizenTube on modern Samsung TVs (Tizen 7–9).
+
+It exists because some steps that appear optional or implicit in the official guide
+are actually **mandatory**, and missing them can result in:
+
+- “Installed successfully” but **no app appearing**
+- `sdb` showing devices but refusing installs
+- Certificate errors with no clear message
+- USB installs failing with error **-6**
+- Apps being pushed but never registered on the TV
+
+If you are stuck after following the steps above, **read this section carefully**.
+
+### What this section covers
+- Required Tizen Studio components (exact packages)
+- Certificate setup pitfalls (Author vs Distributor)
+- The `sdb` working directory trap
+- Why `sdb install` can succeed but do nothing
+- The only install command that reliably works
+- Why USB installs often fail on newer TVs
