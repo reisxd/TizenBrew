@@ -47,9 +47,9 @@ This method is not as easy as the TizenBrew Installer method, but it works on ev
 
 2. Download the latest TizenBrew Device Manager for your OS from the [releases page](https://github.com/reisxd/tizenbrew-device-manager/releases/latest).
 
-3. Install / Run TizenBrew Device Manager, go into "Connect Device" page and connect to your TV.
+3. Install / Run TizenBrew Device Manager, go into "Connect Device" page, enter your TV's IP address (not the Host PC IP address set earlier) and connect to your TV
 
-4. Download the latest TizenBrew widget package from the [releases page](https://github.com/reisxd/TizenBrew/releases/latest).
+4. Download the latest TizenBrew widget package (".wgt" file) from the [releases page](https://github.com/reisxd/TizenBrew/releases/latest).
 
 5. After connecting to your TV, go into "Apps" page and click "Install App" button, select the widget package you've selected and then click "Install". You should see an alert showing the logs. The logs should say that the app has been installed now.
 
