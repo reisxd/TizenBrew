@@ -55,10 +55,10 @@ const resources = {
   pl: {
     translation: PolishLanguage
   },
-  pt-br: {
+  'pt-br': {
     translation: PortugueseBrazilLanguage
   },
-  pt-pt: {
+  'pt-pt': {
     translation: PortugueseLanguage
   },
   ru: {
@@ -84,7 +84,7 @@ const resources = {
   },
   cat: {
     translation: CatalanLanguage
-  }
+  },
   lt: {
     translation: LithuanianLanguage
   }
