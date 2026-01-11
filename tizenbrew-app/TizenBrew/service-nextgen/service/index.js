@@ -175,6 +175,9 @@ module.exports.onStart = function () {
                     break;
                 }
                 case Events.GetModules: {
+                    wsConn.isReady = true;
+                    services.set('wsConn', wsConn);
+
                     if (payload) {
                         loadModules().then(modules => {
                             modulesCache = modules;

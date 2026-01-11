@@ -39,24 +39,6 @@ The TV will automatically install the demo version of TizenBrew Installer and di
 
 ## Other Installation Methods
 
-### Using TizenBrew Device Manager
-
-This method is not as easy as the TizenBrew Installer method, but it works on every TV released since 2017 until 2022. You can use this method if you have trouble with the TizenBrew Installer.
-
-1. Change the Host PC IP address to your PC's IP address by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
-
-2. Download the latest TizenBrew Device Manager for your OS from the [releases page](https://github.com/reisxd/tizenbrew-device-manager/releases/latest).
-
-3. Install / Run TizenBrew Device Manager, go into "Connect Device" page and connect to your TV.
-
-4. Download the latest TizenBrew widget package from the [releases page](https://github.com/reisxd/TizenBrew/releases/latest).
-
-5. After connecting to your TV, go into "Apps" page and click "Install App" button, select the widget package you've selected and then click "Install". You should see an alert showing the logs. The logs should say that the app has been installed now.
-
-6. Change the Host PC IP address to `127.0.0.1` by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK)
-
-7. You can now launch the TizenBrew app on your TV.
-
 ### Using USB Demo Package
 
 Note that if you want to install TizenBrew using this method, the app will be installed for only 30 days. If you want to have TizenBrew permanently installed, use either the TizenBrew Installer or the Command Line method.
