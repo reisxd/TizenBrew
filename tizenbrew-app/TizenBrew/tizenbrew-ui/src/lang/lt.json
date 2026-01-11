@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Paslauga jau veikia.",
+        "started": "Paslauga paleista.",
+        "connected": "Paslauga prijungta prie programos."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Negalite paleisti modulių, kol paslauga dar neprisijungė prie programos.",
+        "moduleNotFound": "Klaida: Nepavyko rasti modulio „{{moduleName}}“.",
+        "crashedServices": "Klaida: Šios paslaugos nustojo veikti: {{services}}.",
+        "debuggingNotEnabled": "Klaida: Nepavyko prisijungti prie SDB tarnybos. Ar tikrai pakeitėte pagrindinio kompiuterio IP adresą į 127.0.0.1? Jei taip, laikykite nuspaudę maitinimo mygtuką, kol pamatysite „Samsung“ logotipą.",
+        "noModules": "Atrodo, kad dar neįdiegėte jokių modulių. Norėdami pasiekti modulių tvarkyklę, naudokite [ŽALIĄ] mygtuką."
+    },
+    "moduleManager": {
+        "confirmDelete": "Ar norite pašalinti „{{packageName}}“?",
+        "addNPM": "Pridėti NPM modulį",
+        "addNPMDesc": "Tai pirmiausia skirta gamybai ir vartotojams.",
+        "addGH": "Pridėti „GitHub“ modulį",
+        "addGHDesc": "Tai pirmiausia skirta kūrimui ir kūrėjams.",
+        "addModule": "Pridėti modulį",
+        "moduleName": "Modulio pavadinimas (skirtas {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Automatinio paleidimo nustatymai",
+        "autolaunchDesc": "Automatiškai paleisti mėgstamą modulį, kai paleidžiate „TizenBrew“.",
+        "autolaunchService": "Automatinio paleidimo nustatymai paslaugoms",
+        "autolaunchServiceDesc": "Automatiškai paleisti mėgstamą paslaugą, kai paleidžiate „TizenBrew“.",
+        "useragent": "User-Agent nustatymai",
+        "useragentDesc": "Pakeiskite „TizenBrew“ modulių User-Agent reikšmę, kad gautumėte tam tikrų pasikeitimų, pvz., „TizenTube“ vartotojo sąsajos pataisymas.",
+        "enableAutolaunchPrompt": "Ar norite nustatyti, kad „{{packageName}}“ būtų paleidžiamas paleidimo metu?",
+        "disableAutolaunchPrompt": "Ar norite išjungti automatinį paleidimą?",
+        "disableAutolaunch": "Išjungti automatinį paleidimą",
+        "noModules": "Modulių nerasta.",
+        "default": "Numatytasis",
+        "worksOnTizen": "(Veikia su „Tizen“ {{version}}+)",
+        "uaBasedOnDevice": "User-Agent reikšmė pagal įrenginį (turėtų suteikti tam tikrų funkcijų)",
+        "setUaTo": "Ar norite nustatyti User-Agent reikšmę į {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent reikšmė nustatyta. Paleiskite programą iš naujo, kad pakeitimai būtų pritaikyti.",
+        "uaNegativeEffects": "Atkreipkite dėmesį, kad nors tai gali turėti teigiamą poveikį, taip pat gali būti ir neigiamų pasekmių.",
+        "language": "Kalbos nustatymai",
+        "languageDesc": "Pakeiskite programos kalbą."
+    },
+    "__contributors": [
+        "Benetis"
+    ]
+}
