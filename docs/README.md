@@ -88,6 +88,8 @@ To resign TizenBrew, you need to have Tizen Studio installed on your system. You
 
 You also need to have a Samsung certificate. First connect to your TV by following [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html).
 
+Install "Samsung Certificate Extension" in the package manager by following [this](https://developer.samsung.com/galaxy-watch-tizen/getting-certificates/install.html).
+
 You can create a Samsung certificate by following [this](https://developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk/creating-certificates.html). 
 
 You'll also need to have the TizenBrew package. You can download the TizenBrew package from the [releases page](https://github.com/reisxd/TizenBrew/releases/latest).
