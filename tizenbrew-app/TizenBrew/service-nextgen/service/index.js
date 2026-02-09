@@ -53,6 +53,7 @@ module.exports.onStart = function () {
     const inDebug = {
         tizenDebug: false,
         webDebug: false,
+        appDebug: false,
         rwiDebug: false
     };
 
@@ -197,6 +198,7 @@ module.exports.onStart = function () {
 
                     if (mdl.packageType === 'app') {
                         inDebug.webDebug = false;
+                        inDebug.appDebug = false;
                         inDebug.tizenDebug = false;
                     } else {
                         currentModule.mainFile = mdl.mainFile;
