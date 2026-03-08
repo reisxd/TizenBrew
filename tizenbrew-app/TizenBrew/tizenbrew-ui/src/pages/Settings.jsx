@@ -71,21 +71,16 @@ export default function Settings() {
                         {t('settings.autolaunchServiceDesc')}
                     </p>
                 </ItemBasic>
-                {
-                    /*
-                    Disabled due to user script injection method
-                    <ItemBasic onClick={() => {
-                        loc.route('/tizenbrew-ui/dist/index.html/settings/change-ua');
-                    }}>
-                        <h3 className='text-indigo-400 text-base/7 font-semibold'>
-                            {t('settings.useragent')}
-                        </h3>
-                        <p className='text-gray-300 mt-6 text-base/7'>
-                            {t('settings.useragentDesc')}
-                        </p>
-                    </ItemBasic>
-                    */
-                }
+                <ItemBasic onClick={() => {
+                    loc.route('/tizenbrew-ui/dist/index.html/settings/change-ua');
+                }}>
+                    <h3 className='text-indigo-400 text-base/7 font-semibold'>
+                        {t('settings.useragent')}
+                    </h3>
+                    <p className='text-gray-300 mt-6 text-base/7'>
+                        {t('settings.useragentDesc')}
+                    </p>
+                </ItemBasic>
             </div>
         </div>
     )

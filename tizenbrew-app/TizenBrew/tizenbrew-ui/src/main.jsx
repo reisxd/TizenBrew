@@ -22,7 +22,7 @@ window.addEventListener('keydown', (e) => {
     }
 });
 try {
-    //if (localStorage.getItem('userAgent')) tizen.websetting.setUserAgentString(localStorage.getItem('userAgent'));
+    if (localStorage.getItem('userAgent')) tizen.websetting.setUserAgentString(localStorage.getItem('userAgent'));
     tizen.tvinputdevice.registerKey("ColorF0Red");
     tizen.tvinputdevice.registerKey("ColorF1Green");
     tizen.tvinputdevice.registerKey("ColorF2Yellow");
