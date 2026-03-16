@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "ghu' vumtaH.",
+        "started": "ghu' taghpu'.",
+        "connected": "ghu' tlhIngan wo' muvpu'."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Qu' vatlh lulajbe' ghu' muvbe'pa'.",
+        "moduleNotFound": "Qagh: Qu' {{moduleName}} tu'be'lu'.",
+        "crashedServices": "Qagh: ghu'mey luvumbe': {{services}}.",
+        "debuggingNotEnabled": "Qagh: SDB Daemon muvbe'. 127.0.0.1 choHpu''a'? Samsung logo tIbej!",
+        "noModules": "Qu' vatlh tu'be'lu'. [suD] 'oH yI'uch!"
+    },
+    "moduleManager": {
+        "confirmDelete": "{{packageName}} yIwoH?",
+        "addNPM": "NPM Qu' chel",
+        "addNPMDesc": "nuvpu'vaD 'oH.",
+        "addGH": "GitHub Qu' chel",
+        "addGHDesc": "vumwI'pu'vaD 'oH.",
+        "addModule": "Qu' chel",
+        "moduleName": "Qu' pong (vaD {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "choH lulaj",
+        "autolaunchDesc": "TizenBrew taghpa' Qu' yItagh.",
+        "autolaunchService": "ghu' choH lulaj",
+        "autolaunchServiceDesc": "TizenBrew taghpa' ghu' yItagh.",
+        "useragent": "User-Agent choH",
+        "useragentDesc": "User-Agent choH TizenTube ghu'vaD.",
+        "enableAutolaunchPrompt": "{{packageName}} yItagh?",
+        "disableAutolaunchPrompt": "tagh Qotlh?",
+        "disableAutolaunch": "tagh Qotlh",
+        "noModules": "Qu' tu'be'lu'.",
+        "default": "chIm",
+        "worksOnTizen": "(Tizen {{version}}+ vum)",
+        "uaBasedOnDevice": "User-Agent janvaD",
+        "setUaTo": "{{userAgent}} yIchoH?",
+        "uaSetRelaunch": "User-Agent choHpu'. yItaghqa'!",
+        "uaNegativeEffects": "yImej: ghu' QaQ 'ach ghu' qab.",
+        "language": "Hol choH",
+        "languageDesc": "Hol choH."
+    },
+    "__contributors": [
+        "lukapiplica"
+    ]
+}

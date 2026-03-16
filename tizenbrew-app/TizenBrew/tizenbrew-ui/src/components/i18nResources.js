@@ -12,7 +12,6 @@ import PolishLanguage from '../lang/pl.json';
 import PortugueseLanguage from '../lang/pt-pt.json';
 import PortugueseBrazilLanguage from '../lang/pt-br.json';
 import RussianLanguage from '../lang/ru.json';
-import SerbianLanguage from '../lang/sr.json';
 import ThaiLanguage from '../lang/th.json';
 import TurkishLanguage from '../lang/tr.json';
 import VietnameseLanguage from '../lang/vi.json';
@@ -20,6 +19,11 @@ import ChineseLanguage from '../lang/zh.json';
 import ArabicLanguage from '../lang/ar-sa.json';
 import CatalanLanguage from '../lang/cat.json';
 import LithuanianLanguage from '../lang/lt.json';
+import BosnianLanguage from '../lang/bs_BA.json';
+import CroatianLanguage from '../land/hr_HR.json';
+import SerbianCyrillicLanguage from '../lang/sr_SP.json';
+import SerbianLatinLanguage from '../lang/sr_RS.json';
+import KlingonLanguage from '../lang/tlh_KL.json';
 
 const resources = {
   da: {
@@ -64,9 +68,6 @@ const resources = {
   ru: {
     translation: RussianLanguage
   },
-  sr: {
-    translation: SerbianLanguage
-  },
   th: {
     translation: ThaiLanguage
   },
@@ -87,6 +88,21 @@ const resources = {
   },
   lt: {
     translation: LithuanianLanguage
+  },
+  bs: {
+    translation: BosnianLanguage
+  },
+  hr: {
+    translation: CroatianLanguage
+  },
+  'sr-rs': {
+    translation: SerbianLatinLanguage
+  },
+  'sr-sp': {
+    translation: SerbianCyrillicLanguage
+  },
+  tlh: {
+    translation: KlingonLanguage
   }
 };
 
