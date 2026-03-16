@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Servis je već pokrenut.",
+        "started": "Servis je pokrenut.",
+        "connected": "Servis je povezan sa aplikacijom."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Ne možete pokrenuti module dok se servis još uvijek nije povezao sa aplikacijom.",
+        "moduleNotFound": "Greška: Modul {{moduleName}} nije pronađen.",
+        "crashedServices": "Greška: Sljedeći servisi su se srušili: {{services}}.",
+        "debuggingNotEnabled": "Greška: Povezivanje sa SDB Daemon-om nije uspjelo. Da li ste sigurni da ste promijenili Host PC IP na 127.0.0.1? Ako jeste, držite dugme za napajanje dok ne vidite Samsung logo.",
+        "noModules": "Izgleda da još niste instalirali nijedan modul. Koristite [ZELENO] dugme za pristup upravitelju modula."
+    },
+    "moduleManager": {
+        "confirmDelete": "Da li želite ukloniti {{packageName}}?",
+        "addNPM": "Dodaj NPM Modul",
+        "addNPMDesc": "Ovo je prvenstveno za produkciju i korisnike.",
+        "addGH": "Dodaj GitHub Modul",
+        "addGHDesc": "Ovo je prvenstveno za razvoj i programere.",
+        "addModule": "Dodaj Modul",
+        "moduleName": "Ime modula (Za {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Postavke automatskog pokretanja",
+        "autolaunchDesc": "Automatski pokrenite svoj omiljeni modul kada pokrenete TizenBrew.",
+        "autolaunchService": "Postavke automatskog pokretanja za servise",
+        "autolaunchServiceDesc": "Automatski pokrenite svoj omiljeni servis kada pokrenete TizenBrew.",
+        "useragent": "User-Agent Postavke",
+        "useragentDesc": "Promijenite User-Agent TizenBrew modula radi određenih efekata, poput popravljanja UI-a u TizenTube-u.",
+        "enableAutolaunchPrompt": "Da li želite postaviti {{packageName}} da se pokreće pri startu?",
+        "disableAutolaunchPrompt": "Da li želite isključiti automatsko pokretanje?",
+        "disableAutolaunch": "Isključi automatsko pokretanje",
+        "noModules": "Moduli nisu pronađeni.",
+        "default": "Zadano",
+        "worksOnTizen": "(Radi na Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent na osnovu uređaja (moglo bi donijeti neke funkcije)",
+        "setUaTo": "Da li želite postaviti User-Agent na {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent postavljen. Ponovo pokrenite aplikaciju da primijenite promjene.",
+        "uaNegativeEffects": "Imajte na umu da, iako ovo može imati pozitivne efekte, mogući su i negativni efekti.",
+        "language": "Postavke jezika",
+        "languageDesc": "Promijenite jezik aplikacije."
+    },
+    "__contributors": [
+        "lukapiplica"
+    ]
+}
