@@ -88,7 +88,7 @@ const resources = {
   },
   it: {
     translation: LithuanianLanguage
-    },
+  },
   cs: {
     translation: CzechLanguage
   }
