@@ -20,6 +20,7 @@ import ChineseLanguage from '../lang/zh.json';
 import ArabicLanguage from '../lang/ar-sa.json';
 import CatalanLanguage from '../lang/cat.json';
 import LithuanianLanguage from '../lang/lt.json';
+import CzechLanguage from '../lang/cs.json';
 
 const resources = {
   da: {
@@ -85,8 +86,11 @@ const resources = {
   cat: {
     translation: CatalanLanguage
   },
-  lt: {
+  it: {
     translation: LithuanianLanguage
+    },
+  cs: {
+    translation: CzechLanguage
   }
 };
 
