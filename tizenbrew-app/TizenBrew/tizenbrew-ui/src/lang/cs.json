@@ -1,0 +1,46 @@
+{
+    "service": {
+        "alreadyRunning": "Služba již běží.",
+        "started": "Služba spuštěna.",
+        "connected": "Služba se připojila k aplikaci."
+    },
+    "errors": {
+        "serviceDidntConnectYet": "Nemůžete spouštět moduly, dokud se služba nepřipojí k aplikaci.",
+        "moduleNotFound": "Chyba: Modul {{moduleName}} nebyl nalezen.",
+        "crashedServices": "Chyba: Následující služby selhaly: {{services}}.",
+        "debuggingNotEnabled": "Chyba: Nepodařilo se připojit k SDB Daemonu. Opravdu jste nastavili IP adresu hostitelského PC na 127.0.0.1? Pokud ano, podržte tlačítko napájení, dokud se nezobrazí logo Samsung.",
+        "noModules": "Zdá se, že jste zatím nenainstalovali žádné moduly. Použijte tlačítko [GREEN] pro přístup ke správci modulů."
+    },
+    "moduleManager": {
+        "confirmDelete": "Chcete odebrat {{packageName}}?",
+        "addNPM": "Přidat NPM modul",
+        "addNPMDesc": "Primárně určeno pro produkci a běžné uživatele.",
+        "addGH": "Přidat GitHub modul",
+        "addGHDesc": "Primárně určeno pro vývoj a vývojáře.",
+        "addModule": "Přidat modul",
+        "moduleName": "Název modulu (pro {{type}}):"
+    },
+    "settings": {
+        "autolaunch": "Nastavení automatického spuštění",
+        "autolaunchDesc": "Automaticky spusťte svůj oblíbený modul při spuštění TizenBrew.",
+        "autolaunchService": "Nastavení automatického spuštění služeb",
+        "autolaunchServiceDesc": "Automaticky spusťte svou oblíbenou službu při spuštění TizenBrew.",
+        "useragent": "Nastavení User-Agent",
+        "useragentDesc": "Změňte User-Agent modulů TizenBrew pro některé efekty, jako je oprava UI v TizenTube.",
+        "enableAutolaunchPrompt": "Chcete nastavit {{packageName}} tak, aby se spouštěl při startu?",
+        "disableAutolaunchPrompt": "Chcete vypnout automatické spouštění?",
+        "disableAutolaunch": "Zakázat automatické spouštění",
+        "noModules": "Nebyly nalezeny žádné moduly.",
+        "default": "Výchozí",
+        "worksOnTizen": "(Funguje na Tizen {{version}}+)",
+        "uaBasedOnDevice": "User-Agent podle zařízení (může zpřístupnit některé funkce)",
+        "setUaTo": "Chcete nastavit User-Agent na {{userAgent}}?",
+        "uaSetRelaunch": "User-Agent nastaven. Restartujte aplikaci pro aplikování změn.",
+        "uaNegativeEffects": "Pamatujte, že to může mít nejen pozitivní, ale i negativní dopady.",
+        "language": "Nastavení jazyka",
+        "languageDesc": "Změňte jazyk aplikace."
+    },
+    "__contributors": [
+        "KedarCZ"
+    ]
+}
