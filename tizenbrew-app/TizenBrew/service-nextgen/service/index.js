@@ -73,9 +73,21 @@ module.exports.onStart = function () {
         args: null
     };
 
+    function normalizeServiceAutoLaunchList(value) {
+        if (Array.isArray(value)) {
+            return value.filter(moduleName => typeof moduleName === 'string' && moduleName.length > 0);
+        }
+
+        if (typeof value === 'string' && value.length > 0) {
+            return [value];
+        }
+
+        return [];
+    }
+
     loadModules().then(modules => {
         modulesCache = modules;
-        const serviceModuleList = readConfig().autoLaunchServiceList;
+        const serviceModuleList = normalizeServiceAutoLaunchList(readConfig().autoLaunchServiceList);
         if (serviceModuleList.length > 0) {
             serviceModuleList.forEach(module => {
                 const service = modules.find(m => m.name === module);
@@ -263,7 +275,7 @@ module.exports.onStart = function () {
                             break;
                         }
                         case 'autolaunchService': {
-                            config.autoLaunchServiceList = module;
+                            config.autoLaunchServiceList = normalizeServiceAutoLaunchList(module);
                             writeConfig(config);
                             break;
                         }
