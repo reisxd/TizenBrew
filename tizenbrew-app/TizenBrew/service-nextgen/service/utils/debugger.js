@@ -53,6 +53,7 @@ function startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appCon
 
                 inDebug.tizenDebug = false;
                 inDebug.webDebug = false;
+                inDebug.appDebug = false;
                 inDebug.rwiDebug = false;
 
                 mdl.fullName = '';
@@ -89,7 +90,10 @@ function startDebugging(port, queuedEvents, clientConn, ip, mdl, inDebug, appCon
                     }
                 }
             }
-            if (!isAnotherApp) inDebug.webDebug = true;
+            if (!isAnotherApp) {
+                inDebug.webDebug = true;
+                inDebug.appDebug = true;
+            }
             appControlData = null;
         }).on('error', (err) => {
             if (attempts >= 15) {

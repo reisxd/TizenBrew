@@ -73,14 +73,21 @@ class Client {
             }
 
             case Events.GetDebugStatus: {
+                const normalizedPayload = {
+                    rwiDebug: Boolean(payload && payload.rwiDebug),
+                    webDebug: Boolean(payload && (payload.webDebug || payload.appDebug)),
+                    appDebug: Boolean(payload && (payload.webDebug || payload.appDebug)),
+                    tizenDebug: Boolean(payload && payload.tizenDebug)
+                };
+
                 const state = this.context.state;
-                state.sharedData.debugStatus = payload;
+                state.sharedData.debugStatus = normalizedPayload;
                 this.context.dispatch({
                     type: 'SET_SHARED_DATA',
                     payload: state.sharedData
                 });
 
-                if (!payload.rwiDebug && !payload.appDebug && !payload.tizenDebug) {
+                if (!normalizedPayload.rwiDebug && !normalizedPayload.webDebug && !normalizedPayload.tizenDebug) {
                     this.send({
                         type: Events.CanLaunchInDebug
                     });
@@ -178,6 +185,7 @@ class Client {
     handleCanLaunchModules(payload) {
         const debugStatus = this.context.state.sharedData.debugStatus;
         debugStatus.webDebug = true;
+        debugStatus.appDebug = true;
         this.context.dispatch({
             type: 'SET_DEBUG_STATUS',
             payload: debugStatus
