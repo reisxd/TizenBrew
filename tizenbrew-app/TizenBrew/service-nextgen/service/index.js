@@ -46,10 +46,21 @@ module.exports.onStart = function () {
 
     let adbClient;
     let canLaunchInDebug = null;
-    fetch('http://127.0.0.1:8001/api/v2/').then(res => res.json())
-        .then(json => {
-            canLaunchInDebug = (json.device.developerIP === '127.0.0.1' || json.device.developerIP === '1.0.0.127') && json.device.developerMode === '1';
-        });
+
+    function refreshCanLaunchInDebugStatus() {
+        return fetch('http://127.0.0.1:8001/api/v2/')
+            .then(res => res.json())
+            .then(json => {
+                canLaunchInDebug = (json.device.developerIP === '127.0.0.1' || json.device.developerIP === '1.0.0.127') && json.device.developerMode === '1';
+                return canLaunchInDebug;
+            })
+            .catch(() => {
+                canLaunchInDebug = false;
+                return canLaunchInDebug;
+            });
+    }
+
+    refreshCanLaunchInDebugStatus();
     const inDebug = {
         tizenDebug: false,
         webDebug: false,
@@ -161,11 +172,9 @@ module.exports.onStart = function () {
                     break;
                 }
                 case Events.CanLaunchInDebug: {
-                    fetch('http://127.0.0.1:8001/api/v2/').then(res => res.json())
-                        .then(json => {
-                            canLaunchInDebug = (json.device.developerIP === '127.0.0.1' || json.device.developerIP === '1.0.0.127') && json.device.developerMode === '1';
-                        });
-                    wsConn.send(wsConn.Event(Events.CanLaunchInDebug, canLaunchInDebug));
+                    refreshCanLaunchInDebugStatus().then((status) => {
+                        wsConn.send(wsConn.Event(Events.CanLaunchInDebug, status));
+                    });
                     break;
                 }
                 case Events.ReLaunchInDebug: {
