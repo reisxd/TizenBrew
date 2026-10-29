@@ -75,6 +75,55 @@ export default function App() {
 }
 
 
+function platformMajor() {
+  try { return parseInt(tizen.systeminfo.getCapability('http://tizen.org/feature/platform.version'), 10) || 0; }
+  catch (e) { return 0; }
+}
+
+// Tizen 9+ needs wrt:service to start the service, launchAppControl does nothing there.
+// Loaded through a script tag so vite doesn't try to resolve the import.
+function withWrtService(cb) {
+  if (platformMajor() < 9 || typeof window.tbWrtService === 'function') return cb();
+  let done = false;
+  const once = () => { if (done) return; done = true; window.removeEventListener('tb-wrt-service', once); cb(); };
+  window.addEventListener('tb-wrt-service', once);
+  setTimeout(once, 3000);
+  try {
+    const s = document.createElement('script');
+    s.type = 'module';
+    s.text = "import { Service } from 'wrt:service'; window.tbWrtService = Service; window.dispatchEvent(new Event('tb-wrt-service'));";
+    s.onerror = once;
+    document.body.appendChild(s);
+  } catch (e) { once(); }
+}
+
+function launchService(serviceId, onOk, onFail) {
+  if (typeof window.tbWrtService === 'function') {
+    try {
+      const started = new window.tbWrtService(serviceId).start();
+      if (started && typeof started.then === 'function') started.then(onOk, (e) => onFail('wrt:service: ' + ((e && e.message) || e)));
+      else onOk();
+    } catch (e) { onFail('wrt:service: ' + ((e && e.message) || e)); }
+    return;
+  }
+  tizen.application.launchAppControl(
+    new tizen.ApplicationControl("http://tizen.org/appcontrol/operation/service"),
+    serviceId,
+    onOk,
+    (e) => onFail(e.message)
+  );
+}
+
+// first start after install can take a while, don't reload until the socket is actually up
+function waitForService(context, tries = 30) {
+  const ws = new WebSocket('ws://localhost:8081');
+  ws.onopen = () => { ws.close(); window.location.reload(); };
+  ws.onerror = () => {
+    if (tries > 1) setTimeout(() => waitForService(context, tries - 1), 1000);
+    else alert("Launch Service failed: service started but nothing is listening on 8081");
+  };
+}
+
 function startService(context) {
   const testWS = new WebSocket('ws://localhost:8081');
 
@@ -83,21 +132,19 @@ function startService(context) {
 
     const serviceId = pkgId + ".StandaloneService";
 
-    tizen.application.launchAppControl(
-      new tizen.ApplicationControl("http://tizen.org/appcontrol/operation/service"),
-      serviceId,
+    withWrtService(() => launchService(serviceId,
       function () {
         context.dispatch({
           type: 'SET_STATE',
           payload: 'service.started'
         });
 
-        window.location.reload();
+        waitForService(context);
       },
-      function (e) {
-        alert("Launch Service failed: " + e.message);
+      function (why) {
+        alert("Launch Service failed: " + why);
       }
-    );
+    ));
   }
 
   testWS.onopen = () => {
